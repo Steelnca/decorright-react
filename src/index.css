@@ -1,0 +1,160 @@
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root {
+    --acme-background: oklch(0.94 0 0); /* light-mode background */
+    --acme-surface:    oklch(0.984 0 0); /* light-mode card */
+    --acme-emphasis:   oklch(1.00 0 0); /* light-mode highlights */
+    --acme-foreground: oklch(0.00 0 0); /* <-- primary readable text */
+    --acme-muted:      oklch(0.40 0 0); /* light-mode subtle text/borders */
+
+    --acme-primary:   oklch(0.5579 0.2171 266.29);
+    --acme-secondary: oklch(1.00 0 0);
+    --acme-success:   oklch(0.7211 0.1577 151.54);
+    --acme-warning: oklch(0.7226 0.2491 84.05);
+    --acme-danger:    oklch(0.4 0.25 30);
+}
+
+[data-theme="dark"] {
+    --acme-background: oklch(0.24 0 0); /* very dark gray background */
+    --acme-surface:    oklch(0.29 0 0); /* slightly lighter gray panel */
+    --acme-emphasis:   oklch(0.35 0 0); /* bright accent (like ~87% white for emphasis) */
+    --acme-foreground: oklch(0.99 0 0); /*  primary readable text */
+    --acme-muted:      oklch(0.65 0 0); /* medium gray for less-important text */
+
+    --acme-primary:   oklch(0.5879 0.2171 266.29);
+    --acme-secondary: oklch(0.35 0 0);
+    --acme-success:   oklch(0.7211 0.1577 151.54);
+    --acme-warning: oklch(0.8226 0.2491 84.05);
+    --acme-danger:    oklch(0.4 0.25 30);
+}
+
+@theme inline {
+    --color-background: var(--acme-background);
+    --color-surface: var(--acme-surface);
+    --color-emphasis: var(--acme-emphasis);
+    --color-foreground: var(--acme-foreground);
+    --color-muted: var(--acme-muted);
+
+    --color-primary:   var(--acme-primary);
+    --color-secondary: var(--acme-emphasis);
+    --color-success:   var(--acme-success);
+    --color-warning:    var(--acme-warning);
+    --color-danger:    var(--acme-danger);
+}
+
+
+@theme {
+
+    /* colors */
+    --color-white: oklch(0.99 0 0);
+    --color-black: oklch(0.00 0 0);
+
+    /* breakpoints */
+    --breakpoint-xs: 480px;
+    --breakpoint-2xs: 320px;
+    --breakpoint-3xs: 280px;
+
+
+    /* text */
+    --text-2xs: 0.625rem;
+    --text-3xs: 0.5rem;
+
+    /* blur */
+    --blur-2xs: 2px;
+    --blur-3xs: 1px;
+}
+
+
+@layer base {
+
+
+    *{
+        scroll-behavior: smooth;
+        margin: 0;
+        padding: 0;
+
+        transition: all;
+        transition-duration: 150ms;
+    }
+
+    body {
+        @apply bg-background;
+    }
+
+    header, section, footer {
+        @apply px-4 sm:px-8;
+    }
+
+    main {
+        @apply flex flex-col items-center;
+        @apply py-4 md:py-8;
+        @apply gap-8;
+
+        min-height: 80svh;
+        min-height: 80dvh;
+        min-height: 80vh;
+    }
+
+    section {
+        @apply mb-20;
+    }
+
+
+    footer {
+        min-height: 40svh;
+        min-height: 40dvh;
+        min-height: 40vh;
+    }
+
+    h1, h2, h3, h4, button, svg {
+        @apply text-foreground;
+    }
+
+    p, a, span, label {
+        @apply text-muted hover:text-foreground/75;
+    }
+
+    a, button {
+        @apply cursor-pointer;
+    }
+
+
+    ::selection {
+        @apply bg-primary/25 text-black;
+    }
+
+    .content-container {
+        @apply max-w-[90rem] mx-auto;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-primary text-black font-medium py-3 px-6 rounded-lg shadow-md hover:bg-primary/90 active:scale-95;
+    }
+
+    .btn-secondary {
+        @apply bg-secondary text-black font-medium py-3 px-6 rounded-lg shadow-md hover:bg-secondary/90 active:scale-95;
+    }
+
+    .text-ellipsis-2line {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Limits the text to a maximum of 2 lines */
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis; /* Adds the ellipsis (...) at the end of the truncated text */
+    }
+
+    /* Categories */
+
+    .primary-category-card {
+        @apply row-span-3 sm:row-span-4 md:row-span-2 col-span-2 sm:col-span-4 p-4 md:p-8 border-primary/25;
+    }
+
+    .regular-category-card {
+        @apply col-span-2 p-3 md:p-6 border-muted/15 hover:bg-primary/10;
+    }
+}

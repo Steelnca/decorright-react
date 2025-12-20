@@ -3,6 +3,8 @@ import { useState } from "react"
 
 import { Link } from "react-router-dom"
 
+import { images } from "../../constants";
+
 
 export function ShowcaseCard ({showcase, index}: {showcase: {title: string; date: string; imgSrc: string}, index: number}) {
 
@@ -49,49 +51,49 @@ export function ShowcaseCardList () {
         {
             title: 'Interior Design Furniture Selection & Project Management Decr',
             date: '6 months ago',
-            imgSrc: '/public/s1.jpg'
+            imgSrc: images.image1
         },
 
         {
             title: 'Furniture Selection Interior Design',
             date: '2 months ago',
-            imgSrc: '/public/s2.jpg'
+            imgSrc: images.image2
         },
 
         {
             title: 'Interior Redesign & Color Consultation',
             date: '18 days ago',
-            imgSrc: '/public/s3.jpg'
+            imgSrc: images.image3
         },
 
         {
             title: 'Space Planning & Color Consultation',
             date: '3 years ago',
-            imgSrc: '/public/s4.jpg'
+            imgSrc: images.image4
         },
 
         {
             title: 'Project Management & Space Planning',
             date: '11 months ago',
-            imgSrc: '/public/s5.jpg'
+            imgSrc: images.image5
         },
 
         {
             title: 'Redesign & Interior Design',
             date: '4 years ago',
-            imgSrc: '/public/s6.jpg'
+            imgSrc: images.image6
         },
 
         {
             title: 'Furniture Selection & Redesign',
             date: '3 weeks ago',
-            imgSrc: '/public/s2.jpg'
+            imgSrc: images.image2
         },
 
         {
             title: 'Color Consultation & Interior Design',
             date: '9 weeks ago',
-            imgSrc: '/public/s1.jpg'
+            imgSrc: images.image1
         },
 
     ];

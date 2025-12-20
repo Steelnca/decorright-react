@@ -25,7 +25,7 @@ export function CategoryChecklist ({ category }: { category: any }) {
 export function CategoryItem ({ category, index }: { category: any, index: number }) {
     return (
         <li key={index} className={` relative ${category.primaryDisplay ? 'primary-category-card border-none':'regular-category-card'} flex flex-col gap-2 w-full h-full border rounded-2xl cursor-pointer`}>
-            {!category.primaryDisplay ? null : <div className='primary-category-card absolute top-0 left-0 w-full h-full border hover:bg-primary/10 rounded-2xl mask-b-to-transparent mask-b-to-100%'></div>}
+            {!category.primaryDisplay ? null : <div className='primary-category-card absolute top-0 left-0 w-full h-full border hover:bg-primary/10 rounded-2xl -z-10 mask-b-to-transparent mask-b-to-100%'></div>}
             <div className="flex flex-col gap-2">
 
                 <div className='flex gap-2 w-full'>

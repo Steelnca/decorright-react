@@ -6,6 +6,15 @@ import image4 from "/public/s4.jpg"
 import image5 from "/public/s5.jpg"
 import image6 from "/public/s6.jpg"
 
+export const images = {
+    image1,
+    image2,
+    image3,
+    image4,
+    image5,
+    image6,
+}
+
 export const navItems = [
     {label: 'Home', path: '/'},
     {label: 'Projects', path: '/projects'},
@@ -63,7 +72,7 @@ export const categories = [
 export const serviceTypes = [
     {label: 'Interior Design', value: 'interior-design', imgSrc: image1},
     {label: 'Space Planning', value: 'space-planning', imgSrc: image2},
-    {label: 'Furniture Selection', value: 'furniture-selection', imgSrc: 'image3'},
+    {label: 'Furniture Selection', value: 'furniture-selection', imgSrc: image3},
     {label: 'Color Consultation', value: 'color-consultation', imgSrc: image4},
     {label: 'Project Management', value: 'project-management', imgSrc: image5},
     {label: 'Redesign', value: 'redesign', imgSrc: image6},

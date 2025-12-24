@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import { images } from "../../constants";
 
 
-export function ShowcaseCard ({showcase, index}: {showcase: {title: string; date: string; imgSrc: string}, index: number}) {
+export function ProjectCard ({project, index}: {project: {title: string; date: string; imgSrc: string}, index: number}) {
 
     const [liked, setLiked] = useState(false);
 
@@ -17,10 +17,10 @@ export function ShowcaseCard ({showcase, index}: {showcase: {title: string; date
 
             <Link to={'/'} className="flex flex-col h-fit gap-1">
                 <div className="w-full aspect-video mb-2 overflow-hidden">
-                    <img src={showcase.imgSrc} alt="" className="object-cover h-full w-full rounded-xl" />
+                    <img src={project.imgSrc} alt="" className="object-cover h-full w-full rounded-xl" />
                 </div>
                 <div className="flex gap-1">
-                    <h3 className="font-medium text-sm"> {showcase.title} </h3>
+                    <h3 className="font-medium text-sm"> {project.title} </h3>
                     <div className="flex h-fit gap-4 text-muted ml-auto px-1">
                         {/* Placeholder for future icons or actions */}
                         <div className="flex gap-0.5 pt-0.5">
@@ -38,16 +38,16 @@ export function ShowcaseCard ({showcase, index}: {showcase: {title: string; date
                     </div>
                 </div>
 
-                <p className="text-2xs text-muted/75"> {showcase.date} </p>
+                <p className="text-2xs text-muted/75"> {project.date} </p>
             </Link>
         </li>
 
     )
 }
 
-export function ShowcaseCardList () {
+export function ProjectCardList () {
 
-    const showcaseProjects = [
+    const projects = [
         {
             title: 'Interior Design Furniture Selection & Project Management Decr',
             date: '6 months ago',
@@ -101,26 +101,26 @@ export function ShowcaseCardList () {
     return (
         <ul className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-8 md:gap-6 w-full">
 
-            {showcaseProjects.map((showcase, index) => (
-                <ShowcaseCard key={index} showcase={showcase} index={index} />
+            {projects.map((project, index) => (
+                <ProjectCard key={index} project={project} index={index} />
             ))}
 
         </ul>
     )
 }
 
-export function Showcase () {
+export function Projects () {
     return (
         <section className="content-container flex flex-col gap-6 w-full my-18">
             {/* Section Header */}
-            <h2 className="font-medium text-lg w-fit px-3 py-1 bg-emphasis rounded-full"> Showcase </h2>
+            <h2 className="font-medium text-lg w-fit px-3 py-1 bg-emphasis rounded-full"> Project </h2>
             <div className="flex flex-col gap-4 w-full">
                 <h3 className="font-semibold text-2xl"> Browse our previous projects from our showcase </h3>
                 <p className="text-xs md:text-sm text-muted/75"> A curated selection of our finest interior design projects, highlighting our commitment to quality, creativity, and client satisfaction. Explore the diverse styles and innovative solutions that define our work. </p>
             </div>
 
-            {/* Showcase Cards */}
-            <ShowcaseCardList/>
+            {/* Project Cards */}
+            <ProjectCardList/>
 
         </section>
     )

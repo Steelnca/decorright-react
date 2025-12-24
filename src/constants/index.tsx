@@ -5,6 +5,7 @@ import image3 from "/public/s3.jpg"
 import image4 from "/public/s4.jpg"
 import image5 from "/public/s5.jpg"
 import image6 from "/public/s6.jpg"
+import imgRoom1 from "/public/r1.svg"
 
 export const images = {
     image1,
@@ -13,7 +14,10 @@ export const images = {
     image4,
     image5,
     image6,
+    imgRoom1,
 }
+
+export const userIsAuthenticated = false;
 
 export const navItems = [
     {label: 'Home', path: '/'},
@@ -76,4 +80,9 @@ export const serviceTypes = [
     {label: 'Color Consultation', value: 'color-consultation', imgSrc: image4},
     {label: 'Project Management', value: 'project-management', imgSrc: image5},
     {label: 'Redesign', value: 'redesign', imgSrc: image6},
+]
+
+export const LegalLinks = [
+    {label: 'Terms & Conditions', path:'/terms'},
+    {label: 'Privacy Policy', path:'/privacy-policy'},
 ]

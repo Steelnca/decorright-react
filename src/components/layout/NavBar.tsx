@@ -5,8 +5,10 @@ import { useState } from "react"
 
 import Logo from "/public/vite.svg"
 import { ICONS } from "../../icons"
+import { userIsAuthenticated } from "../../constants"
 
 import { navItems } from "../../constants"
+import { MenuCard } from "../ui/MenuCard"
 
 
 export function NavLogo () {
@@ -38,67 +40,46 @@ export function NavLinks () {
     )
 }
 
-export function NavActions () {
-
-    const [menuToggle, setMenuToggle] = useState(false);
-
+export function AuthenticatedUserActins({chatOpen, setChatOpen, notifOpen, setNotifOpen}:any){
     return (
-
         <>
-            <div className="flex gap-2 sm:gap-3 md:gap-4">
-                {/* Chat Overlay Trigger */}
-                <button type="button" title="Chat" className="max-md:hidden content-center p-2">
-                    { ICONS.chat({className:'size-5'}) }
-                </button>
+            {/* Chat Overlay Trigger */}
+            <button type="button" title="Chat" className="content-center p-2" onClick={() => setChatOpen(!chatOpen)}>
+                { ICONS.chat({className:'size-6'}) }
+            </button>
 
-                {/* Notification Overlay Trigger */}
-                <button type="button" title="Notifications" className="max-md:hidden content-center p-2">
-                    { ICONS.bell({className:'size-5'}) }
-                </button>
+            {/* Notification Overlay Trigger */}
+            <button type="button" title="Notifications" className="content-center p-2" onClick={() => setNotifOpen(!notifOpen)}>
+                { ICONS.bell({className:'size-6'}) }
+            </button>
 
-                {/* User Profile Nav */}
-                <Link to='/profile' title="My Profile" className="max-md:hidden content-center p-2">
-                    { ICONS.user({className:'size-5'}) }
-                </Link>
-
-                {/* Menu Trigger */}
-                <button type="button" title="Menu" className="md:hidden content-center p-2" onClick={() => setMenuToggle(!menuToggle)}>
-                    { ICONS.menu({className:'size-5'}) }
-                </button>
-            </div>
-
-            {menuToggle && <NavMenu menuToggle={menuToggle} setMenuToggle={setMenuToggle} />}
+            {/* User Profile Nav */}
+            <Link to='/profile' title="My Profile" className="max-md:hidden content-center p-2">
+                { ICONS.user({className:'size-6'}) }
+            </Link>
 
         </>
     )
 }
 
-export function NavMenu ({menuToggle, setMenuToggle}: any) {
+export function AnonymousUserActins(){
     return (
+        <>
+            {/* Login */}
+            <Link to='/login' title="Login" className="max-md:hidden text-center font-medium text-sm text-muted h-fit min-w-max px-3 py-1.5 border-2 border-primary rounded-full">
+                Login
+            </Link>
 
-        <div className="fixed flex justify-center top-0 right-0 w-full h-full">
+            {/* Sign Up */}
+            <Link to='/signup' title="Sign Up" className="text-center font-medium text-xs md:text-sm text-white/95 h-fit min-w-max px-2.5 py-1 md:px-3 md:py-1.5 border-2 border-primary bg-primary rounded-full">
+                Sign Up
+            </Link>
 
-            <div className="absolute w-full h-full z-10 bg-muted/45"></div>
-
-            <div className="relative p-2 space-y-4 w-full z-20">
-                <div className="flex flex-col gap-2 w-full h-full p-2 bg-surface rounded-lg">
-
-                    {/* Menu header */}
-                    <div className="flex justify-between w-full h-fit border border-muted/15 p-2 rounded-lg">
-                        <h2 className="text-sm font-semibold">Menu</h2>
-                        <button type="button" title="Exist Menu" onClick={() => setMenuToggle(!menuToggle)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
-                        </button>
-                    </div>
-
-                    {/* Menu items */}
-                    <NavMenuItemList/>
-
-                </div>
-            </div>
-        </div>
+        </>
     )
 }
+
+
 
 export function NavMenuItemList () {
     return (
@@ -125,12 +106,62 @@ export function NavMenuItemList () {
     )
 }
 
+export function NavActions () {
+
+    const [chatOpen, setChatOpen] = useState(false);
+    const [notifOpen, setNotifOpen] = useState(false);
+    const [navMenuOpen, setNavMenuOpen] = useState(false);
+
+    return (
+
+        <>
+            <div className="flex items-center gap-2 md:gap-4">
+
+                {userIsAuthenticated
+                ? <AuthenticatedUserActins chatOpen={chatOpen} setChatOpen={setChatOpen} notifOpen={notifOpen} setNotifOpen={setNotifOpen}  />
+                : <AnonymousUserActins/>}
+
+                {/* Menu Trigger */}
+                <button type="button" title="Menu" className="md:hidden content-center p-2" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                    { ICONS.menu({className:'size-5'}) }
+                </button>
+            </div>
+
+            {/* Chats Menu Card Overlay */}
+            {chatOpen &&
+                <MenuCard title={'Chats'} open={chatOpen} setOpen={setChatOpen}>
+                    {/* Menu items */}
+                    <NavMenuItemList/>
+                </MenuCard>
+            }
+
+
+            {/* Notifications Menu Card Overlay */}
+            {notifOpen &&
+                <MenuCard title={'Notifications'} open={notifOpen} setOpen={setNotifOpen}>
+                    {/* Menu items */}
+                    <NavMenuItemList/>
+                </MenuCard>
+            }
+
+
+            {/* Mobile Nav Menu Card Overlay */}
+            {navMenuOpen &&
+                <MenuCard title={'Menu'} open={navMenuOpen} setOpen={setNavMenuOpen}>
+                    {/* Nav Menu items */}
+                    <NavMenuItemList/>
+                </MenuCard>
+            }
+
+        </>
+    )
+}
 
 export function NavBar () {
 
     return (
 
-        <div className="content-container flex justify-between gap-2 md:gap-4 w-full h-16 md:h-18">
+        <div className="navbar-height content-container flex justify-between gap-2 md:gap-4 w-full ">
             <NavLogo/>
             <div className="flex items-center md:w-full w-fit">
                 <NavLinks/>

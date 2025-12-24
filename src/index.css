@@ -85,23 +85,19 @@
     }
 
     header, section, footer {
-        @apply px-4 sm:px-8;
+        @apply px-2 sm:px-4 md:px-8;
     }
 
     main {
         @apply flex flex-col items-center;
-        @apply py-4 md:py-8;
+        @apply py-4 md:py-6;
         @apply gap-8;
 
         min-height: 80svh;
         min-height: 80dvh;
         min-height: 80vh;
-    }
 
-    section {
-        @apply mb-20;
     }
-
 
     footer {
         min-height: 40svh;
@@ -127,7 +123,15 @@
     }
 
     .content-container {
-        @apply max-w-[90rem] mx-auto;
+        @apply max-w-360 mx-auto;
+    }
+
+    .navbar-height {
+        @apply h-16 md:h-18;
+    }
+
+    .hero-section-height {
+        @apply min-h-max h-[calc(100vh-2rem-4rem)] md:h-[calc(100vh-3rem-4.5rem)];
     }
 }
 

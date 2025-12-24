@@ -48,7 +48,6 @@ export function CategoryItem ({ category, index }: { category: any, index: numbe
             {category.primaryDisplay ? null :
 
                 <div className='flex flex-col gap-4'>
-                    <p className='font-bold text-xs md:text-sm'>$65.000</p>
 
                     {/* CheckList */}
                     <CategoryChecklist category={category} />
@@ -68,14 +67,6 @@ export function CategoryItem ({ category, index }: { category: any, index: numbe
                             <h4 className='font-semibold text-sm mb-2'> What we offer </h4>
                             <CategoryChecklist category={category} />
                         </div>
-
-                        {/* Service Pricing */}
-
-                        <div>
-                            <h4 className='font-semibold text-sm mb-2'> Starting from </h4>
-                            <p className='font-bold text-lg'>$80.000</p>
-                        </div>
-
 
                         {/* CTA */}
                         <div>

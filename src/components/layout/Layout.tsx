@@ -11,7 +11,7 @@ export function Layout () {
                 <NavBar/>
             </header>
 
-            <main className="h-full min-h-[calc(100svh-4.5rem-6rem)] md:min-h-[calc(100svh-4.5rem-7.5rem)] overflow-hidden">
+            <main className="h-full overflow-hidden">
                 <Outlet/>
             </main>
 

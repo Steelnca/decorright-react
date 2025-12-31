@@ -8,8 +8,11 @@ import { Services } from './pages/Services'
 import { Contact } from './pages/Contact'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
+import { ProjectsPage } from './pages/Projects'
+import { ProjectPage } from './pages/Project'
 
-import { Layout } from './components/layout/Layout'
+import { VisitorLayout, CustomerLayout } from './components/layout/Layout'
+import { ChatPage } from './pages/Chat'
 
 function App() {
 
@@ -17,15 +20,24 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route element={<Layout/>}>
+          <Route element={<VisitorLayout/>}>
 
             <Route path='/' element={<Home/>} />
             <Route path='/about' element={<About/>} />
             <Route path='/contact' element={<Contact/>} />
             <Route path='/services' element={<Services/>} />
+            <Route path='/projects' element={<ProjectsPage/>} />
+            <Route path='/project' element={<ProjectPage/>} />
 
             <Route path='/login' element={<Login/>} />
             <Route path='/signup' element={<Signup/>} />
+
+          </Route>
+
+          <Route element={<CustomerLayout/>}>
+
+            <Route path='/customer/chats' element={<ChatPage/>} />
+            <Route path='/customer/chats/chatId' element={<ChatPage/>} />
 
           </Route>
         </Routes>

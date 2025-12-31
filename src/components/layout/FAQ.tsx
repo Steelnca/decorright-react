@@ -1,4 +1,6 @@
+
 import { useState } from "react";
+import { SectionHeader } from '../ui/SectionHeader';
 
 export function FAQList () {
     const faqData = [
@@ -57,12 +59,13 @@ export function FAQList () {
 
 export function FAQ () {
     return (
-        <section className="content-container flex flex-col gap-16 w-full my-12">
+        <section className="content-container flex flex-col gap-16 w-full my-12 px-4 sm:px-6 md:px-8">
+
             {/* Section Header */}
-            <div className="flex flex-col gap-6 w-full">
-                <h2 className="font-semibold text-2xl"> Most frequently asked questions by our users </h2>
-                <p className="text-xs md:text-sm text-muted/75"> A curated selection of our finest interior design projects, highlighting our commitment to quality, creativity, and client satisfaction. Explore the diverse styles and innovative solutions that define our work. </p>
-            </div>
+            <SectionHeader
+                title="Most frequently asked questions by our users"
+                desc="A curated selection of our finest interior design projects, highlighting our commitment to quality, creativity, and client satisfaction. Explore the diverse styles and innovative solutions that define our work."
+            />
 
             {/* FAQ List */}
             <FAQList/>

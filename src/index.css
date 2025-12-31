@@ -81,25 +81,28 @@
     }
 
     body {
-        @apply bg-background;
-    }
-
-    header, section, footer {
-        @apply px-2 sm:px-4 md:px-8;
+        @apply bg-background overflow-x-hidden;
     }
 
     main {
         @apply flex flex-col items-center;
-        @apply py-4 md:py-6;
-        @apply gap-8;
+    }
 
-        min-height: 80svh;
-        min-height: 80dvh;
-        min-height: 80vh;
+    main section {
+        @apply pt-20 md:pt-22;
+    }
 
+    .navbar-height {
+        @apply h-18 md:h-20;
+    }
+
+    section {
+        @apply px-3 sm:px-6 md:px-9;
     }
 
     footer {
+        @apply px-2 sm:px-4 md:px-8;
+
         min-height: 40svh;
         min-height: 40dvh;
         min-height: 40vh;
@@ -126,12 +129,26 @@
         @apply max-w-360 mx-auto;
     }
 
-    .navbar-height {
-        @apply h-16 md:h-18;
+    .min-h-hero {
+        @apply min-h-max h-[calc(100vh-1rem+4.5rem)] md:h-[calc(100vh+2rem-5rem)];
     }
 
-    .hero-section-height {
-        @apply min-h-max h-[calc(100vh-2rem-4rem)] md:h-[calc(100vh-3rem-4.5rem)];
+    .h-hero {
+        @apply h-[calc(100vh-2rem)] md:h-[calc(100vh-2rem)];
+    }
+
+    /* Scroll Mimimal Style */
+    .min-scrollbar::-webkit-scrollbar {
+        @apply w-1 h-1;
+    }
+
+    .min-scrollbar::-webkit-scrollbar-track {
+        @apply bg-muted/15 rounded-full mt-3 mb-3;
+    }
+
+    .min-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-muted/50 rounded-full;
+
     }
 }
 
@@ -152,13 +169,41 @@
         text-overflow: ellipsis; /* Adds the ellipsis (...) at the end of the truncated text */
     }
 
+    .text-ellipsis-3line {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Limits the text to a maximum of 2 lines */
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis; /* Adds the ellipsis (...) at the end of the truncated text */
+    }
+
     /* Categories */
 
     .primary-category-card {
-        @apply row-span-3 sm:row-span-4 md:row-span-2 col-span-2 sm:col-span-4 p-4 md:p-8 border-primary/25;
+        @apply row-span-2 sm:row-span-4 md:row-span-1 col-span-2 sm:col-span-4 p-4 md:p-6 border border-primary/25 hover:bg-primary/10;
     }
 
     .regular-category-card {
-        @apply col-span-2 p-3 md:p-6 border-muted/15 hover:bg-primary/10;
+        @apply col-span-2 p-3 md:p-6 border-muted/15 border hover:bg-primary/10;
     }
+
+    /* Chat */
+
+    .message--me {
+        @apply justify-self-end;
+    }
+
+    .message--text--them {
+        @apply bg-emphasis ring-1 ring-muted/10;
+    }
+
+    .message--text--me {
+        @apply text-white bg-primary;
+    }
+
+    .message--time--me {
+        @apply text-right;
+    }
+
+
 }

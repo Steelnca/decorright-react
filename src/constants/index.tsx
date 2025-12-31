@@ -6,8 +6,9 @@ import image4 from "/public/s4.jpg"
 import image5 from "/public/s5.jpg"
 import image6 from "/public/s6.jpg"
 import imgRoom1 from "/public/r1.svg"
+import user from "/user.png"
 
-export const images = {
+export const images = [
     image1,
     image2,
     image3,
@@ -15,9 +16,10 @@ export const images = {
     image5,
     image6,
     imgRoom1,
-}
+    user,
+]
 
-export const userIsAuthenticated = false;
+export const userIsAuthenticated = true;
 
 export const navItems = [
     {label: 'Home', path: '/'},
@@ -85,4 +87,63 @@ export const serviceTypes = [
 export const LegalLinks = [
     {label: 'Terms & Conditions', path:'/terms'},
     {label: 'Privacy Policy', path:'/privacy-policy'},
+]
+
+export const projects = [
+        {
+            title: 'Interior Design Furniture Selection & Project Management Decr Furniture Selection & Project Management Decr',
+            date: '6 months ago',
+            imgSrc: images[0]
+        },
+
+        {
+            title: 'Furniture Selection Interior Design',
+            date: '2 months ago',
+            imgSrc: images[2]
+        },
+
+        {
+            title: 'Interior Redesign & Color Consultation',
+            date: '18 days ago',
+            imgSrc: images[3]
+        },
+
+        {
+            title: 'Space Planning & Color Consultation',
+            date: '3 years ago',
+            imgSrc: images[4]
+        },
+
+        {
+            title: 'Project Management & Space Planning',
+            date: '11 months ago',
+            imgSrc: images[5]
+        },
+
+        {
+            title: 'Redesign & Interior Design',
+            date: '4 years ago',
+            imgSrc: images[6]
+        },
+
+        {
+            title: 'Furniture Selection & Redesign',
+            date: '3 weeks ago',
+            imgSrc: images[0]
+        },
+
+        {
+            title: 'Color Consultation & Interior Design',
+            date: '9 weeks ago',
+            imgSrc: images[1]
+        },
+
+    ];
+
+
+export const chatList = [
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: ''},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: ''},
+
+
 ]

@@ -1,8 +1,10 @@
 
-export function Chat() {
-    return (
-        <section>
+import { ChatLayout } from "../components/layout/Chat"
 
-        </section>
+export function ChatPage() {
+    return (
+        <main>
+            <ChatLayout/>
+        </main>
     )
 }

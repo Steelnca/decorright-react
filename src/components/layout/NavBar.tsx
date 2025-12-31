@@ -40,21 +40,20 @@ export function NavLinks () {
     )
 }
 
-export function AuthenticatedUserActins({chatOpen, setChatOpen, notifOpen, setNotifOpen}:any){
+export function AuthenticatedUserActins(){
     return (
         <>
-            {/* Chat Overlay Trigger */}
-            <button type="button" title="Chat" className="content-center p-2" onClick={() => setChatOpen(!chatOpen)}>
+            {/* Chat Nav Page */}
+            <Link to='/customer/chats' title="Chats" className="relative max-md:hidden content-center p-2 border border-primary/45 bg-primary/10 border-muted/10 bg-muted/5 rounded-full">
                 { ICONS.chat({className:'size-6'}) }
-            </button>
+                <span className="absolute flex size-3 top-0 left-0">
+                    <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
+                    <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
+                </span>
+            </Link>
 
-            {/* Notification Overlay Trigger */}
-            <button type="button" title="Notifications" className="content-center p-2" onClick={() => setNotifOpen(!notifOpen)}>
-                { ICONS.bell({className:'size-6'}) }
-            </button>
-
-            {/* User Profile Nav */}
-            <Link to='/profile' title="My Profile" className="max-md:hidden content-center p-2">
+            {/* User Profile Nav Page */}
+            <Link to='/profile' title="My Profile" className="max-md:hidden content-center p-2 border border-muted/10 bg-muted/5 rounded-full">
                 { ICONS.user({className:'size-6'}) }
             </Link>
 
@@ -108,8 +107,6 @@ export function NavMenuItemList () {
 
 export function NavActions () {
 
-    const [chatOpen, setChatOpen] = useState(false);
-    const [notifOpen, setNotifOpen] = useState(false);
     const [navMenuOpen, setNavMenuOpen] = useState(false);
 
     return (
@@ -118,7 +115,7 @@ export function NavActions () {
             <div className="flex items-center gap-2 md:gap-4">
 
                 {userIsAuthenticated
-                ? <AuthenticatedUserActins chatOpen={chatOpen} setChatOpen={setChatOpen} notifOpen={notifOpen} setNotifOpen={setNotifOpen}  />
+                ? <AuthenticatedUserActins/>
                 : <AnonymousUserActins/>}
 
                 {/* Menu Trigger */}
@@ -127,22 +124,6 @@ export function NavActions () {
                 </button>
             </div>
 
-            {/* Chats Menu Card Overlay */}
-            {chatOpen &&
-                <MenuCard title={'Chats'} open={chatOpen} setOpen={setChatOpen}>
-                    {/* Menu items */}
-                    <NavMenuItemList/>
-                </MenuCard>
-            }
-
-
-            {/* Notifications Menu Card Overlay */}
-            {notifOpen &&
-                <MenuCard title={'Notifications'} open={notifOpen} setOpen={setNotifOpen}>
-                    {/* Menu items */}
-                    <NavMenuItemList/>
-                </MenuCard>
-            }
 
 
             {/* Mobile Nav Menu Card Overlay */}
@@ -161,12 +142,12 @@ export function NavBar () {
 
     return (
 
-        <div className="navbar-height content-container flex justify-between gap-2 md:gap-4 w-full ">
+        <div className="navbar-height absolute flex justify-between gap-2 md:gap-4 w-full px-3 sm:px-6 md:px-9">
             <NavLogo/>
-            <div className="flex items-center md:w-full w-fit">
+            <nav className="flex items-center md:w-full w-fit">
                 <NavLinks/>
                 <NavActions/>
-            </div>
+            </nav>
         </div>
 
 

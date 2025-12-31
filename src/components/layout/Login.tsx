@@ -1,8 +1,8 @@
 
 import { Link } from "react-router-dom"
 
-import { HeroSection } from "./HeroSection"
-import { Input, PasswordInput } from "../ui/Inputs"
+import { HeroSection } from "../ui/HeroSection"
+import { EmailInput, Input, PasswordInput } from "../ui/Input"
 
 import { images } from "../../constants"
 import { LegalLinks } from "../../constants"
@@ -12,7 +12,7 @@ export function LoginHero() {
 
         <HeroSection>
 
-            <div className="absolute top-0 left-0 w-full h-full p-1.5 md:p-2 rounded-4xl -z-10 md:mask-r-to-transparent">
+            <div className="max-md:hidden absolute top-0 left-0 w-full h-full md:p-2 rounded-4xl -z-10 md:mask-r-to-transparent">
                 <div className="w-full h-full bg-surface rounded-3xl"></div>
             </div>
             <div className="max-md:hidden absolute top-0 left-0 w-full h-full bg-primary/15 rounded-4xl -z-10 mask-l-to-transparent mask-l-to-30%"></div>
@@ -20,7 +20,7 @@ export function LoginHero() {
             {/* login form side  */}
             <div className="flex justify-center items-center w-full">
 
-                <div className="relative flex flex-col gap-8 w-full md:w-4/5 p-2 max-md:p-4 lg:p-8">
+                <div className="relative flex flex-col gap-8 w-full md:w-4/5 p-2 md:p-4 lg:p-8">
 
                     {/* Form Header */}
                     <div className="space-y-2 md:space-y-3">
@@ -31,7 +31,7 @@ export function LoginHero() {
                     <form action="." className="flex flex-col items-center gap-8">
 
                         <div className="space-y-4 w-full">
-                            <Input type="email" placeholder="Email" />
+                            <EmailInput />
                             <PasswordInput />
 
                             <div className="flex justify-between items-center w-full h-fit px-1">

@@ -10,16 +10,16 @@ export function Footer() {
     <div className="content-container">
         <div className="flex max-md:flex-col items-center md:justify-between ">
 
-            <div className="flex gap-4 md:gap-8 mb-6 md:mb-0">
+            <div className="flex max-sm:flex-col max-sm:items-center gap-4 md:gap-8 mb-6 md:mb-0">
 
                 {/* Logo */}
-                <div className="w-10 md:w-12">
+                <div className="w-14 md:w-12">
                     <Link to={'/'}>
-                        <img src={Logo} alt="Deco Right Logo" className="w-full h-8 md:h-10"/>
+                        <img src={Logo} alt="Deco Right Logo" className="w-full h-full"/>
                     </Link>
                 </div>
 
-                <div>
+                <div className="max-sm:text-center">
                     <h3 className="font-medium mb-2"> Deco Right </h3>
                     <p className="text-2xs text-muted/75 max-w-xs">
                         Deco Right is your trusted partner for exquisite interior design and decor solutions. We bring your vision to life with creativity and style.
@@ -66,7 +66,7 @@ export function Footer() {
             </div>
 
         </div>
-        <div className="flex max-md:justify-center text-xs text-muted/75 border-t border-muted/15 mt-4 pt-4">
+        <div className="flex max-md:justify-center text-xs text-muted/75 border-t border-muted/15 my-4 pt-4">
             <p>© 2025 Deco Right. All rights reserved.</p>
         </div>
 

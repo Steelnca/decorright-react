@@ -1,9 +1,10 @@
 
 import { serviceTypes } from "../../constants/index"
+import { SectionHeader } from '../ui/SectionHeader';
 
 export function ServiceCardList () {
     return (
-        <ul className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(22rem,1fr))] gap-6 w-full">
+        <ul className="grid max-md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] grid-cols-3 gap-6 w-full">
 
             {serviceTypes.map((service, index) => (
 
@@ -14,7 +15,7 @@ export function ServiceCardList () {
                         <img src={service.imgSrc} alt="" className="object-cover h-full w-full rounded-xl" />
                     </div>
 
-                    <h3 className="text-lg font-medium mb-2"> {service.label} </h3>
+                    <h3 className="text-lg font-medium mb-1"> {service.label} </h3>
                     <p className="text-2xs text-muted/75"> Transform your living spaces with our expert residential interior design services, tailored to reflect your unique style and needs. </p>
                 </li>
             ))}
@@ -23,22 +24,22 @@ export function ServiceCardList () {
     )
 }
 
-export function Services () {
+export function ServicesHero () {
     return (
-        <section className="content-container flex flex-col gap-8 w-full my-8">
+        <section className="relative my-8 py-12 px-3 sm:px-6 md:px-8">
 
-            {/* Section Header */}
-            <div className="flex flex-col gap-4 w-full">
-                <h2 className="font-medium text-lg w-fit px-3 py-1 bg-emphasis rounded-full"> Services </h2>
+            {/* <div className="absolute top-0 left-0 bg-linear-to-b from-background to-background/15 w-full h-full -z-10"></div> */}
 
-                <div className="flex flex-col gap-2 w-full md:w-3/4">
-                    <h3 className="font-semibold text-2xl"> Explore our range of interior design services </h3>
-                    <p className="text-sm text-muted/75"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus aperiam aspernatur, et repellendus facilis non dolore,  tailored to meet your unique needs. </p>
-                </div>
+            <div className="content-container flex flex-col gap-8 w-full">
+                {/* Section Header */}
+                <SectionHeader
+                    title="Explore our range of interior design services"
+                    desc="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus aperiam aspernatur, et repellendus facilis non dolore,  tailored to meet your unique needs."
+                />
+
+                {/* Service Cards */}
+                <ServiceCardList/>
             </div>
-
-            {/* Service Cards */}
-            <ServiceCardList/>
 
         </section>
     )

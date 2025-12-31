@@ -4,20 +4,31 @@ import { Outlet } from "react-router-dom"
 import { NavBar } from "./NavBar"
 import Footer from "./Footer"
 
-export function Layout () {
+export function VisitorLayout () {
     return (
         <>
-            <header className="relative w-full z-30 border-b border-muted/10">
+            <header className="content-container relative flex justify-center w-full z-30">
                 <NavBar/>
             </header>
 
-            <main className="h-full overflow-hidden">
-                <Outlet/>
-            </main>
+            <Outlet/>
 
             <footer className="content-center">
                 <Footer/>
             </footer>
+
+        </>
+    )
+}
+
+export function CustomerLayout () {
+    return (
+        <>
+            <header className="content-container relative flex justify-center w-full z-30">
+                <NavBar/>
+            </header>
+
+            <Outlet/>
 
         </>
     )

@@ -44,8 +44,8 @@ export function AuthenticatedUserActins(){
     return (
         <>
             {/* Chat Nav Page */}
-            <Link to='/customer/chats' title="Chats" className="relative max-md:hidden content-center p-2 border border-primary/45 bg-primary/10 border-muted/10 bg-muted/5 rounded-full">
-                { ICONS.chat({className:'size-6'}) }
+            <Link to='/customer/chats' title="Chats" className="relative content-center p-2 border border-primary/45 bg-primary/10 border-muted/10 bg-muted/5 rounded-full">
+                { ICONS.chat({className:'size-5 md:size-6'}) }
                 <span className="absolute flex size-3 top-0 left-0">
                     <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
                     <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
@@ -54,7 +54,7 @@ export function AuthenticatedUserActins(){
 
             {/* User Profile Nav Page */}
             <Link to='/profile' title="My Profile" className="max-md:hidden content-center p-2 border border-muted/10 bg-muted/5 rounded-full">
-                { ICONS.user({className:'size-6'}) }
+                { ICONS.user({className:'size-5 md:size-6'}) }
             </Link>
 
         </>
@@ -119,7 +119,7 @@ export function NavActions () {
                 : <AnonymousUserActins/>}
 
                 {/* Menu Trigger */}
-                <button type="button" title="Menu" className="md:hidden content-center p-2" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                <button type="button" title="Menu" className="md:hidden content-center p-2 border border-muted/15 bg-surface/25 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
                     { ICONS.menu({className:'size-5'}) }
                 </button>
             </div>

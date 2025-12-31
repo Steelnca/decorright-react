@@ -85,15 +85,15 @@
     }
 
     main {
-        @apply flex flex-col items-center;
+        @apply flex flex-col items-center overflow-x-hidden;
     }
 
     main section {
-        @apply pt-20 md:pt-22;
+        @apply pt-22 md:pt-24;
     }
 
     .navbar-height {
-        @apply h-18 md:h-20;
+        @apply h-20 md:h-22;
     }
 
     section {
@@ -134,7 +134,7 @@
     }
 
     .h-hero {
-        @apply h-[calc(100vh-2rem)] md:h-[calc(100vh-2rem)];
+        @apply h-[calc(100vh-1rem)] md:h-[calc(100vh-2rem)];
     }
 
     /* Scroll Mimimal Style */
@@ -149,6 +149,10 @@
     .min-scrollbar::-webkit-scrollbar-thumb {
         @apply bg-muted/50 rounded-full;
 
+    }
+
+    .active {
+        @apply bg-emphasis
     }
 }
 
@@ -189,6 +193,10 @@
 
     /* Chat */
 
+    .message__meta--me {
+        @apply text-right;
+    }
+
     .message--me {
         @apply justify-self-end;
     }
@@ -201,9 +209,6 @@
         @apply text-white bg-primary;
     }
 
-    .message--time--me {
-        @apply text-right;
-    }
 
 
 }

@@ -53,7 +53,7 @@ export function ChatBody() {
       kind: "file",
       from: "me",
       time: "10:05 AM",
-      url: "/uploads/photo-before.jpg",
+      url: images[2],
       filename: "living-room-before.jpg",
       size: 254_321,
     },
@@ -91,7 +91,7 @@ export function ChatBody() {
       kind: "file",
       from: "me",
       time: "10:05 AM",
-      url: "/uploads/photo-before.jpg",
+      url: images[6],
       filename: "living-room-before.jpg",
       size: 254_321,
     },
@@ -107,7 +107,7 @@ export function ChatBody() {
   const messagesEndRef = useRef<null | HTMLDivElement>(null)
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    messagesEndRef.current?.scrollIntoView()
   }
 
   useEffect(() => {
@@ -116,7 +116,7 @@ export function ChatBody() {
 
 
   return (
-    <div className="relative flex flex-col gap-8 w-full h-full py-4 px-2 overflow-y-scroll min-scrollbar de" role="list">
+    <div className="relative flex flex-col gap-8 w-full h-full py-4 px-2 overflow-y-scroll min-scrollbar" role="list">
       {messages.map((m) => (
         <div role="listitem" key={m.id}>
           <MessageItem message={m} ref={messagesEndRef} />
@@ -126,8 +126,7 @@ export function ChatBody() {
   );
 }
 
-
-export function ChatDirectForm () {
+export function ChatMessageForm () {
 
   const [text, setText] = useState("");
 
@@ -158,12 +157,12 @@ export function ChatDirectForm () {
   );
 }
 
-export function ChatDirect() {
+export function ChatMessage() {
 
     return (
-        <div className="max-md:hidden flex flex-col w-full h-full p-4 border border-muted/25 bg-surface/25 rounded-2xl">
+        <div className="flex flex-col w-full h-full p-2 sm:p-4 border border-muted/25 bg-surface/25 rounded-2xl">
             {/* Chat Header & Details */}
-            <div className="flex items-center gap-3 w-full pb-4 border-b border-muted/15">
+            <div className="flex items-center gap-3 w-full p-2 pb-4 border-b border-muted/15">
 
                 <nav className="w-fit h-fit">
                     <Link to={'/customer/chats'} className="flex p-2 border border-muted/15 bg-surface/25 rounded-full"> {ICONS.arrowLeft({})} </Link>
@@ -187,19 +186,29 @@ export function ChatDirect() {
             <ChatBody/>
 
             {/* Chat Form */}
-            <ChatDirectForm/>
+            <ChatMessageForm/>
 
         </div>
     )
 }
 
-export function ChatInbox(){
+export function ChatMessageEmpty() {
+
     return (
-        <div className="flex flex-col gap-4 w-full lg:w-2/3 xl:w-1/3 h-full p-4 border border-muted/25 bg-surface/25 rounded-2xl">
+      <div className="max-md:hidden flex flex-col items-center justify-center w-full h-full p-4 border border-muted/25 bg-surface/25 rounded-2xl">
+        <h3 className="font-semibold text-2xl mb-1"> Chat & Direct Messages </h3>
+        <p className="text-sm"> Send a message to start a chat. </p>
+      </div>
+    )
+}
+
+export function ChatInbox({className}:{className?:string}){
+    return (
+        <div className={`${className} flex flex-col gap-4 w-full lg:w-2/3 xl:w-1/3 h-full p-4 border border-muted/25 bg-surface/25 rounded-2xl`}>
             <h3 className="font-medium text-sm p-2.5 border border-muted/15 rounded-xl"> Chats & Messages </h3>
-            <ul className="space-y-2 h-full p-2 border border-muted/15 rounded-xl">
+            <ul className="space-y-2 h-full p-2 border border-muted/15 rounded-xl overflow-y-auto min-scrollbar">
                 {chatList.map((chat, index) => (
-                <li key={index} className={`w-full rounded-lg bg-surface/45 hover:bg-surface border border-muted/10 hover:border-muted/15 ${({isActive}:any) => isActive ? "hover:bg-surface" : undefined} `}>
+                <li key={index} className="w-full rounded-lg bg-surface/45 hover:bg-surface border border-muted/10 hover:border-muted/15 overflow-hidden">
                     <NavLink to={chat.url} className="flex items-center gap-2 w-full h-fit p-2">
 
                         {/* Avatar */}
@@ -222,7 +231,7 @@ export function ChatInbox(){
     )
 }
 
-export function ChatLayout() {
+export function ChatInboxLayout() {
     return (
         <section className="h-hero w-full px-3 sm:px-6 md:px-8">
             <div className="content-container w-full h-full">
@@ -230,10 +239,29 @@ export function ChatLayout() {
                 <div className="flex gap-4 w-full h-full">
 
                     {/* Chat List */}
-                    <ChatInbox/>
+                    <ChatInbox />
 
                     {/* Chat DM */}
-                    <ChatDirect/>
+                    <ChatMessageEmpty/>
+                </div>
+
+            </div>
+        </section>
+    )
+}
+
+export function ChatMessageLayout() {
+    return (
+        <section className="h-hero w-full px-3 sm:px-6 md:px-8">
+            <div className="content-container w-full h-full">
+
+                <div className="flex gap-4 w-full h-full">
+
+                    {/* Chat List */}
+                    <ChatInbox className="max-md:hidden"/>
+
+                    {/* Chat DM */}
+                    <ChatMessage/>
                 </div>
 
             </div>

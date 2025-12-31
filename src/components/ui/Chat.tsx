@@ -34,7 +34,7 @@ export function TextMessage({ message, ...props }: { message: TextMsg, props:any
       <div className="message__bubble">
         <div className={`message__text message--text--${message.from} w-fit px-3 py-2 text-sm rounded-lg`}>{message.text}</div>
       </div>
-      <div className={`message--time--${message.from} text-3xs md:text-2xs text-muted px-1`}>{message.time}</div>
+      <div className={`message__meta--${message.from} text-3xs md:text-2xs text-muted px-1`}>{message.time}</div>
     </div>
   );
 }
@@ -56,28 +56,55 @@ export function VoiceMessage({ message, ...props }: { message: VoiceMsg, props:a
           <div className="message__duration text-2xs md:text-xs text-muted">{Math.round(message.duration)}s</div>
         )}*/}
       </div>
-      <div className="text-2xs md:text-xs text-muted px-1">{message.time}</div>
+      <div className={`message__meta--${message.from} text-3xs md:text-2xs text-muted px-1`}>{message.time}</div>
     </div>
   );
+}
+
+
+
+function isImageFile(filename: string) {
+  return /\.(jpe?g|png|gif|webp|avif|svg)$/i.test(filename);
 }
 
 /** ---- File / upload message component ---- */
-export function FileMessage({ message, ...props }: { message: FileMsg, props:any }) {
-  const humanSize = (n?: number) =>
-    !n ? "" : n > 1_000_000 ? `${Math.round(n / 1_000_000)} MB` : `${Math.round(n / 1000)} KB`;
+export function FileMessage({ message }: { message: FileMsg }) {
+  const { url, filename, size } = message;
 
+  const humanSize = (n?: number) =>
+    !n ? '' : n > 1_000_000 ? `${Math.round(n / 1_000_000)} MB` : `${Math.round(n / 1000)} KB`;
+
+  if (isImageFile(filename)) {
+    // Image preview
+    return (
+      <div className={`message message--${message.from}`} data-kind="file" data-id={message.id}>
+        <div className="message__bubble">
+          <img
+            src={url}
+            alt={filename}
+            loading="lazy"
+            className="block max-w-80 rounded-xl"
+          />
+        </div>
+        <div className={`message__meta--${message.from} text-3xs md:text-2xs text-muted px-1`}>{humanSize(size)} • {message.time}</div>
+      </div>
+    );
+  }
+
+  // Non-image file fallback
   return (
-    <div className={`message message--${message.from}`} data-kind="file" data-id={message.id} {...props}>
+    <div className={`message message--${message.from}`} data-kind="file" data-id={message.id}>
       <div className="message__bubble">
-        <a href={message.url} target="_blank" rel="noreferrer noopener" className="message__filelink">
-          <div className="message__filename">{message.filename}</div>
-          {/* <div className="message__filesize">{humanSize(message.size)}</div> */}
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          <div>{filename}</div>
+          <div>{humanSize(size)}</div>
         </a>
       </div>
-      <div className="text-2xs md:text-xs text-muted px-1">{message.time}</div>
+      <div className="message__meta">{message.time}</div>
     </div>
   );
 }
+
 
 /** ---- MessageItem: choose which component to render ---- */
 export function MessageItem({ message, ...props}:any) {

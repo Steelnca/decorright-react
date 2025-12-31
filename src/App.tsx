@@ -12,7 +12,7 @@ import { ProjectsPage } from './pages/Projects'
 import { ProjectPage } from './pages/Project'
 
 import { VisitorLayout, CustomerLayout } from './components/layout/Layout'
-import { ChatPage } from './pages/Chat'
+import { ChatInboxPage, ChatMessagePage } from './pages/Chat'
 
 function App() {
 
@@ -36,8 +36,8 @@ function App() {
 
           <Route element={<CustomerLayout/>}>
 
-            <Route path='/customer/chats' element={<ChatPage/>} />
-            <Route path='/customer/chats/chatId' element={<ChatPage/>} />
+            <Route path='/customer/chats' element={<ChatInboxPage/>} />
+            <Route path='/customer/chats/chatId' element={<ChatMessagePage/>} />
 
           </Route>
         </Routes>

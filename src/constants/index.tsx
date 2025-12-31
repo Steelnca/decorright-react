@@ -142,8 +142,24 @@ export const projects = [
 
 
 export const chatList = [
-    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: ''},
-    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: ''},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
+    {fullName: 'John Salem', lastMessageDate:'15:43', lastMessage: 'Hello world sounds like a start for something great!', url: '/customer/chats/chatId'},
+    {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
 
 
 ]

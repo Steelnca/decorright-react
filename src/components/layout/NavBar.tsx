@@ -44,8 +44,14 @@ export function NavLinks () {
 export function AuthenticatedUserActins(){
     return (
         <>
+
+            {/* Request Project */}
+            <Link to='/request-service' title="Request Service" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-primary/45 bg-surface/10 rounded-full">
+                Request Service
+            </Link>
+
             {/* Chat Nav Page */}
-            <Link to='/customer/chats' title="Chats" className="relative content-center p-2 border border-primary/45 bg-primary/10 border-muted/10 bg-muted/5 rounded-full">
+            <Link to='/customer/chats' title="Chats" className="relative content-center p-2 border border-primary/45 bg-primary/10 border-muted/16 bg-surface/10 rounded-full">
                 { ICONS.chat({className:'size-5 md:size-6'}) }
                 <span className="absolute flex size-3 top-0 left-0">
                     <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
@@ -54,7 +60,7 @@ export function AuthenticatedUserActins(){
             </Link>
 
             {/* User Profile Nav Page */}
-            <Link to='/profile' title="My Profile" className="max-md:hidden content-center p-2 border border-muted/10 bg-muted/5 rounded-full">
+            <Link to='/profile' title="My Profile" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/10 rounded-full">
                 { ICONS.user({className:'size-5 md:size-6'}) }
             </Link>
 
@@ -116,8 +122,8 @@ export function NavActions () {
                 : <AnonymousUserActins/>}
 
                 {/* Menu Trigger */}
-                <button type="button" title="Menu" className="md:hidden content-center p-2 border border-muted/15 bg-surface/25 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
-                    { ICONS.menu({className:'size-5'}) }
+                <button type="button" title="Menu" className="content-center p-2 border border-muted/15 bg-surface/10 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                    { ICONS.menu({className:'size-6'}) }
                 </button>
             </div>
 
@@ -141,8 +147,8 @@ export function NavBar () {
 
         <div className="navbar-height absolute flex justify-between gap-2 md:gap-4 w-full px-3 sm:px-6 md:px-9">
             <NavLogo/>
-            <nav className="flex items-center md:w-full w-fit">
-                <NavLinks/>
+            <nav className="flex items-center w-fit">
+                { !userIsAuthenticated && <NavLinks/> }
                 <NavActions/>
             </nav>
         </div>

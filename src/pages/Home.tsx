@@ -1,6 +1,5 @@
 
 import { Hero } from "../components/layout/Hero"
-import { CategoriesHero } from "../components/layout/Categories"
 import { ServicesHero } from "../components/layout/Services"
 import { ProjectsHero } from "../components/layout/Projects"
 import { FAQ } from "../components/layout/FAQ"
@@ -12,7 +11,6 @@ export function Home () {
                 <Hero/>
             </main>
             <ServicesHero/>
-            <CategoriesHero/>
             <ProjectsHero/>
             <FAQ/>
         </>

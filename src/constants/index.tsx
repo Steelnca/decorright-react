@@ -29,43 +29,47 @@ export const navItems = [
 
 ]
 
-export const categories = [
+export const galleries = [
     {
-        label: 'Residential', value: 'residential', primaryDisplay: true,
+        label: 'Residential', value: 'residential',
         images: [image6, image2, image3, image4],
         checklist: [
             'Customized interior design solutions',
             'Expert space planning and layout optimization',
             'Selection of furniture and decor',
             'Comprehensive project management',
-        ]
+        ],
+        project_url: '/project'
     },
     {
-        label: 'Commercial Customized interior design solutions', value: 'commercial', primaryDisplay: false,
+        label: 'Commercial Customized interior design solutions', value: 'commercial',
         images: [image6, image2, 'image3', image4],
         checklist: [
             'Customized interior design solutions',
             'Expert space planning and layout optimization',
             'Selection of furniture and decor',
             'Comprehensive project management',
-        ]
+        ],
+        project_url: '/project'
     },
     {
-        label: 'Office Customized interior design solutions', value: 'office', primaryDisplay: false,
+        label: 'Office Customized interior design solutions', value: 'office',
         images: [image6, image2, 'image3', image4],
         checklist: [
             'Customized interior design solutions',
             'Selection of furniture and decor',
-        ]
+        ],
+        project_url: '/project'
     },
     {
-        label: 'Hospitality', value: 'hospitality', primaryDisplay: false,
+        label: 'Hospitality', value: 'hospitality',
         images: [image6, image2, 'image3', image4],
         checklist: [
             'Customized interior design solutions',
             'Expert space planning and layout optimization',
             'Comprehensive project management',
-        ]
+        ],
+        project_url: '/project'
     },
     // { label: 'Retail', value: 'retail', icon: 'retail' },
     // { label: 'Residential', value: 'residential', icon: 'residential' },
@@ -162,4 +166,13 @@ export const chatList = [
     {fullName: 'Somdelo Lorem', lastMessageDate:'22:06', lastMessage: 'How about this one ?', url: '/customer/chats/chatId'},
 
 
-]
+];
+
+export const orders = [
+    {id:'DO146', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'pending', status_label:'Pending', chat_url:'/customer/chats/chatId',},
+    {id:'DO147', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'in_progress', status_label:'In Progress', chat_url:'/customer/chats/chatId'},
+    {id:'DO159', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'canceled', status_label:'Canceled', chat_url:'/customer/chats/chatId'},
+    {id:'DO447', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'complete', status_label:'Complete', chat_url:'/customer/chats/chatId'},
+    {id:'DO447', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'rejected', status_label:'Rejected', chat_url:'/customer/chats/chatId'},
+];
+

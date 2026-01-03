@@ -74,7 +74,7 @@ export function ProjectHero(){
 
                             {/* CTA */}
 
-                            <PCTALink to={'/request-project'}> Request Similar Project </PCTALink>
+                            <PCTALink to={'/request-service'}> Request Similar Project </PCTALink>
 
 
                             <div className="flex gap-4">

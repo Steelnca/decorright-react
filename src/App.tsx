@@ -14,7 +14,10 @@ import { ProjectPage } from './pages/Project'
 import { VisitorLayout, CustomerLayout } from './components/layout/Layout'
 import { ChatInboxPage, ChatMessagePage } from './pages/Chat'
 import { ProfilePage } from './pages/Profile'
-import { CustomerOrdersPage } from './pages/Orders'
+import { RequestServiceListPage } from './pages/RequestList'
+import { ProfileEditPage } from './pages/ProfileEdit'
+import { RequestServicePage } from './pages/Request'
+import { GalleryPage } from './pages/Gallery'
 
 function App() {
 
@@ -42,7 +45,12 @@ function App() {
             <Route path='/customer/chats/chatId' element={<ChatMessagePage/>} />
 
             <Route path='/profile' element={<ProfilePage/>} />
-            <Route path='/orders' element={<CustomerOrdersPage/>} />
+            <Route path='/profile-edit' element={<ProfileEditPage/>} />
+
+            <Route path='/request-service-list' element={<RequestServiceListPage/>} />
+            <Route path='/request-service' element={<RequestServicePage/>} />
+
+            <Route path='/gallery' element={<GalleryPage/>} />
 
           </Route>
         </Routes>

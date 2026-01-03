@@ -120,6 +120,9 @@
         @apply cursor-pointer;
     }
 
+    th {
+        @apply text-sm text-start text-muted/45 hover:text-foreground active:text-foreground;
+    }
 
     ::selection {
         @apply bg-primary/25 text-black;
@@ -181,15 +184,6 @@
         text-overflow: ellipsis; /* Adds the ellipsis (...) at the end of the truncated text */
     }
 
-    /* Categories */
-
-    .primary-category-card {
-        @apply row-span-2 sm:row-span-4 md:row-span-1 col-span-2 sm:col-span-4 p-4 md:p-6 border border-primary/25 hover:bg-primary/10;
-    }
-
-    .regular-category-card {
-        @apply col-span-2 p-3 md:p-6 border-muted/15 border hover:bg-primary/10;
-    }
 
     /* Chat */
 
@@ -210,5 +204,32 @@
     }
 
 
+    /* react select lib */
 
+    .react-select-container {
+        @apply bg-red-500 rounded-xl;
+    }
+}
+
+@layer utilities {
+
+    .order-status-pending {
+        @apply text-amber-900 border border-amber-300/25 bg-amber-300/25;
+    }
+
+    .order-status-in_progress {
+        @apply text-sky-900 border border-sky-300/25 bg-sky-300/25;
+    }
+
+    .order-status-complete {
+        @apply text-emerald-900 border border-emerald-300/25 bg-emerald-300/25;
+    }
+
+    .order-status-rejected {
+        @apply text-rose-900 border border-rose-300/25 bg-rose-300/25;
+    }
+
+    .order-status-canceled {
+        @apply text-zinc-900 border border-zinc-300/25 bg-zinc-300/25;
+    }
 }

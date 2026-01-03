@@ -239,7 +239,7 @@ export function ChatContactList() {
 
 export function ChatContact({className}:{className?:string}){
     return (
-        <div className={`${className} flex flex-col gap-4 w-full lg:w-2/3 xl:w-1/3 h-full p-4 border border-muted/25 bg-surface/25 rounded-2xl`}>
+        <div className={`${className} flex flex-col gap-2 md:gap-4 w-full lg:w-2/3 xl:w-1/3 h-full p-2 md:p-4 border border-muted/25 bg-surface/25 rounded-2xl`}>
             <h3 className="font-medium text-sm p-2.5 border border-muted/15 rounded-xl"> Chats & Messages </h3>
             <ChatContactList />
         </div>

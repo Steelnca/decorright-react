@@ -27,6 +27,12 @@ export const navItems = [
     {label: 'Services', path: '/services'},
     {label: 'Contact', path: '/contact'},
 
+    {label: 'My Requests', path: '/request-service-list'},
+    {label: 'Gallery', path: '/gallery'},
+
+    {label: 'Login', path: '/login'},
+    {label: 'Sign Up', path: '/signup'},
+
 ]
 
 export const galleries = [
@@ -42,7 +48,7 @@ export const galleries = [
         project_url: '/project'
     },
     {
-        label: 'Commercial Customized interior design solutions', value: 'commercial',
+        label: 'Commercial', value: 'commercial',
         images: [image6, image2, 'image3', image4],
         checklist: [
             'Customized interior design solutions',
@@ -53,7 +59,7 @@ export const galleries = [
         project_url: '/project'
     },
     {
-        label: 'Office Customized interior design solutions', value: 'office',
+        label: 'Office', value: 'office',
         images: [image6, image2, 'image3', image4],
         checklist: [
             'Customized interior design solutions',

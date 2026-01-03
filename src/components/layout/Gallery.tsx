@@ -15,7 +15,7 @@ export function GalleryItem ({ gallery, index }: { gallery: any, index: number }
 
                     <div className='flex flex-col gap-3 w-full'>
                         <span className='font-medium text-xs text-primary min-w-max w-fit px-2 py-0.5 bg-primary/15 rounded-full'> Best sales </span>
-                        <h3 className='font-medium text-xl'> {gallery.label} </h3>
+                        <h3 className='font-medium text-sm md:text-xl'> {gallery.label} </h3>
                     </div>
                     {/* Rating Icon */}
                     <div className='flex content-center gap-1 min-w-max w-fit h-fit'>
@@ -47,11 +47,11 @@ export function GalleryItem ({ gallery, index }: { gallery: any, index: number }
                 </div>
 
                 {/* CTA */}
-                <div className='flex justify-center gap-4 w-full border-t border-t-muted/15 pt-6'>
+                <div className='flex items-center justify-center gap-4 w-full border-t border-t-muted/15 pt-6'>
 
-                    <SCTALink to={gallery.project_url} className='flex items-center justify-center text-xs bg-primary w-full'> More Details </SCTALink>
+                    <SCTALink to={gallery.project_url} className='flex items-center justify-center text-xs w-full'> More Details </SCTALink>
 
-                    <PCTALink to={'/request-service'} className='flex items-center justify-center gap-1 text-xs w-full py-2'> Request Projects {ICONS.chevronRight({className:'size-3'})} </PCTALink>
+                    <PCTALink to={'/request-service'} className='flex items-center justify-center gap-1 text-xs w-full py-2'> Request Projects {ICONS.chevronRight({className:'size-3 text-white'})} </PCTALink>
                 </div>
 
 
@@ -78,14 +78,14 @@ export function GalleryHero () {
 
         <section className="h-hero min-h-hero content-container relative flex flex-col items-center justify-center w-full mt-8">
 
-            <div className="absolute right-full w-full h-[calc(100svh-20rem)] md:h-[calc(100svh-18rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-30% overflow-hidden"></div>
+            <div className="absolute right-full w-full h-[calc(100svh-18rem)] md:h-[calc(100svh-16rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-30% overflow-hidden"></div>
 
             <div className="relative w-full h-full px-4 py-4 md:px-8 md:py-8">
 
                 <GalleryList/>
             </div>
 
-            <div className="absolute left-full w-full h-[calc(100svh-20rem)] md:h-[calc(100svh-18rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>
+            <div className="absolute left-full w-full h-[calc(100svh-18rem)] md:h-[calc(100svh-16rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>
 
         </section>
     )

@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom"
 
-import { EmailInput, EmailOrPhoneInput, Input, PasswordInput } from "../ui/Input"
+import { EmailInput, Input, PasswordInput } from "../ui/Input"
 
 import { LegalLinks } from "../../constants"
 

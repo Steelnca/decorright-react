@@ -1,12 +1,13 @@
 
 import { useEffect, useRef, useState } from "react";
-import type { StagedFile } from "../types/upload";
+import type { StagedFile } from "@/types/upload";
 
 /**
  * simulateUpload(file, onProgress) => returns cancel function
  * Replace this with real upload call that accepts an onProgress callback.
  */
 function simulateUpload(file: File, onProgress: (p: number) => void): () => void {
+  file
   let percent = 0;
   const t = setInterval(() => {
     percent += Math.floor(Math.random() * 12) + 4;

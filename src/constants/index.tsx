@@ -202,3 +202,10 @@ export const projects = [
 
     ];
 
+export const requests = [
+    {id:'DO146', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'pending', status_label:'Pending', chat_url:'/customer/chats/chatId',},
+    {id:'DO147', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'in_progress', status_label:'In Progress', chat_url:'/customer/chats/chatId'},
+    {id:'DO159', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'canceled', status_label:'Canceled', chat_url:'/customer/chats/chatId'},
+    {id:'DO447', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'complete', status_label:'Complete', chat_url:'/customer/chats/chatId'},
+    {id:'DO447', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'rejected', status_label:'Rejected', chat_url:'/customer/chats/chatId'},
+];

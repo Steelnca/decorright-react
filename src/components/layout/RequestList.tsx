@@ -1,8 +1,8 @@
 
 
 import { Link } from "react-router-dom"
-import { requests } from "../../constants"
-import { ICONS } from "../../icons"
+import { requests } from "@/constants"
+import { ICONS } from "@/icons"
 
 export function RequestItem({order}:any){
     return (

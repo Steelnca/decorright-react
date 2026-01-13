@@ -42,11 +42,13 @@ export function HeroContent() {
 
 export function HeroCTA() {
     const { user } = useAuth();
-    const requestPath = user ? PATHS.CLIENT.SERVICE_REQUEST : PATHS.SIGNUP;
-
     return (
-        <div className="flex max-md:flex-col gap-4">
-            <Link to={requestPath} className="content-center text-center font-medium text-sm text-emphasis md:w-fit px-4 py-2 bg-primary rounded-xl"> Request Service </Link>
+        <div className="flex max-md:col gap-4">
+            {user && (
+                <Link to={PATHS.CLIENT.SERVICE_REQUEST} className="content-center text-center font-medium text-sm text-emphasis md:w-fit px-4 py-2 bg-primary rounded-xl">
+                    Request Service
+                </Link>
+            )}
             <Link to={PATHS.PROJECT_LIST} className="flex gap-2 items-center justify-center text-center font-medium text-sm text-foreground md:w-fit px-4 py-2 border-2 border-emphasis rounded-xl"> Catalog & Categories
                 {ICONS.chevronRight({ className: 'size-4 text-foreground' })}
             </Link>

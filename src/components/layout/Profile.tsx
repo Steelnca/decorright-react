@@ -1,9 +1,63 @@
 import { Link } from "react-router-dom";
 import { images } from "../../constants";
 import { ICONS } from "../../icons";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthProvider";
+import { supabase } from "@/lib/supabase";
+import type { Database } from "@/types/database.types";
 
+type ProfileData = Database['public']['Tables']['profiles']['Row'];
 
-export function Profile(){
+export function Profile() {
+    const { user, loading: authLoading } = useAuth();
+    const [profile, setProfile] = useState<ProfileData | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            if (!user) return;
+
+            try {
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
+
+                if (error) throw error;
+                setProfile(data);
+            } catch (err) {
+                console.error("Error fetching profile:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (!authLoading) {
+            fetchProfile();
+        }
+    }, [user, authLoading]);
+
+    if (authLoading || loading) {
+        return (
+            <div className="flex items-center justify-center h-hero">
+                <p>Loading profile...</p>
+            </div>
+        );
+    }
+
+    if (!user) {
+        return (
+            <div className="flex items-center justify-center h-hero">
+                <p>Please log in to view your profile.</p>
+            </div>
+        );
+    }
+
+    const joinDate = profile?.created_at
+        ? new Date(profile.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : 'N/A';
+
     return (
         <section className="h-hero min-h-hero max-w-180 mx-auto relative flex flex-col items-center justify-center w-full mt-8">
 
@@ -22,8 +76,8 @@ export function Profile(){
                         </div>
 
                         <div className="flex flex-col text-center">
-                            <h4 className="font-semibold text-lg"> Michael Pearson </h4>
-                            <p className="text-2xs md:text-xs"> Joined at Jan 2, 2026 </p>
+                            <h4 className="font-semibold text-lg"> {profile?.full_name || 'Anonymous'} </h4>
+                            <p className="text-2xs md:text-xs"> Joined at {joinDate} </p>
                         </div>
                     </div>
 
@@ -40,34 +94,34 @@ export function Profile(){
 
                             <li className="flex w-full gap-4">
                                 <div className="h-full aspect-square p-2 border border-muted/15 bg-surface rounded-lg">
-                                    <ICONS.envelope className="size-6"/>
+                                    {ICONS.envelope({ className: "size-6" })}
                                 </div>
 
                                 <div className="flex flex-col">
                                     <label htmlFor="email-info" className="font-medium text-xs"> Email </label>
-                                    <p id="email-info" className="text-xs text-foreground"> example@gmail.com </p>
+                                    <p id="email-info" className="text-xs text-foreground"> {user.email} </p>
                                 </div>
                             </li>
 
                             <li className="flex w-full gap-4">
                                 <div className="h-full aspect-square p-2 border border-muted/15 bg-surface rounded-lg">
-                                    <ICONS.phone className="size-6"/>
+                                    {ICONS.phone({ className: "size-6" })}
                                 </div>
 
                                 <div className="flex flex-col">
                                     <label htmlFor="phone-info" className="font-medium text-xs"> Phone </label>
-                                    <p id="phone-info" className="text-xs text-foreground"> +123456789123 </p>
+                                    <p id="phone-info" className="text-xs text-foreground"> {profile?.phone || 'Not provided'} </p>
                                 </div>
                             </li>
 
                             <li className="flex w-full gap-4">
                                 <div className="h-full aspect-square p-2 border border-muted/15 bg-surface rounded-lg">
-                                    <ICONS.userCircle className="size-6"/>
+                                    {ICONS.userCircle({ className: "size-6" })}
                                 </div>
 
                                 <div className="flex flex-col">
                                     <label htmlFor="role-info" className="font-medium text-xs"> Role </label>
-                                    <p id="role-info" className="text-xs text-foreground"> Customer </p>
+                                    <p id="role-info" className="text-xs text-foreground capitalize"> {profile?.role || 'Customer'} </p>
                                 </div>
                             </li>
 
@@ -80,5 +134,5 @@ export function Profile(){
 
             <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>
         </section>
-    )
+    );
 }

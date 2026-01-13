@@ -11,6 +11,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
+
   useEffect(() => {
     const loadUser = async () => {
       const {
@@ -52,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, signOut }}>
       {children}
     </AuthContext.Provider>
   );

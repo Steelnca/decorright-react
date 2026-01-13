@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import { RequestService } from "@/services/request.service"
 import { ICONS } from "../../icons"
+import { Link } from "react-router-dom"
+import { PATHS } from "@/routers/Paths"
 
 export function RequestItem({ request }: any) {
     const statusLabels: Record<string, string> = {
@@ -23,8 +25,13 @@ export function RequestItem({ request }: any) {
 
                 <div className="flex md:items-center justify-between w-full h-full">
                     <div className="flex max-md:flex-col justify-between gap-2 w-2/3">
-                        <div className="col col-id hover:underline">#{request.id.slice(0, 8)}</div>
-                        <div className="col col-project-type">{request.service_type}</div>
+                        <Link
+                            to={PATHS.CLIENT.chatRoom(request.id)}
+                            className="col col-id hover:underline text-primary font-semibold"
+                        >
+                            #{request.request_code || request.id.slice(0, 8)}
+                        </Link>
+                        <div className="col col-project-type capitalize">{(request.service_type || 'Unknown').replace(/_/g, ' ').toLowerCase()}</div>
                         <div className="col col-date max-sm:text-xs"><time dateTime={request.created_at}>{date}</time></div>
                     </div>
                     <div className={`col col-status text-xs px-1 py-0.5 xs:px-2 md:px-2.5 xs:py-1 min-w-max h-fit rounded-lg order-status-${request.status.replace(/\s+/g, '-').toLowerCase()}`} data-status={request.status}>
@@ -33,10 +40,16 @@ export function RequestItem({ request }: any) {
                 </div>
 
                 {/* CTA */}
-                <div className="col flex items-center justify-between md:justify-end gap-8 w-full md:w-1/2 min-w-max">
-                    <span className="flex gap-2"> <span>{ICONS.chatBubbleOvalLeftEllipsis({ className: 'size-5' })}</span> Open Chat </span>
+                <Link
+                    to={PATHS.CLIENT.chatRoom(request.id)}
+                    className="col flex items-center justify-between md:justify-end gap-8 w-full md:w-1/2 min-w-max hover:text-primary transition-colors"
+                >
+                    <span className="flex gap-2 items-center">
+                        {ICONS.chatBubbleOvalLeftEllipsis({ className: 'size-5' })}
+                        <span>Open Chat</span>
+                    </span>
                     <span> {ICONS.chevronRight({ className: 'size-4' })} </span>
-                </div>
+                </Link>
 
             </div>
         </li>

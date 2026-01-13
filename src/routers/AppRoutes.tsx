@@ -5,6 +5,7 @@ import { PATHS } from './Paths';
 import PublicLayout from '@/layouts/PublicLayout';
 import ClientLayout from '@/layouts/ClientLayout';
 import AdminLayout from '@/layouts/AdminLayout';
+import RequireAuth from '@/components/auth/RequireAuth';
 
 const Landing = lazy(() => import('@/pages/Public/Landing'));
 const About = lazy(() => import('@/pages/Public/About'));
@@ -49,7 +50,7 @@ export default function AppRoutes() {
         </Route>
 
         {/* client routes */}
-        <Route element={<ClientLayout />}>
+        <Route element={<RequireAuth><ClientLayout /></RequireAuth>}>
           <Route element={<ClientHome />} path={PATHS.CLIENT.ROOT} />
           <Route element={<ClientRequestList />} path={PATHS.CLIENT.SERVICE_REQUEST_LIST} />
           <Route element={<ClientRequest />} path={PATHS.CLIENT.SERVICE_REQUEST} />
@@ -61,7 +62,7 @@ export default function AppRoutes() {
         </Route>
 
         {/* admin routes */}
-        <Route element={<AdminLayout />}>
+        <Route element={<RequireAuth><AdminLayout /></RequireAuth>}>
           <Route element={<AdminDashboard />} path={PATHS.ADMIN.ROOT} />
           <Route element={<AdminUsers />} path={PATHS.ADMIN.USERS} />
         </Route>

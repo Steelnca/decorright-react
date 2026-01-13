@@ -65,12 +65,15 @@ export const ChatService = {
             .from('messages')
             .insert({
                 chat_room_id: room!.id,
+                request_id: requestId, // Required by schema
                 sender_id: user.id,
                 content: content || '',
+                topic: 'chat', // Required by schema, default val
+                extension: 'text', // Required by schema, default val
                 message_type: messageType,
                 media_url: mediaUrl,
-                sent_at: new Date().toISOString(),
-                is_read: false
+                // sent_at: new Date().toISOString(), // Removed: not in schema
+                // is_read: false // Removed: not in schema
             })
             .select()
             .single();
@@ -96,7 +99,7 @@ export const ChatService = {
             .from('messages')
             .select('*, profiles(full_name, role)') // Adjusted to match profiles schema
             .eq('chat_room_id', room.id)
-            .order('sent_at', { ascending: true });
+            .order('created_at', { ascending: true });
 
         if (error) throw error;
         return data;
@@ -110,7 +113,8 @@ export const ChatService = {
             .channel(`request-chat-${requestId}`)
             .on(
                 'postgres_changes',
-                { event: 'INSERT', schema: 'public', table: 'messages' },
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'messages', filter: `request_id=eq.${requestId}` },
                 (payload) => {
                     onMessage(payload.new as Message);
                 }

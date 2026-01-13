@@ -11,4 +11,5 @@ export type AuthUser = {
 export type AuthContextType = {
   user: AuthUser | null;
   loading: boolean;
+  signOut: () => Promise<void>;
 };

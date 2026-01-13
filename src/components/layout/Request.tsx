@@ -42,19 +42,23 @@ export function RequestService() {
         setError(null)
 
         try {
-            await ReqSvc.createRequest({
+            const payload: any = {
                 service_type: serviceType as any,
                 space_type: spaceType as any,
                 location: location,
-                area_sqm: areaSqm ? parseFloat(areaSqm) : null,
-                description: description,
-            })
+            };
+
+            if (areaSqm) payload.area_sqm = parseFloat(areaSqm);
+            if (description) payload.description = description;
+
+            await ReqSvc.createRequest(payload);
 
             navigate(PATHS.CLIENT.SERVICE_REQUEST_LIST)
         } catch (err: any) {
             setError(err.message || "Failed to submit request")
+            console.error("Submit error:", err);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 

@@ -44,6 +44,7 @@ export function NavLinks() {
 }
 
 export function AuthenticatedUserActins() {
+    const { signOut } = useAuth();
     return (
         <>
 
@@ -65,6 +66,11 @@ export function AuthenticatedUserActins() {
             <Link to={PATHS.CLIENT.PROFILE} title="My Profile" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/10 rounded-full">
                 {ICONS.user({ className: 'size-5 md:size-6' })}
             </Link>
+
+            {/* Logout */}
+            <button onClick={signOut} title="Logout" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/10 rounded-full hover:bg-red-500/10 hover:text-red-500 transition-colors">
+                {ICONS.arrowRightStartOnRectangle({ className: 'size-5 md:size-6' })}
+            </button>
 
         </>
     )
@@ -111,6 +117,7 @@ export function PublicNavMenuItems() {
 }
 
 export function ClientNavMenuItems() {
+    const { signOut } = useAuth();
     return (
 
         <>
@@ -131,6 +138,16 @@ export function ClientNavMenuItems() {
                     </Link>
                 </li>
             ))}
+            <li className="w-full">
+                <button onClick={signOut} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 text-red-500 hover:bg-red-500/5 items-start">
+                    <div className="flex content-center gap-2">
+                        <h3 className="font-medium text-sm"> Logout </h3>
+                    </div>
+                    <div className="w-full text-left">
+                        <p className="text-2xs text-muted"> Sign out of your account </p>
+                    </div>
+                </button>
+            </li>
         </>
     )
 }
@@ -178,22 +195,20 @@ export function NavActions() {
 }
 
 export function NavBar() {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
 
     return (
-
         <div className="navbar-height absolute flex justify-between gap-2 md:gap-4 w-full px-3 sm:px-6 md:px-9">
             <NavLogo />
             <nav className="flex items-center w-fit">
-                {!user && <NavLinks />}
-                <NavActions />
+                {/* Prevent flicker or showing links prematurely during loading */}
+                {!loading && (
+                    <>
+                        {!user && <NavLinks />}
+                        <NavActions />
+                    </>
+                )}
             </nav>
         </div>
-
-
     )
 }
-
-
-
-

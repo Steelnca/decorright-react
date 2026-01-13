@@ -1,11 +1,7 @@
-
-
 import type { TextMsg, VoiceMsg, FileMsg } from "@/types/chat";
 
-export const currentUserId = 1; // !!! Change this based on the user auth
-
 /** ---- Text message component ---- */
-export function TextMessage({ message, ...props }: { message: TextMsg, props:any }) {
+export function TextMessage({ message, currentUserId, ...props }: { message: TextMsg, currentUserId: string, props?: any }) {
 
   const messageFrom = message.uid === currentUserId ? 'send' : 'received'
 
@@ -22,7 +18,7 @@ export function TextMessage({ message, ...props }: { message: TextMsg, props:any
 /** ---- Voice message component ----
  *  Using a native <audio> control keeps it tiny and functional.
  */
-export function VoiceMessage({ message, ...props }: { message: VoiceMsg, props:any }) {
+export function VoiceMessage({ message, currentUserId, ...props }: { message: VoiceMsg, currentUserId: string, props?: any }) {
 
   const messageFrom = message.uid === currentUserId ? 'send' : 'received'
 
@@ -33,11 +29,6 @@ export function VoiceMessage({ message, ...props }: { message: VoiceMsg, props:a
         <audio controls src={message.url}>
           Your browser does not support the <code>audio</code> element.
         </audio>
-
-        {/* optional duration display if provided
-        {typeof message.duration === "number" && (
-          <div className="message__duration text-2xs md:text-xs text-muted">{Math.round(message.duration)}s</div>
-        )}*/}
       </div>
       <div className={`message__meta--${messageFrom} text-3xs md:text-2xs text-muted px-1`}>{message.timestamp}</div>
     </div>
@@ -51,7 +42,7 @@ function isImageFile(filename: string) {
 }
 
 /** ---- File / upload message component ---- */
-export function FileMessage({ message }: { message: FileMsg }) {
+export function FileMessage({ message, currentUserId }: { message: FileMsg, currentUserId: string }) {
   const { url, filename, size } = message;
   const messageFrom = message.uid === currentUserId ? 'send' : 'received'
 
@@ -91,14 +82,14 @@ export function FileMessage({ message }: { message: FileMsg }) {
 
 
 /** ---- MessageItem: choose which component to render ---- */
-export function MessageItem({ message, ...props}:any) {
+export function MessageItem({ message, currentUserId, ...props }: { message: any, currentUserId: string, [key: string]: any }) {
   switch (message.kind) {
     case "text":
-      return <TextMessage message={message} {...props} />;
+      return <TextMessage message={message} currentUserId={currentUserId} {...props} />;
     case "voice":
-      return <VoiceMessage message={message} {...props} />;
+      return <VoiceMessage message={message} currentUserId={currentUserId} {...props} />;
     case "file":
-      return <FileMessage message={message} {...props} />;
+      return <FileMessage message={message} currentUserId={currentUserId} {...props} />;
     default:
       return null;
   }

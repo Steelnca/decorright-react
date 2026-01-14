@@ -126,6 +126,11 @@ const router = createBrowserRouter([
       {
         path: PATHS.ADMIN.CHAT,
         element: <AdminChat />,
+        children:[
+          {
+            path: PATHS.ADMIN.CHAT_ROOM,
+          }
+        ]
       },
       {
         path: PATHS.ADMIN.USERS,

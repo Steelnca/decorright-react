@@ -4,17 +4,20 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 
 import Logo from "/public/vite.svg"
+
 import { ICONS } from "@/icons"
-import { userIsAuthenticated, userIsStaff } from "@/constants"
+import { userIsStaff } from "@/constants"
 
 import { publicNavItems, clientNavItems } from "@/constants"
 import { MenuCard } from "@components/ui/MenuCard"
 import { PCTALink, SCTALink } from "@components/ui/CTA"
 import { PATHS } from "@/routers/Paths"
 import LogoutButton from "@components/common/Confirm"
+import { useAuth } from "@/contexts/AuthProvider"
 
 
-export function NavLogo () {
+
+export function NavLogo() {
     return (
         <div className="flex items-center gap-2 md:gap-4 min-w-max">
             <div className="content-center w-8 md:w-10 aspect-square">
@@ -30,7 +33,7 @@ export function NavLogo () {
     )
 }
 
-export function NavLinks () {
+export function NavLinks() {
     return (
         <ul className="hidden md:flex justify-center gap-4 w-full">
             {publicNavItems.map((item, index) => (
@@ -43,33 +46,34 @@ export function NavLinks () {
     )
 }
 
-export function AuthenticatedUserActins(){
+export function AuthenticatedUserActins() {
     return (
         <>
             { userIsStaff
             ?
                 <>
-                {/* Request Project */}
-                <Link to={PATHS.ADMIN.PROJECT_CREATE} title="Create Project" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-muted/15 bg-surface/75 rounded-full">
-                    Create a Project
-                </Link>
+                    {/* Request Project */}
+                    <Link to={PATHS.ADMIN.PROJECT_CREATE} title="Create Project" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-muted/15 bg-surface/75 rounded-full">
+                        Create a Project
+                    </Link>
 
-                <Link to={PATHS.ADMIN.DASHBOARD} title="Dashboard Panel" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
-                    <ICONS.presentationChartLine className="size-5 md:size-6" />
-                </Link>
+                    <Link to={PATHS.ADMIN.DASHBOARD} title="Dashboard Panel" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                        <ICONS.presentationChartLine className="size-5 md:size-6" />
+                    </Link>
                 </>
 
             :
                 <>
-                {/* Request Project */}
-                <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
-                    Request Service
-                </Link>
+                    {/* Request Project */}
+                    <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
+                        Request Service
+                    </Link>
                 </>
             }
             {/* Chat Nav Page */}
             <Link to={PATHS.ADMIN.CHAT} title="Chats" className="relative content-center p-2 border border-primary/45 border-muted/16 bg-surface/75 rounded-full">
                 <ICONS.chat className="size-5 md:size-6" />
+
                 <span className="absolute flex size-3 top-0 left-0">
                     <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
                     <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
@@ -84,7 +88,7 @@ export function AuthenticatedUserActins(){
     )
 }
 
-export function AnonymousUserActins(){
+export function AnonymousUserActins() {
     return (
         <>
             {/* Login */}
@@ -101,30 +105,29 @@ export function AnonymousUserActins(){
 export function PublicNavMenuItems () {
     return (
         <>
-        {publicNavItems.map((item, index) => (
-            <li key={index} className="w-full">
-                <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
-                    <div className="flex content-center gap-2">
-                        {/* Icon */}
-                        {/* { ICONS.informationCircle({}) } */}
-                        {/* Label */}
-                        <h3 className="font-medium text-sm"> {item.label} </h3>
-                    </div>
+            {publicNavItems.map((item, index) => (
+                <li key={index} className="w-full">
+                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+                        <div className="flex content-center gap-2">
+                            {/* Icon */}
+                            {/* { ICONS.informationCircle({}) } */}
+                            {/* Label */}
+                            <h3 className="font-medium text-sm"> {item.label} </h3>
+                        </div>
 
-                    {/* Context */}
-                    <div className="w-full">
-                        <p className="text-2xs text-muted"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus culpa  </p>
-                    </div>
-                </Link>
-            </li>
-        ))}
+                        {/* Context */}
+                        <div className="w-full">
+                            <p className="text-2xs text-muted"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus culpa  </p>
+                        </div>
+                    </Link>
+                </li>
+            ))}
         </>
 
     )
 }
 
 export function ClientNavMenuItems () {
-
 
     return (
 
@@ -157,12 +160,12 @@ export function ClientNavMenuItems () {
                         <span className="font-medium text-sm"> {item.label} </span>
                     </div>
 
-                    {/* Context */}
-                    <div className="w-full">
-                        <p className="text-2xs text-muted"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus culpa  </p>
-                    </div>
-                </Link>
-            </li>
+                        {/* Context */}
+                        <div className="w-full">
+                            <p className="text-2xs text-muted"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus culpa  </p>
+                        </div>
+                    </Link>
+                </li>
         ))}
 
         <li id="logout-nav-menu-item">
@@ -175,26 +178,29 @@ export function ClientNavMenuItems () {
                 </div>
             </LogoutButton>
         </li>
+
         </>
     )
 }
 
-export function NavActions () {
-
-    const [navMenuOpen, setNavMenuOpen] = useState(false);
+export function NavActions() {
+    const { user } = useAuth();
+    const navMenuOpenState = useState(false);
+    const navMenuOpen = navMenuOpenState[0];
+    const setNavMenuOpen = navMenuOpenState[1];
 
     return (
 
         <>
             <div className="flex items-center gap-2 md:gap-4">
 
-                {userIsAuthenticated
-                ? <AuthenticatedUserActins/>
-                : <AnonymousUserActins/>}
+                {user
+                    ? <AuthenticatedUserActins />
+                    : <AnonymousUserActins />}
 
                 {/* Menu Trigger */}
                 <button type="button" title="Menu" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
-                    { ICONS.menu({className:'size-6'}) }
+                    <ICONS.menu className="size-6"/>
                 </button>
             </div>
 
@@ -206,9 +212,9 @@ export function NavActions () {
                     {/* Mobile Nav Menu */}
 
                     <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
-                        {userIsAuthenticated
-                        ? <ClientNavMenuItems/>
-                        : <PublicNavMenuItems/>
+                        {user
+                            ? <ClientNavMenuItems />
+                            : <PublicNavMenuItems />
                         }
                     </ul>
 
@@ -219,31 +225,31 @@ export function NavActions () {
     )
 }
 
-export function NavBar () {
+export function NavBar() {
+    const { user, loading } = useAuth();
 
     return (
 
         <div className="navbar-height absolute flex justify-between gap-2 md:gap-4 w-full px-3 sm:px-6 md:px-9 z-30">
             <NavLogo/>
 
-            { userIsAuthenticated
-            ?
-                <nav className="flex items-center justify-end w-full">
-                    <NavActions/>
-                </nav>
-            :
-                <nav className="flex items-center w-fit">
-                    <NavLinks/>
-                    <NavActions/>
-                </nav>
-            }
+            {/* Prevent flicker or showing links prematurely during loading */}
+            {!loading && (
+                <>
+                    {user
+                    ?
+                        <nav className="flex items-center justify-end w-full">
+                            <NavActions/>
+                        </nav>
+                    :
+                        <nav className="flex items-center w-fit">
+                            <NavLinks/>
+                            <NavActions/>
+                        </nav>
+                    }
+                </>
+            )}
 
         </div>
-
-
     )
 }
-
-
-
-

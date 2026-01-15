@@ -41,29 +41,28 @@ export const adminNavItems = [
     {label: 'Settings & Policies', path: PATHS.ADMIN.SETTINGS},
 ]
 
-export const clientNavItems = [
-    {label: 'Home', path: PATHS.CLIENT.ROOT},
 
-    {label: 'Chats', path: PATHS.CLIENT.CHAT},
+export const clientNavItems = [
+    { label: 'Home', path: PATHS.CLIENT.ROOT },
+
+    { label: 'Chats', path: PATHS.CLIENT.CHAT },
+
 
     {label: 'Request a Service', path: PATHS.CLIENT.REQUEST_SERVICE},
     {label: 'My Requests', path: PATHS.CLIENT.REQUEST_SERVICE_LIST},
     {label: 'Gallery', path: PATHS.GALLERY},
 
-    {label: 'Projects', path: PATHS.PROJECT_LIST},
-    {label: 'Services', path: PATHS.SERVICE_LIST},
-    {label: 'Contact', path: PATHS.CONTACT},
+    { label: 'Projects', path: PATHS.PROJECT_LIST },
+    { label: 'Services', path: PATHS.SERVICE_LIST },
+    { label: 'Contact', path: PATHS.CONTACT },
 ]
 
 export const publicNavItems = [
-    {label: 'Home', path: PATHS.ROOT},
 
-    {label: 'Projects', path: PATHS.PROJECT_LIST},
-    {label: 'Services', path: PATHS.SERVICE_LIST},
-    {label: 'Contact', path: PATHS.CONTACT},
-
-    {label: 'Login', path: PATHS.LOGIN},
-    {label: 'Sign Up', path: PATHS.SIGNUP},
+    { label: 'Home', path: PATHS.ROOT },
+    { label: 'Projects', path: PATHS.PROJECT_LIST },
+    { label: 'Services', path: PATHS.SERVICE_LIST },
+    { label: 'Contact', path: PATHS.CONTACT },
 ]
 
 export const galleries = [
@@ -141,19 +140,13 @@ export const serviceTypes = [
 ]
 
 export const serviceSpaceTypes = [
-    {label: 'Interior Design', value: 'interior-design'},
-    {label: 'Space Planning', value: 'space-planning'},
-    {label: 'Furniture Selection', value: 'furniture-selection'},
-    {label: 'Color Consultation', value: 'color-consultation'},
-    {label: 'Project Management', value: 'project-management'},
-    {label: 'Redesign', value: 'redesign'},
-    {label: 'Interior Design', value: 'interior-design'},
-    {label: 'Space Planning', value: 'space-planning'},
-    {label: 'Furniture Selection', value: 'furniture-selection'},
-    {label: 'Color Consultation', value: 'color-consultation'},
-    {label: 'Project Management', value: 'project-management'},
-    {label: 'Redesign', value: 'redesign'},
+    { label: 'Houses and Rooms', value: 'HOUSES_AND_ROOMS' },
+    { label: 'Commercial Shops', value: 'COMMERCIAL_SHOPS' },
+    { label: 'Schools and Nurseries', value: 'SCHOOLS_AND_NURSERIES' },
+    { label: 'Offices Reception', value: 'OFFICES_RECEPTION' },
+    { label: 'Dormitory Lodgings', value: 'DORMITORY_LODGINGS' },
 ]
+
 
 export const projectVisibility = [
     {label: 'Public', value: 'public'},
@@ -161,9 +154,18 @@ export const projectVisibility = [
     {label: 'Hidden', value: 'hidden'},
 ]
 
+export const serviceDesignStyle = [
+    { label: 'Interior Design', value: 'INTERIOR_DESIGN' },
+    { label: 'Fixed Design', value: 'FIXED_DESIGN' },
+    { label: 'Decor Consultation', value: 'DECOR_CONSULTATION' },
+    { label: 'Furniture Request', value: 'FURNITURE_REQUEST' },
+    { label: 'Renovation', value: 'BUILDING_RENOVATION' },
+
+]
+
 export const LegalLinks = [
-    {label: 'Terms & Conditions', path:'/terms'},
-    {label: 'Privacy Policy', path:'/privacy-policy'},
+    { label: 'Terms & Conditions', path: '/terms' },
+    { label: 'Privacy Policy', path: '/privacy-policy' },
 ]
 
 export const projects = [
@@ -222,8 +224,7 @@ export const projects = [
             src: images[1],
             alt: "Interior Design"
         },
-
-    ];
+];
 
 export const requests = [
     {id:'DO146', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'pending', status_label:'Pending', chat_url:'/chats/chatId',},
@@ -241,7 +242,6 @@ import Offices from "/public/showcases/IMG_3760.jpg"
 import Houses from "/public/showcases/IMG_3762.jpg"
 import Cafes from "/public/showcases/IMG_3761.jpg"
 import Schools from "/public/showcases/IMG_3754.jpg"
-import { Activity } from "react"
 import { ICONS } from "@/icons"
 
 export const showcases = [

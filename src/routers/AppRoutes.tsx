@@ -5,6 +5,7 @@ import { PATHS } from './Paths';
 import PublicLayout from '@/layouts/PublicLayout';
 import ClientLayout from '@/layouts/ClientLayout';
 import AdminLayout from '@/layouts/AdminLayout';
+import RequireAuth from '@/components/auth/RequireAuth';
 
 const Landing = lazy(() => import('@/pages/Public/Landing'));
 const About = lazy(() => import('@/pages/Public/About'));
@@ -15,6 +16,7 @@ const ProjectDetail = lazy(() => import('@/pages/Public/Project'));
 
 const Signup = lazy(() => import('@/pages/Public/Signup'));
 const Login = lazy(() => import('@/pages/Public/Login'));
+const Verify = lazy(() => import('@/pages/Public/VerifyOtpPage'));
 
 const ClientHome = lazy(() => import('@/pages/Client/Gallery'));
 const ClientChat = lazy(() => import('@/pages/Client/Chat'));
@@ -81,7 +83,7 @@ const router = createBrowserRouter([
   // AUTH CLIENT ROUTES
   {
     path: PATHS.CLIENT.ROOT,
-    element: <ClientLayout />,
+    element: (<RequireAuth><ClientLayout/></RequireAuth>) ,
     children: [
       {
         index: true,
@@ -113,7 +115,7 @@ const router = createBrowserRouter([
   // ADMIN ROUTES
   {
     path: PATHS.ADMIN.ROOT,
-    element: <AdminLayout />,
+    element: (<RequireAuth><AdminLayout/></RequireAuth>),
     children: [
       {
         index: true,
@@ -152,10 +154,10 @@ const router = createBrowserRouter([
   }
 ]);
 
-export default function AppRoutes() {
+export default function AppRoutes(){
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <RouterProvider router={router} />
+      <RouterProvider router={router}/>
     </Suspense>
-  );
+  )
 }

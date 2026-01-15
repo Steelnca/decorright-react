@@ -1,11 +1,15 @@
 
+// src/App.tsx
+import { AuthProvider } from "@/contexts/AuthProvider";
 import AppRoutes from "@/routers/AppRoutes";
 import ConfirmProvider from "@components/confirm/ConfirmProvider";
 
 function App() {
   return (
     <ConfirmProvider>
-      <AppRoutes />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </ConfirmProvider>
   );
 }

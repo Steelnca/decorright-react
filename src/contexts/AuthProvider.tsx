@@ -1,56 +1,69 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase"; // your initialized client
+import type { AuthContextType, AuthUser } from "@/types/auth";
 
-// import { createContext, useEffect, useState } from "react";
-// import { supabase } from "@/lib/supabase"; // your initialized client
-// import type { AuthContextType, AuthUser } from "@/types/auth";
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+  };
 
-// export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+  useEffect(() => {
+    const loadUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-// export function AuthProvider({ children }: { children: React.ReactNode }) {
-//   const [user, setUser] = useState<AuthUser | null>(null);
-//   const [loading, setLoading] = useState(true);
+      if (!session) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
 
-//   useEffect(() => {
-//     const loadUser = async () => {
-//       const {
-//         data: { session },
-//       } = await supabase.auth.getSession();
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", session.user.id)
+        .maybeSingle();
 
-//       if (!session) {
-//         setUser(null);
-//         setLoading(false);
-//         return;
-//       }
+      const rawRole = profile?.role || 'customer';
+      // Normalize role: DB uses 'customer'/'admin' but app expects 'client'/'admin'
+      const role = rawRole.toLowerCase() === 'customer' ? 'client' : rawRole.toLowerCase() as any;
 
-//       const { data: profile } = await supabase
-//         .from("profiles")
-//         .select("role")
-//         .eq("id", session.user.id)
-//         .single();
+      setUser({
+        id: session.user.id,
+        email: session.user.email!,
+        role: role,
+      });
 
-//       setUser({
-//         id: session.user.id,
-//         email: session.user.email!,
-//         role: profile.role ,
-//       });
+      setLoading(false);
+    };
 
-//       setLoading(false);
-//     };
+    loadUser();
 
-//     loadUser();
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      loadUser();
+    });
 
-//     const { data: listener } = supabase.auth.onAuthStateChange(() => {
-//       loadUser();
-//     });
+    return () => listener.subscription.unsubscribe();
+  }, []);
 
-//     return () => listener.subscription.unsubscribe();
-//   }, []);
+  return (
+    <AuthContext.Provider value={{ user, loading, signOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
 
-//   return (
-//     <AuthContext.Provider value={{ user, loading }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// }
-
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+}

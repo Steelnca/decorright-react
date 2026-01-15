@@ -15,6 +15,7 @@ export const PATHS = {
 
     LOGIN: "/login",
     SIGNUP: "/signup",
+    VERIFY_OTP: "/verify-otp",
 
     CLIENT: {
         ROOT: "/",

@@ -5,7 +5,7 @@ import useConfirm from "@components/confirm/useConfirm";
 export default function LogoutButton({children, ...props}:any) {
   const confirm = useConfirm();
 
-  async function handleDelete() {
+  async function handleLogout() {
     const ok = await confirm({
       title: 'Sign me out',
       description: 'Are you sure you want to log out of your account?',
@@ -16,15 +16,17 @@ export default function LogoutButton({children, ...props}:any) {
 
     if (!ok) return;
     try {
-      // await Logout();
+
+      // !!! await Logout(); SIGNOUT LOGIC HERE !!!
+
       window.location.href = PATHS.LOGIN;
     } catch (err) {
-      console.error('delete failed', err);
+      console.error('logout failed', err);
       // show a toast or error UI
     }
   }
 
   return (
-    <button type="button" onClick={handleDelete} {...props}> {children ? children : 'Logout'} </button>
+    <button type="button" onClick={handleLogout} {...props}> {children ? children : 'Logout'} </button>
   );
 }

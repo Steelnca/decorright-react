@@ -57,7 +57,7 @@ export function AuthenticatedUserActins() {
                         Create a Project
                     </Link>
 
-                    <Link to={PATHS.ADMIN.DASHBOARD} title="Dashboard Panel" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                    <Link to={PATHS.ADMIN.ROOT} title="Dashboard Panel" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
                         <ICONS.presentationChartLine className="size-5 md:size-6" />
                     </Link>
                 </>
@@ -70,8 +70,9 @@ export function AuthenticatedUserActins() {
                     </Link>
                 </>
             }
+
             {/* Chat Nav Page */}
-            <Link to={PATHS.ADMIN.CHAT} title="Chats" className="relative content-center p-2 border border-primary/45 border-muted/16 bg-surface/75 rounded-full">
+            <Link to={PATHS.CLIENT.CHAT} title="Chats" className="relative content-center p-2 border border-primary/45 border-muted/16 bg-surface/75 rounded-full">
                 <ICONS.chat className="size-5 md:size-6" />
 
                 <span className="absolute flex size-3 top-0 left-0">
@@ -122,6 +123,38 @@ export function PublicNavMenuItems () {
                     </Link>
                 </li>
             ))}
+
+            <li key="login" className="w-full">
+                <Link to={PATHS.LOGIN} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+                    <div className="flex content-center gap-2">
+                        {/* Icon */}
+                        {/* { ICONS.informationCircle({}) } */}
+                        {/* Label */}
+                        <h3 className="font-medium text-sm"> Login </h3>
+                    </div>
+
+                    {/* Context */}
+                    <div className="w-full">
+                        <p className="text-2xs text-muted"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus culpa  </p>
+                    </div>
+                </Link>
+            </li>
+
+            <li key="signup" className="w-full">
+                <Link to={PATHS.SIGNUP} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+                    <div className="flex content-center gap-2">
+                        {/* Icon */}
+                        {/* { ICONS.informationCircle({}) } */}
+                        {/* Label */}
+                        <h3 className="font-medium text-sm"> Signup </h3>
+                    </div>
+
+                    {/* Context */}
+                    <div className="w-full">
+                        <p className="text-2xs text-muted"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus culpa  </p>
+                    </div>
+                </Link>
+            </li>
         </>
 
     )
@@ -134,7 +167,7 @@ export function ClientNavMenuItems () {
         <>
         {userIsStaff &&
             <li id="admin-dashboard-nav-menu-item" className="w-full">
-                <Link to={PATHS.ADMIN.DASHBOARD} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+                <Link to={PATHS.ADMIN.ROOT} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
                     <div className="flex content-center gap-2">
                         {/* Icon */}
                         <ICONS.presentationChartLine/>
@@ -195,13 +228,24 @@ export function NavActions() {
             <div className="flex items-center gap-2 md:gap-4">
 
                 {user
-                    ? <AuthenticatedUserActins />
-                    : <AnonymousUserActins />}
+                ?
+                <>
+                    <AuthenticatedUserActins />
+                    {/* Menu Trigger */}
+                    <button type="button" title="Menu" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                        <ICONS.menu className="size-6"/>
+                    </button>
+                </>
+                :
+                <>
+                    <AnonymousUserActins />
+                    {/* Menu Trigger */}
+                    <button type="button" title="Menu" className="md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                        <ICONS.menu className="size-6"/>
+                    </button>
+                </>
+                }
 
-                {/* Menu Trigger */}
-                <button type="button" title="Menu" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
-                    <ICONS.menu className="size-6"/>
-                </button>
             </div>
 
 
@@ -242,7 +286,7 @@ export function NavBar() {
                             <NavActions/>
                         </nav>
                     :
-                        <nav className="flex items-center w-fit">
+                        <nav className="flex items-center w-fit md:w-full">
                             <NavLinks/>
                             <NavActions/>
                         </nav>

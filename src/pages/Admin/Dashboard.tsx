@@ -12,62 +12,62 @@ export default function Dashboard () {
     {
         date: "Jan 23",
         Requests: 20,
-        Completed: 4,
+        Complete: 4,
     },
     {
         date: "Feb 23",
         Requests: 18,
-        Completed: 7,
+        Complete: 7,
     },
     {
         date: "Mar 23",
         Requests: 12,
-        Completed: 2,
+        Complete: 2,
     },
     {
         date: "Apr 23",
-        Requests: 22,
-        Completed: 8,
+        Requests: 18,
+        Complete: 8,
     },
     {
         date: "May 23",
         Requests: 6,
-        Completed: 11,
+        Complete: 12,
     },
     {
         date: "Jun 23",
         Requests: 8,
-        Completed: 4,
+        Complete: 4,
     },
     {
         date: "Jul 23",
         Requests: 16,
-        Completed: 12,
+        Complete: 12,
     },
     {
         date: "Aug 23",
-        Requests: 22,
-        Completed: 4,
+        Requests: 20,
+        Complete: 7,
     },
     {
         date: "Sep 23",
         Requests: 28,
-        Completed: 9,
+        Complete: 9,
     },
     {
         date: "Oct 23",
         Requests: 12,
-        Completed: 1,
+        Complete: 1,
     },
     {
         date: "Nov 23",
         Requests: 18,
-        Completed: 6,
+        Complete: 6,
     },
     {
         date: "Dec 23",
         Requests: 21,
-        Completed: 16,
+        Complete: 16,
     },
     ]
 
@@ -75,23 +75,25 @@ export default function Dashboard () {
     return (
         <>
             <main>
-                <section className="min-h-hero content-container relative flex flex-col space-y-16 w-full">
+                <section className="content-container relative flex flex-col space-y-16 w-full">
                 <div className="flex flex-col gap-4 w-full h-full">
-                    {/* Page Header */}
-                    <div className="flex items-center gap-2">
-                        <ICONS.chartBar className="size-6" />
-                        <h1 className="font-semibold text-2xl mb-2"> Analytics </h1>
-                    </div>
+
 
                     {/* Filters & Search */}
 
-                    <div>
+                    <div className="relative flex gap-4 md:gap-6 mb-1">
+                        <div className="absolute -bottom-4 w-full border-b border-muted/75 mask-x-to-transparent"></div>
+                        {/* Page Header */}
+                        <div className="flex items-center gap-2">
+                            <ICONS.chartBar className="size-6" />
+                            <h1 className="font-semibold text-xl"> Analytics </h1>
+                        </div>
                         <div className="relative flex items-center gap-4">
                             <button id="dropdownDefaultButton" onClick={() => setDropdownOpen(v => !v)} type="button"
                                 className="space-x-1 shrink-0 inline-flex items-center justify-center text-body bg-emphasis/75 box-border border border-muted/25 hover:text-heading shadow-xs focus:outline-1 outline-muted/45 font-medium leading-5 rounded-lg text-sm px-3 py-2"
                                 >
                                 <ICONS.calendar className="size-4 text-muted" />
-                                <span className="max-md:hidden"> Filter by </span>
+                                <span> Filter by </span>
                             </button>
 
                             <span className="text-xs"> Jan 13 - Feb 11 </span>
@@ -114,17 +116,20 @@ export default function Dashboard () {
 
                     {/* Chart */}
                     <div className="flex max-lg:flex-col gap-4 h-full">
-                        <div className="w-full h-fit border border-muted/15 shadow-xs bg-surface rounded-xl">
-
-                        <AreaChart
-                            className="py-4 md:py-6 w-full h-100 bg-surface rounded-xl shadow-xs"
-                            data={chartdata}
-                            index="date"
-                            categories={["Requests", "Completed"]}
-                            onValueChange={(v) => console.log(v)}
-                            allowDecimals={false}
+                        <div className="w-full border border-muted/15 shadow-xs bg-surface rounded-xl">
+                            <div className="p-3 md:p-4">
+                                <h3 className="font-medium">
+                                    Created & Completed Requests Over Time
+                                </h3>
+                            </div>
+                            <AreaChart
+                                className="py-2 md:py-4 w-full h-100"
+                                data={chartdata}
+                                index="date"
+                                categories={["Requests", "Complete"]}
+                                onValueChange={(v) => console.log(v)}
+                                allowDecimals={false}
                             />
-
                         </div>
                         {/* additional metrics */}
                         <div className="flex flex-col gap-4 w-full lg:w-2/3 xl:w-2/5 h-full">

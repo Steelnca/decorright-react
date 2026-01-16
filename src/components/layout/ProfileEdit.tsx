@@ -38,8 +38,8 @@ export function ProfileEdit(){
                         <PhoneInput className={'bg-surface/45'} />
 
                         {/* CTA */}
-                        <div className="flex max-xs:flex-col md:flex-row gap-3 md:gap-4 w-full">
-                            <PButton type="submit" className="w-full"> Save </PButton>
+                        <div className="flex max-xs:flex-col md:flex-row gap-3 md:gap-4 w-full md:w-fit">
+                            <PButton type="submit" className="w-full"> Save Profile </PButton>
                             <SCTALink to={'/profile'} className="w-full"> Cancel </SCTALink>
                         </div>
 

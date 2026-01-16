@@ -19,7 +19,7 @@ export function ProjectCardItem({project, index}:{project:any, index:number}) {
 
         <li key={index}>
             <Link to={'/project'} className="flex max-md:flex-col gap-1 h-full">
-                <div className="w-full h-full aspect-video rounded-md overflow-hidden">
+                <div className="w-full h-full aspect-video rounded-lg overflow-hidden">
                     <img src={project.src} alt={project.alt} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex flex-col gap-1 w-full h-full overflow-hidden">
@@ -64,11 +64,11 @@ export function ProjectDetail(){
     ];
 
     return (
-        <section className="content-container relative h-full w-full">
+        <section className="min-h-hero content-container relative h-full w-full">
             <div className="flex max-md:flex-col gap-3 md:gap-4 mb-18 w-full">
 
                 {/* Main Project Content */}
-                <div className="relative w-full md:w-[75%] xl:w-[80%] h-fit">
+                <div className="relative w-full md:w-[70%] xl:w-[80%] h-fit">
                     {/* Images & Gallery */}
 
                         {/* Main Visual Content */}
@@ -135,7 +135,7 @@ export function ProjectDetail(){
                 </div>
 
                 {/* More & Similar Projects Container */}
-                <div className="md:w-3/5 lg:w-1/3 h-full rounded-xl p-2 border border-muted/25 overflow-clip">
+                <div className="md:w-3/5 lg:w-1/3 h-full overflow-clip">
                     <ProjectCardList />
                 </div>
 

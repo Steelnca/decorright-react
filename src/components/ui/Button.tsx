@@ -1,14 +1,14 @@
 
 export function Button({type, children, className, ...props}:any) {
     return (
-        <button type={type} className={`font-semibold text-sm text-center min-w-max px-3 py-2 rounded-xl ${className}`} {...props}> {children} </button>
+        <button type={type} className={`font-semibold text-sm text-center min-w-max px-3 py-2 rounded-lg ${className}`} {...props}> {children} </button>
     )
 }
 
 // Primary CTA Link (Primary-CTA-Link)
 export function PButton({type, children, className, ...props}:any){
     return (
-        <Button type={type} className={`text-white bg-primary ${className}`} {...props}>{children}</Button>
+        <Button type={type} className={`text-white bg-primary disabled:bg-muted/25 disabled:ring-1 ring-muted/45 disabled:cursor-progress ${className}`} {...props}>{children}</Button>
     )
 }
 

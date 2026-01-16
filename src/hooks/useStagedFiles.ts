@@ -6,12 +6,8 @@ import type { StagedFile } from "@/types/upload";
  * simulateUpload(file, onProgress) => returns cancel function
  * Replace this with real upload call that accepts an onProgress callback.
  */
-<<<<<<< HEAD
-function simulateUpload(file: File, onProgress: (p: number) => void): () => void {
-  file
-=======
+
 function simulateUpload(_file: File, onProgress: (p: number) => void): () => void {
->>>>>>> 295ade67371a4a3714112cfed718089e1dd27107
   let percent = 0;
   const t = setInterval(() => {
     percent += Math.floor(Math.random() * 12) + 4;

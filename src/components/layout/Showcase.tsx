@@ -1,9 +1,6 @@
 
 import { showcases } from "@/constants";
 import ZoomImage from "../ui/ZoomImage";
-import { Link } from "react-router-dom";
-import { PATHS } from "@/routers/Paths";
-
 
 export function ShowcaseCard ({showcase, index}:any) {
 
@@ -12,8 +9,6 @@ export function ShowcaseCard ({showcase, index}:any) {
 
         <li key={index} >
             <div className="relative w-full aspect-video rounded-xl overflow-hidden">
-                {/* budget */}
-                {showcase.budget && <span className="absolute top-2 left-2 font-medium text-2xs px-1 py-0.5 bg-emphasis/75 rounded-lg">{showcase.budget}</span>}
                 <ZoomImage src={showcase.src} alt={showcase.alt} className="object-cover h-full w-full" />
             </div>
 

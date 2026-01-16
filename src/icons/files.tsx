@@ -1,9 +1,4 @@
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 295ade67371a4a3714112cfed718089e1dd27107
 export default function FileIcon({ mime, name }: { mime: string; name: string }) {
   const ext = name.split(".").pop()?.toLowerCase() ?? "";
   if (mime === "application/pdf" || ext === "pdf") {

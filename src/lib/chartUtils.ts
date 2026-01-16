@@ -4,6 +4,25 @@
 export type ColorUtility = "bg" | "stroke" | "fill" | "text"
 
 export const chartColors = {
+
+  primary: {
+    bg: "bg-primary",
+    stroke: "stroke-primary",
+    fill: "fill-primary",
+    text: "text-primary",
+  },
+  cyan: {
+    bg: "bg-cyan-500",
+    stroke: "stroke-cyan-500",
+    fill: "fill-cyan-500",
+    text: "text-cyan-500",
+  },
+  success: {
+    bg: "bg-success",
+    stroke: "stroke-success",
+    fill: "fill-success",
+    text: "text-success",
+  },
   blue: {
     bg: "bg-blue-500",
     stroke: "stroke-blue-500",
@@ -16,12 +35,6 @@ export const chartColors = {
     fill: "fill-emerald-500",
     text: "text-emerald-500",
   },
-  violet: {
-    bg: "bg-violet-500",
-    stroke: "stroke-violet-500",
-    fill: "fill-violet-500",
-    text: "text-violet-500",
-  },
   amber: {
     bg: "bg-amber-500",
     stroke: "stroke-amber-500",
@@ -33,12 +46,6 @@ export const chartColors = {
     stroke: "stroke-gray-500",
     fill: "fill-gray-500",
     text: "text-gray-500",
-  },
-  cyan: {
-    bg: "bg-cyan-500",
-    stroke: "stroke-cyan-500",
-    fill: "fill-cyan-500",
-    text: "text-cyan-500",
   },
   pink: {
     bg: "bg-pink-500",

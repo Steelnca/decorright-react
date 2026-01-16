@@ -1,11 +1,11 @@
 
-import { SignupHero } from "@components/layout/Signup"
+import { SignupLayout } from "@components/layout/Signup"
 
-export default function Signup(){
+export default function SignupPage(){
     return (
 
         <main>
-            <SignupHero />
+            <SignupLayout />
         </main>
 
     )

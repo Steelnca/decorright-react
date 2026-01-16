@@ -1,5 +1,5 @@
 
-import { RequestServiceList } from "@components/layout/RequestList"
+import { RequestServiceList } from "@/components/layout/RequestServiceList"
 
 export default function RequestServiceListPage () {
     return (

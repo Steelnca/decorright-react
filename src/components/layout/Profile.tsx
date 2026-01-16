@@ -11,7 +11,7 @@ type ProfileData = Database['public']['Tables']['profiles']['Row'];
 export function Profile() {
     const { user, loading: authLoading } = useAuth();
     const [profile, setProfile] = useState<ProfileData | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchProfile = async () => {

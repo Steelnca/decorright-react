@@ -6,6 +6,7 @@ import PublicLayout from '@/layouts/PublicLayout';
 import ClientLayout from '@/layouts/ClientLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 import RequireAuth from '@/components/auth/RequireAuth';
+import { ChatRoom } from '@/components/chat/ChatView';
 
 const Landing = lazy(() => import('@/pages/Public/Landing'));
 const About = lazy(() => import('@/pages/Public/About'));
@@ -21,7 +22,7 @@ const Verify = lazy(() => import('@/pages/Public/VerifyOtpPage'));
 const ClientHome = lazy(() => import('@/pages/Client/Gallery'));
 const ClientChat = lazy(() => import('@/pages/Client/Chat'));
 const ClientGallery = lazy(() => import('@/pages/Client/Gallery'));
-const ClientRequestList = lazy(() => import('@/pages/Client/RequestList'));
+const ClientRequestList = lazy(() => import('@/pages/Client/RequestServiceList'));
 const ClientRequestService = lazy(() => import('@/pages/Client/RequestService'));
 const ClientProfile = lazy(() => import('@/pages/Client/Profile'));
 const ClientProfileEdit = lazy(() => import('@/pages/Client/ProfileEdit'));
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
   // AUTH CLIENT ROUTES
   {
     path: PATHS.CLIENT.ROOT,
-    element: (<RequireAuth><ClientLayout/></RequireAuth>) ,
+    element: (<RequireAuth><ClientLayout/></RequireAuth>),
     children: [
       {
         index: true,
@@ -122,7 +123,7 @@ const router = createBrowserRouter([
         element: <AdminDashboard />,
       },
       {
-        path: PATHS.ADMIN.DASHBOARD,
+        path: PATHS.ADMIN.ANALYTICS,
         element: <AdminDashboard />,
       },
       {

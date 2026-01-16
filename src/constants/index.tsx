@@ -15,14 +15,24 @@ import ExteriorDesign from "/public/services/IMG_3768.jpg";
 import ProjectManaging from "/public/services/IMG_3771.jpg";
 import RestructuringRedesign from "/public/services/IMG_3765.jpg";
 
+import Children from "/public/showcases/IMG_3756.jpg"
+import Clinics from "/public/showcases/IMG_3759.jpg"
+import Shops from "/public/showcases/IMG_37554.jpg"
+import Reception from "/public/showcases/IMG_3758.jpg"
+import Offices from "/public/showcases/IMG_3760.jpg"
+import Houses from "/public/showcases/IMG_3762.jpg"
+import Cafes from "/public/showcases/IMG_3761.jpg"
+import Schools from "/public/showcases/IMG_3754.jpg"
+import { ICONS } from "@/icons"
+
 export const images = [
-    image1,
-    image2,
-    image3,
-    image4,
-    image5,
-    image6,
-    imgRoom1,
+    Shops,
+    Clinics,
+    Offices,
+    Schools,
+    ProjectManaging,
+    RestructuringRedesign,
+    Offices,
     user,
 ]
 
@@ -31,14 +41,14 @@ export const userIsStaff = true;
 export const userPhoneIsVerified = false;
 
 export const adminNavItems = [
-    {label: 'Analytics', path: PATHS.ADMIN.ROOT},
+    {label: 'Analytics', path: PATHS.ADMIN.ANALYTICS},
 
     {label: 'Chats', path: PATHS.ADMIN.CHAT},
 
     {label: 'Users', path: PATHS.ADMIN.USERS},
     {label: 'Service Requests', path: PATHS.ADMIN.REQUEST_SERVICE_LIST},
     {label: 'Create a Project', path: PATHS.ADMIN.PROJECT_CREATE},
-    {label: 'Settings & Policies', path: PATHS.ADMIN.SETTINGS},
+    {label: 'Settings', path: PATHS.ADMIN.SETTINGS},
 ]
 
 
@@ -234,22 +244,13 @@ export const requests = [
     {id:'DO417', projectType:'Redesign Office', thumbnail:image4, date:'Jan 2, 2026', status:'rejected', status_label:'Rejected', chat_url:'/chats/chatId'},
 ];
 
-import Children from "/public/showcases/IMG_3756.jpg"
-import Clinics from "/public/showcases/IMG_3759.jpg"
-import Shops from "/public/showcases/IMG_37554.jpg"
-import Reception from "/public/showcases/IMG_3758.jpg"
-import Offices from "/public/showcases/IMG_3760.jpg"
-import Houses from "/public/showcases/IMG_3762.jpg"
-import Cafes from "/public/showcases/IMG_3761.jpg"
-import Schools from "/public/showcases/IMG_3754.jpg"
-import { ICONS } from "@/icons"
 
 export const showcases = [
-    {id:'1', title:"Children's rooms", alt: "children's rooms", src:Children, budget:"Popular"},
+    {id:'1', title:"Children's rooms", alt: "children's rooms", src:Children},
     {id:'2', title:"Clinics", alt: "clinics", src:Clinics},
     {id:'3', title:"Shops", alt: "shops", src:Shops},
     {id:'4', title:"Reception and waiting rooms", alt: "reception and waiting rooms", src:Reception},
-    {id:'5', title:"Offices", alt: "offices", src:Offices, budget:"Top Rated"},
+    {id:'5', title:"Offices", alt: "offices", src:Offices},
     {id:'7', title:"Houses", alt: "houses", src:Houses},
     {id:'8', title:"Cafes and small businesses", alt: "cafes and small businesses", src:Cafes},
     {id:'6', title:"Private schools and nurseries", alt: "private schools and nurseries", src:Schools},
@@ -452,10 +453,16 @@ export const topServicesByRequest = [
     {id:'5', service_type:'Spaces Planning', value:'32'},
 ]
 
-export const SocialMediaFields = [
-    {id:'1', label: 'Facebook', placeholder: 'https://facebook.com/example/', icon: <ICONS.informationCircle/> },
-    {id:'2', label: 'Facebook', placeholder: 'https://facebook.com/example/', icon: <ICONS.informationCircle/> },
-    {id:'3', label: 'Facebook', placeholder: 'https://facebook.com/example/', icon: <ICONS.informationCircle/> },
-    {id:'4', label: 'Facebook', placeholder: 'https://facebook.com/example/', icon: <ICONS.informationCircle/> },
-    {id:'5', label: 'Facebook', placeholder: 'https://facebook.com/example/', icon: <ICONS.informationCircle/> },
+export const SocialMediaUrlFields = [
+    {id:'1', label: 'Facebook', placeholder: 'https://facebook.com/@example/', icon: <ICONS.facebook className="size-6"/> },
+    {id:'2', label: 'Tiktok', placeholder: 'https://tiktok.com/@example/', icon: <ICONS.tiktok className="size-6"/> },
+    {id:'3', label: 'Instagram', placeholder: 'https://instagram.com/example/', icon: <ICONS.instagram className="size-6"/> },
+    {id:'4', label: 'Youtube', placeholder: 'https://youtube.com/@example/', icon: <ICONS.youtube className="size-6"/> },
+    {id:'5', label: 'Pinterest', placeholder: 'https://pinterest.com/example/', icon: <ICONS.pinterest className="size-6"/> },
+    {id:'8', label: 'X (Twitter)', placeholder: 'https://x.com/@example/', icon: <ICONS.xTwitter className="size-6"/> },
+]
+
+export const SocialMediaPhoneFields = [
+    {id:'6', label: 'Whatsapp', placeholder: '+213123456789', icon: <ICONS.whatsapp className="size-6"/> },
+    {id:'7', label: 'Telegram', placeholder: '+213123456789', icon: <ICONS.telegram className="size-6"/> },
 ]

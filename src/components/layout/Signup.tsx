@@ -1,19 +1,12 @@
-<<<<<<< HEAD
 
-import { Link } from "react-router-dom"
-
-import { EmailInput, Input, PasswordInput } from "../ui/Input"
-
-=======
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 import { useNavigate, Link } from "react-router-dom"
 import { PATHS } from "@/routers/Paths"
 import { EmailInput, Input, PasswordInput } from "../ui/Input"
->>>>>>> 295ade67371a4a3714112cfed718089e1dd27107
 import { LegalLinks } from "../../constants"
 
-export function SignupHero() {
+export function SignupLayout() {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")

@@ -157,9 +157,8 @@ export function ChatLayout() {
                       </div>
 
                       <div className="flex flex-col items-end gap-1">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] ${request.status === 'Completed' ? 'bg-success/10 text-success' :
-                          request.status === 'Cancelled' ? 'bg-danger/10 text-danger' :
-                            'bg-primary/10 text-primary'
+                        <span className={`px-2 py-0.5 rounded-full text-2xs ${request.status === 'Completed' ? 'bg-success/10 text-success' :
+                          request.status === 'Cancelled' ? 'bg-danger/10 text-danger' : 'bg-primary/10 text-primary'
                           }`}>
                           {request.status}
                         </span>

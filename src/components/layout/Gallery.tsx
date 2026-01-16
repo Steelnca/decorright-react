@@ -15,7 +15,7 @@ export function GalleryItem ({ gallery, index }: { gallery: any, index: number }
                 <div className='flex items-center gap-4 w-full'>
 
                     { gallery.project.budget && <span className='font-medium text-xs text-primary min-w-max w-fit px-2 py-0.5 bg-primary/15 rounded-full'> {gallery.project.budget} </span> }
-                    <hr className="w-full border-0 border-b border-b-muted/10" />
+                    <hr className="w-full border-0 border-b border-b-muted/10 mask-l-to-transparent" />
                     {/* Rating Icon */}
                     <div className='flex content-center gap-1 min-w-max w-fit h-fit'>
                         <ICONS.star className='size-4 text-primary/75'/>
@@ -25,8 +25,8 @@ export function GalleryItem ({ gallery, index }: { gallery: any, index: number }
                 </div>
 
                 <div>
-                    <h3 className='font-medium text-sm md:text-xl'> {gallery.label} </h3>
-                    <p className='text-2xs md:text-xs text-muted'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur unde excepturi accusamus consequatur? Consequuntur odio similique ratione qui laudantium! Quos atque distinctio, magnam cum labore laboriosam ad obcaecati provident laborum! </p>
+                    <h3 className='font-medium text-sm md:text-xl mb-1'> {gallery.label} </h3>
+                    <p className='text-2xs md:text-xs text-muted/75'> Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur unde excepturi accusamus consequatur? Consequuntur odio similique ratione qui laudantium! Quos atque distinctio, magnam cum labore laboriosam ad obcaecati provident laborum! </p>
                 </div>
 
             </div>
@@ -54,7 +54,7 @@ export function GalleryItem ({ gallery, index }: { gallery: any, index: number }
 
                     <SCTALink to={PATHS.projectDetail(gallery.project.id)} className='flex items-center justify-center text-xs w-full'> More Details </SCTALink>
 
-                    <PCTALink to={PATHS.CLIENT.SERVICE_REQUEST} className='flex items-center justify-center gap-1 text-xs w-full py-2'> Request Projects {ICONS.chevronRight({className:'size-3 text-white'})} </PCTALink>
+                    <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE} className='flex items-center justify-center gap-1 text-xs w-full py-2'> Request Projects {ICONS.chevronRight({className:'size-3 text-white'})} </PCTALink>
                 </div>
 
 
@@ -83,7 +83,7 @@ export function GalleryHero () {
 
             <div className="absolute right-full w-full h-[calc(100svh-18rem)] md:h-[calc(100svh-16rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-30% overflow-hidden"></div>
 
-            <div className="relative w-full h-full px-2 py-4 md:px-6 md:py-8">
+            <div className="relative w-full h-full px-2 md:py-8">
 
                 <GalleryList/>
             </div>

@@ -4,7 +4,7 @@ import { supportMailAddress, phoneNumber, googleMapLocationUrl } from "@/constan
 
 export function ContactCard({children}:any) {
     return (
-        <li className="flex flex-col justify-between gap-8 w-full p-4 sm:p-6 border border-muted/25 rounded-lg cursor-pointer hover:bg-surface/75 active:bg-surface/75"> {children} </li>
+        <li className="flex flex-col justify-between gap-8 w-full p-4 sm:p-6 border border-muted/25 bg-surface/75 rounded-lg cursor-pointer hover:bg-emphasis/75 active:bg-emphasis/75"> {children} </li>
     )
 }
 

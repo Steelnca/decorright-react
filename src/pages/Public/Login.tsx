@@ -1,11 +1,11 @@
 
-import { LoginHero } from "@components/layout/Login"
+import { LoginLayout } from "@components/layout/Login"
 
-export default function Login(){
+export default function LoginPage(){
     return (
 
         <main>
-            <LoginHero />
+            <LoginLayout />
         </main>
 
     )

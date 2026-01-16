@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { EmailInput, PasswordInput } from "../ui/Input"
 import { LegalLinks } from "../../constants"
 
-export function LoginHero() {
+export function LoginLayout() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
@@ -24,7 +24,7 @@ export function LoginHero() {
 
             if (loginError) throw loginError
 
-            // Redirect will be handled by AuthProvider/AppRouter usually, 
+            // Redirect will be handled by AuthProvider/AppRouter usually,
             // but we can force it here if needed.
             navigate("/")
         } catch (err: any) {

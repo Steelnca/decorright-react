@@ -22,9 +22,9 @@ export const PATHS = {
         PROFILE: "/profile",
         PROFILE_EDIT: "/profile/edit",
         REQUEST_SERVICE_LIST: "/request-service/list",
-        REQUEST_SERVICE: "/request-service/create", // helper for dynamic links
-        CHAT: "/chats",
-        CHAT_ROOM: "/chats/:id",
+        REQUEST_SERVICE: "/request-service", // helper for dynamic links
+        CHAT: "chats/",
+        CHAT_ROOM: "chats/:id",
         chatRoom: (id: string) => `/chat/${encodeURIComponent(id)}`,
 
 
@@ -32,13 +32,13 @@ export const PATHS = {
     },
 
     ADMIN: {
-        ROOT: "/admin",
-        DASHBOARD: "/admin/dashboard",
-        CHAT: "/admin/chats",
-        CHAT_ROOM: "/admin/chats/:id",
-        USERS: "/admin/users",
-        REQUEST_SERVICE_LIST: "/admin/request-service-list",
-        PROJECT_CREATE: "/admin/project/create",
-        SETTINGS: "/admin/settings",
+        ROOT: "/admin/",
+        ANALYTICS: "analytics/",
+        CHAT: "chats/",
+        CHAT_ROOM: "chats/:id/",
+        USERS: "users/",
+        REQUEST_SERVICE_LIST: "request-service/list/",
+        PROJECT_CREATE: "project/create/",
+        SETTINGS: "settings/",
     },
 } as const;

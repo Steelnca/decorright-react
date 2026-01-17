@@ -1,5 +1,5 @@
 
-import ServiceRequestTable from "@/components/layout/admin/ServiceRequestTable";
+import RequestServiceTable from "@components/layout/admin/RequestServiceTable";
 
 export default function Users () {
     return (
@@ -7,8 +7,8 @@ export default function Users () {
             <section className="h-hero min-h-hero relative flex flex-col w-full h-full">
 
                 <div className="flex flex-col gap-4 h-full">
-                    <h1 className="font-semibold text-lg md:text-2xl"> Service Request Overview Table </h1>
-                    <ServiceRequestTable />
+                    <h1 className="font-semibold text-lg md:text-2xl"> Service Requests Table </h1>
+                    <RequestServiceTable />
                 </div>
 
             </section>

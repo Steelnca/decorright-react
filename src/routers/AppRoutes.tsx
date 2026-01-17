@@ -7,6 +7,7 @@ import ClientLayout from '@/layouts/ClientLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 import RequireAuth from '@/components/auth/RequireAuth';
 import { ChatRoom } from '@/components/chat/ChatView';
+import Spinner from '@/components/ui/Spinner';
 
 const Landing = lazy(() => import('@/pages/Public/Landing'));
 const About = lazy(() => import('@/pages/Public/About'));
@@ -17,7 +18,7 @@ const ProjectDetail = lazy(() => import('@/pages/Public/Project'));
 
 const Signup = lazy(() => import('@/pages/Public/Signup'));
 const Login = lazy(() => import('@/pages/Public/Login'));
-const Verify = lazy(() => import('@/pages/Public/VerifyOtpPage'));
+const VerifyOTP = lazy(() => import('@/pages/VerifyOtp'));
 
 const ClientHome = lazy(() => import('@/pages/Client/Gallery'));
 const ClientChat = lazy(() => import('@/pages/Client/Chat'));
@@ -30,7 +31,7 @@ const ClientProfileEdit = lazy(() => import('@/pages/Client/ProfileEdit'));
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard'));
 const AdminChat = lazy(() => import('@/pages/Admin/Chat'));
 const AdminUsers = lazy(() => import('@/pages/Admin/Users'));
-const AdminServiceRequests = lazy(() => import('@/pages/Admin/ServiceRequests'));
+const AdminServiceRequests = lazy(() => import('@/pages/Admin/RequestServiceList'));
 const AdminProjectCreate = lazy(() => import('@/pages/Admin/ProjectCreate'));
 const AdminSettings = lazy(() => import('@/pages/Admin/Settings'));
 
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path: PATHS.SIGNUP,
         element: <Signup />,
+      },
+      {
+        path: PATHS.VERIFY_OTP,
+        element: <VerifyOTP />,
       },
 
     ]
@@ -157,7 +162,7 @@ const router = createBrowserRouter([
 
 export default function AppRoutes(){
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="flex items-center justify-center w-full h-hero"><Spinner className="w-8 h-8"/></div>}>
       <RouterProvider router={router}/>
     </Suspense>
   )

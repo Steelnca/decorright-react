@@ -234,6 +234,14 @@ export const ICONS = {
     </svg>
   ),
 
+  lockClosed: ({className='size-5', ...props}:{className?:string}) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+    </svg>
+  ),
+
+
+  // Social Media
   facebook: ({className='size-5', ...props}:{className?:string}) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className={className} {...props}><path d="M576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 440 146.7 540.8 258.2 568.5L258.2 398.2L205.4 398.2L205.4 320L258.2 320L258.2 286.3C258.2 199.2 297.6 158.8 383.2 158.8C399.4 158.8 427.4 162 438.9 165.2L438.9 236C432.9 235.4 422.4 235 409.3 235C367.3 235 351.1 250.9 351.1 292.2L351.1 320L434.7 320L420.3 398.2L351 398.2L351 574.1C477.8 558.8 576 450.9 576 320z"/></svg>
   ),
@@ -265,6 +273,7 @@ export const ICONS = {
   xTwitter: ({className='size-5', ...props}:{className?:string}) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className={className} {...props}><path d="M453.2 112L523.8 112L369.6 288.2L551 528L409 528L297.7 382.6L170.5 528L99.8 528L264.7 339.5L90.8 112L236.4 112L336.9 244.9L453.2 112zM428.4 485.8L467.5 485.8L215.1 152L173.1 152L428.4 485.8z"/></svg>
   ),
+
 }
 
 export type IconKey = keyof typeof ICONS;

@@ -13,6 +13,7 @@ import { RequestService as ReqSvc } from '@/services/request.service'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthProvider'
 import { PATHS } from '@/routers/Paths'
+import Spinner from '@components/ui/Spinner'
 
 
 export function RequestService() {
@@ -86,7 +87,7 @@ export function RequestService() {
                     {/* CTA */}
                     <div className="hidden md:flex max-xs:flex-col md:flex-row gap-3 md:gap-4 w-fit">
                         <PButton type="submit" className="w-fit h-fit" disabled={loading}>
-                            {loading ? "Submitting..." : "Submit Request"}
+                            <Spinner status={loading}> Submit Request </Spinner>
                         </PButton>
                     </div>
                 </div>
@@ -136,6 +137,7 @@ export function RequestService() {
                                     id="select-service-space-type"
                                     value={serviceSpaceTypes.find(s => s.value === spaceType)}
                                     onChange={(option: any) => setSpaceType(option.value)}
+                                    required
                                 />
                             </div>
 
@@ -182,9 +184,9 @@ export function RequestService() {
                             {/* CTA */}
                             <div className="flex max-xs:flex-col md:flex-row gap-3 md:gap-4 w-full md:w-fit mt-4">
                                 <PButton type="submit" className="w-full" disabled={loading}>
-                                    {loading ? "Submitting..." : "Submit Request"}
+                                    <Spinner status={loading}> Submit Request </Spinner>
                                 </PButton>
-                                <SCTALink to={'/home'} className="w-full"> Cancel </SCTALink>
+                                <SCTALink to={-1} className="w-full"> Cancel </SCTALink>
                             </div>
 
                         </div>

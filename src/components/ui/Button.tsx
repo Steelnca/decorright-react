@@ -8,13 +8,13 @@ export function Button({type, children, className, ...props}:any) {
 // Primary CTA Link (Primary-CTA-Link)
 export function PButton({type, children, className, ...props}:any){
     return (
-        <Button type={type} className={`text-white bg-primary disabled:bg-muted/25 disabled:ring-1 ring-muted/45 disabled:cursor-progress ${className}`} {...props}>{children}</Button>
+        <Button type={type} className={`text-white bg-primary disabled:bg-primary/15 disabled:cursor-progress ${className}`} {...props}>{children}</Button>
     )
 }
 
 // Secondary CTA Link (Secondary-CTA-Link)
 export function SButton({type, children, className, ...props}:any){
     return (
-        <Button type={type} className={`text-foreground bg-muted/10 border border-muted/15 ${className}`} {...props}>{children}</Button>
+        <Button type={type} className={`text-foreground bg-emphasis/75 border border-emphasis ${className}`} {...props}>{children}</Button>
     )
 }

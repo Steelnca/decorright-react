@@ -7,9 +7,21 @@ export function Input({ className, children, ...props }: any) {
   return (
     <div className="relative flex flex-col mb-2 w-full">
       <div className="relative flex items-center">
-        <input className={`${className} text-sm h-10 w-full px-2 py-1.5 md:py-2 border border-muted/15 ${props.value && props.error ? 'outline-danger/45' : 'outline-muted/15'} bg-emphasis rounded-lg outline-0  focus:outline-1 `} {...props} />
+        <input
+        className={`
+          content-center text-sm h-10 w-full px-2 py-1.5 md:py-2 border border-muted/15
+          ${ props.readOnly && 'ltr:pr-8 ltr:sm:pr-10 rtl:pl-8 rtl:sm:pl-10'}
+          ${props.value && props.error ? 'outline-danger/45' : 'outline-muted/15'}
+          bg-emphasis/75 rounded-lg outline-0 focus:outline-1 placeholder:max-md:text-xs ${className}
+        `}
+        {...props} />
         {children}
       </div>
+      {props.readOnly &&
+      <span title="Locked for viewing only" aria-label="error"  className="absolute content-center right-1 px-1.5 sm:right-1.5 h-full">
+        <ICONS.lockClosed className="size-4 md:size-5 text-muted/75" />
+      </span>}
+
       {props.value && props.error && <span title={props.error} aria-label="error" className="absolute flex items-center top-full text-xs text-danger/75 px-0.5"> {props.error} </span>}
     </div>
   )
@@ -17,18 +29,18 @@ export function Input({ className, children, ...props }: any) {
 
 export function EmailInput({ id = 'email_field', label = 'Email', className, ...props }: any) {
   return (
-    <Input id={id} type={'email'} placeholder="email@example.com" className={`${className} px-9 sm:px-10 md:pr-12`} {...props}>
+    <Input id={id} type={'email'} placeholder="email@example.com" className={`${className} ltr:pl-8 ltr:sm:pl-10 rtl:pr-8 rtl:sm:pr-10`} {...props}>
       {/* Password Icon Placeholder */}
-      <span className="absolute px-2 left-1 sm:left-1.5"> {ICONS.envelope({ className: 'size-4 text-muted/75' })} </span>
+      <span className="absolute px-1.5 ltr:left-1 ltr:sm:left-1.5 rtl:right-1 rtl:sm:right-1.5"> {ICONS.envelope({ className: 'size-4 text-muted/75' })} </span>
     </Input>
   );
 }
 
 export function PhoneInput({ id = 'phone_field', label = 'Phone', className, ...props }: any) {
   return (
-    <Input id={id} type={'tel'} placeholder="Phone Number" className={`${className} px-9 sm:px-10 md:pr-12`} {...props}>
+    <Input id={id} type={'tel'} placeholder="Phone Number" className={`${className} ltr:pl-8 ltr:sm:pl-10 rtl:pr-8 rtl:sm:pr-10`} {...props}>
       {/* Password Icon Placeholder */}
-      <span className="absolute px-2 left-1 sm:left-1.5"> {ICONS.phone({ className: 'size-4 text-muted/75' })} </span>
+      <span className="absolute px-1.5 ltr:left-1 ltr:sm:left-1.5 rtl:right-1 rtl:sm:right-1.5"> {ICONS.phone({ className: 'size-4 text-muted/75' })} </span>
     </Input>
   );
 }
@@ -55,7 +67,7 @@ export function PasswordInput({ id = 'password_field', label = 'Password', value
         aria-pressed={show} aria-label={show ? 'Hide password' : 'Show password'}
         className="absolute px-2 right-1 sm:right-1.5 border-l border-muted/15"
       >
-        {show ? ICONS.eyeSlash({ className: 'size-5 text-muted/75' }) : ICONS.eye({ className: 'size-5 text-muted/75' })}
+        {show ? <ICONS.eyeSlash className='size-5 text-muted/75'/> : <ICONS.eye className='size-5 text-muted/75'/>}
       </button>
     </Input>
   );

@@ -101,8 +101,7 @@ export default function Dashboard () {
                     </div>
 
                     {/* KPI cards */}
-                    <div className="flex flex-col">
-                        <h3 className="font-medium mx-1 my-2"> Overall performance </h3>
+                    <div className="flex flex-col mt-2">
                         <div className="grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-4 w-full">
 
                             {topKPICards.map((data) =>(

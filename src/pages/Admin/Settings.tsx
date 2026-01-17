@@ -14,52 +14,58 @@ export default function Settings () {
 
     return (
         <main>
-            <section className="h-hero min-h-hero content-container relative w-full">
+            <section className="content-container relative flex flex-col w-full h-full gap-6">
+                <div className="flex flex-col gap-8 md:gap-12 w-full h-full max-md:flex-col max-md:py-6 md:px-4">
+                    <div className="flex flex-col max-md:items-center gap-8 w-full">
+                        <div className="absolute top-45 md:top-50 left-0 w-full border-b border-b-muted/15 -z-10"></div>
 
-                    <div className="flex max-md:flex-col md:justify-between md:items-end gap-2 w-full h-fit mb-4">
-                        <h1 className="font-semibold text-lg md:text-2xl"> Settings & Contacts </h1>
-
-                        {loading
+                        {/* {loading
                         ? <span className="font-medium text-xs text-foreground/75"> Saving Data... </span>
                         :
                             dataSaved
                             ? <span className="font-medium text-xs text-success"> ✓ Data-Saved </span>
                             : <span className="font-medium text-xs text-muted/75"> Auto-Save </span>
-                        }
+                        } */}
+                        <form encType="multipart/form-data" className="flex max-md:flex-col items-center gap-4">
+
+                            <div className="group/item relative w-fit h-30 md:h-35 p-1 md:p-2 aspect-square border border-muted/15 rounded-full bg-background overflow-hidden">
+                                <label htmlFor="fileToUpload" className="absolute hidden group-hover/item:flex group-active/item:flex items-center justify-center top-0 left-0 w-full h-full bg-muted/35 cursor-pointer">
+                                <ICONS.arrowUpTray className="text-white size-8" />
+                                </label>
+                                <input type="file" name="fileToUpload" id="fileToUpload" className="hidden" />
+                                <img src={images[7]} alt="Avatar" className="w-full h-full object-cover rounded-full" />
+                            </div>
+
+                            <div className="flex flex-col max-md:items-center max-md:text-center gap-0.5 md:gap-1">
+                                <h4 className="font-semibold text-lg md:text-2xl"> {companyNameTitle} </h4>
+                                <p className="text-2xs md:text-xs"> Company Logo </p>
+                            </div>
+
+                        </form>
+
+                        <div className="flex flex-col gap-4 w-full">
+                            <p className="text-xs text-muted"> Manage your company's contact information and social media links. </p>
+                        </div>
+
 
                     </div>
-                    <div className="flex max-md:flex-col gap-4 w-full">
-                        <div className="flex flex-col gap-2 md:gap-4 w-full h-full md:p-4 md:bg-surface rounded-xl">
-
-                            <form action="." method="POST" encType="multipart/form-data" className="flex flex-col gap-4">
-
-                                <div className="flex flex-col items-center gap-2 w-full max-md:p-4 max-md:bg-surface rounded-xl">
-                                    <div className="group/item relative w-fit h-25 md:h-40 p-1 md:p-2 aspect-square border border-muted/15 rounded-full bg-background overflow-hidden">
-                                        <label htmlFor="fileToUpload" className="absolute hidden group-hover/item:flex group-active/item:flex items-center justify-center top-0 left-0 w-full h-full bg-muted/35 cursor-pointer">
-                                        <ICONS.arrowUpTray className="text-white size-8" />
-                                        </label>
-                                        <input type="file" name="fileToUpload" id="fileToUpload" className="hidden" />
-                                        <img src={images[7]} alt="Avatar" className="w-full h-full object-cover rounded-full" />
-                                    </div>
-                                    <div className="flex flex-col gap-2">
-                                        <span className="font-semibold text-foreground"> {companyNameTitle} </span>
-                                    </div>
-                                </div>
+                    <div className="flex flex-col gap-8 max-md:w-full w-3/5">
+                        <div className="flex flex-col gap-2 md:gap-4 w-full h-full  rounded-xl">
+                            <h2 className="font-medium text-sm"> Contact Information </h2>
+                            <form className="flex flex-col gap-4">
 
 
-                                <div className="flex flex-col gap-4 h-full md:bg-surface rounded-xl">
+                                <div className="flex flex-col gap-4 h-full rounded-xl">
 
                                     <div className="flex flex-col gap-2">
-                                        <label htmlFor="email-fields-container" className="font-medium text-xs text-muted mx-1"> Email Addresses</label>
+                                        <label htmlFor="email-fields-container" className="text-xs text-muted sr-only"> Email Address</label>
                                         <div id="email-fields-container" className="flex flex-col gap-2">
-                                            <EmailInput id="primary-email" placeholder="hello@example.com" />
-                                            <EmailInput id="admin-email" placeholder="admin@example.com" />
-                                            <EmailInput id="support-email" placeholder="support@example.com" />
+                                            <EmailInput id="email" placeholder="hello@example.com" />
                                         </div>
                                     </div>
 
                                     <div className="flex flex-col gap-2">
-                                        <label htmlFor="email-fields-container" className="font-medium text-xs text-muted mx-1"> Phone numbers </label>
+                                        <label htmlFor="email-fields-container" className="text-xs text-muted sr-only"> Phone number </label>
                                         <div id="phone-fields-container" className="flex flex-col gap-2">
                                             <PhoneInput id="primary-phone" placeholder="+213123456789" />
                                         </div>
@@ -69,7 +75,7 @@ export default function Settings () {
                             </form>
                         </div>
 
-                        <div className="flex flex-col gap-2 md:gap-4 w-full md:p-4 md:bg-surface rounded-xl">
+                        <div className="flex flex-col gap-2 md:gap-4 w-full rounded-xl">
                             <h2 className="font-medium text-sm"> Social Media </h2>
 
                             <form action="." method="POST" className="flex flex-col gap-4">
@@ -90,6 +96,7 @@ export default function Settings () {
                             </form>
                         </div>
                     </div>
+                </div>
 
             </section>
         </main>

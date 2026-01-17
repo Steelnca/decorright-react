@@ -45,7 +45,7 @@ export function HeroCTA() {
         <div className="flex max-md:flex-col gap-4">
             {user
             ?
-            <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE}> Request Services </PCTALink>
+            <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE}> Request Service </PCTALink>
             :
             <PCTALink to={PATHS.SERVICE_LIST}> Services </PCTALink>
             }

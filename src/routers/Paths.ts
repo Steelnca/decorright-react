@@ -36,9 +36,9 @@ export const PATHS = {
         ANALYTICS: "analytics/",
         CHAT: "chats/",
         CHAT_ROOM: "chats/:id/",
-        USERS: "users/",
-        REQUEST_SERVICE_LIST: "request-service/list/",
-        PROJECT_CREATE: "project/create/",
-        SETTINGS: "settings/",
+        USERS: "/admin/users/",
+        REQUEST_SERVICE_LIST: "/admin/request-service/list/",
+        PROJECT_CREATE: "/admin/project/create/",
+        SETTINGS: "/admin/settings/",
     },
 } as const;

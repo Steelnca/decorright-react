@@ -386,7 +386,7 @@ export default function Table<T extends Record<string, any>>(props: {
               <th
                 key={col.key}
                 scope="col"
-                className={`px-6 py-3 font-medium ${col.className ?? ""}`}
+                className={`px-4 py-3 font-medium ${col.className ?? ""}`}
                 style={col.width ? { width: col.width } : undefined}
               >
                 {col.title}
@@ -394,7 +394,7 @@ export default function Table<T extends Record<string, any>>(props: {
             ))}
 
             {/* Actions / Bulk actions header */}
-            <th scope="col" className="px-6 py-3 font-medium text-end">
+            <th scope="col" className="px-4 py-3 font-medium text-end">
               {selectable && selectionCount > 0 ? (
                 <BulkActionsHeader />
               ) : (
@@ -427,12 +427,12 @@ export default function Table<T extends Record<string, any>>(props: {
                 )}
 
                 {columns.map(col => (
-                  <td key={col.key} className={`px-6 py-4 ${col.className ?? ''}`} style={col.width ? { width: col.width } : undefined}>
+                  <td key={col.key} className={`text-xs px-4 py-3 ${col.className ?? ''}`}  style={col.width ? { width: col.width } : undefined}>
                     {col.render ? col.render(row) : (row[col.key] ?? '')}
                   </td>
                 ))}
 
-                <td className="px-6 py-4 text-end">
+                <td className="px-4 py-4 text-end">
                   <RowActions row={row} index={idx} />
                 </td>
               </tr>

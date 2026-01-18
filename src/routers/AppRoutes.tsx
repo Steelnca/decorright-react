@@ -6,7 +6,6 @@ import PublicLayout from '@/layouts/PublicLayout';
 import ClientLayout from '@/layouts/ClientLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 import RequireAuth from '@/components/auth/RequireAuth';
-import { ChatRoom } from '@/components/chat/ChatView';
 import Spinner from '@/components/ui/Spinner';
 
 const Landing = lazy(() => import('@/pages/Public/Landing'));
@@ -19,6 +18,7 @@ const ProjectDetail = lazy(() => import('@/pages/Public/Project'));
 const Signup = lazy(() => import('@/pages/Public/Signup'));
 const Login = lazy(() => import('@/pages/Public/Login'));
 const VerifyOTP = lazy(() => import('@/pages/VerifyOtp'));
+const ChatRoom = lazy(() => import('@components/chat/ChatRoom'));
 
 const ClientHome = lazy(() => import('@/pages/Client/Gallery'));
 const ClientChat = lazy(() => import('@/pages/Client/Chat'));
@@ -106,6 +106,12 @@ const router = createBrowserRouter([
       {
         path: PATHS.CLIENT.CHAT,
         element: <ClientChat />,
+        children:[
+          {
+            path: PATHS.CLIENT.CHAT_ROOM,
+            element: <ChatRoom />
+          },
+        ]
       },
       {
         path: PATHS.CLIENT.PROFILE,
@@ -162,7 +168,11 @@ const router = createBrowserRouter([
 
 export default function AppRoutes(){
   return (
-    <Suspense fallback={<div className="flex items-center justify-center w-full h-hero"><Spinner className="w-8 h-8"/></div>}>
+    <Suspense fallback={
+      <div className="flex items-center justify-center w-full h-hero">
+        <Spinner className="w-8 h-8"/>
+      </div>
+    }>
       <RouterProvider router={router}/>
     </Suspense>
   )

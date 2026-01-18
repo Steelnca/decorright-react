@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { ClientContact as Contact } from "@/types/chat";
+import { images } from '@/constants';
 
 
 export default function ChatHeader({
@@ -30,7 +31,7 @@ rightActions,
             <div className="flex items-center gap-2 w-full h-full">
                 {/* Avatar */}
                 <div className="w-12 aspect-square rounded-full border border-muted/45 overflow-hidden">
-                <img src={selected?.avatar ?? '/images/avatar.png'} alt="User Profile" className="w-full h-full object-cover rounded-full" />
+                <img src={selected?.avatar ?? images[7]} alt="User Profile" className="w-full h-full object-cover rounded-full" />
             </div>
 
 

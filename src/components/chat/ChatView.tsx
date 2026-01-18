@@ -1,60 +1,14 @@
 
 // ChatView.tsx (presentational)
-import React from 'react';
-import type { ClientContact as Contact, Message } from '@/types/chat';
 import ChatList from '@components/chat/ChatList';
-import ChatHeader from '@components/chat/ChatHeader';
-import ChatBody from '@components/chat/ChatBody';
-import ChatForm from '@components/chat/ChatForm';
+import { Outlet } from 'react-router-dom';
+import { useChat } from '@/hooks/chat';
 
-export function ChatRoom(props:{
-  selectedContact: Contact | null;
-  messages: Message[];
-  messageText: string;
-  onMessageChange: (v: string) => void;
-  onSend: (e?: React.FormEvent) => void;
-  messagesEndRef: React.RefObject<HTMLDivElement>;
-  isAdmin?: boolean;
-  // slots/overrides
-  renderRightHeaderActions?: (args: { selectedContact: Contact | null }) => React.ReactNode;
-}) {
-  const {
-    selectedContact, messages, messageText, onMessageChange,
-    onSend, messagesEndRef, isAdmin, renderRightHeaderActions
-  } = props;
-  return (
-    <div className="flex flex-col w-full h-full p-2 sm:p-4 border border-muted/15 bg-surface rounded-xl">
-      <ChatHeader
-        selected={selectedContact}
-        isAdmin={isAdmin}
-        rightActions={renderRightHeaderActions ? renderRightHeaderActions({ selectedContact }) : null}
-      />
-      <ChatBody messages={messages} messagesEndRef={messagesEndRef} />
-      <ChatForm
-        message={messageText}
-        setMessage={(v: string) => onMessageChange(v)}
-        onSend={onSend}
-      />
-    </div>
-  )
-}
 
-export default function ChatView(props: {
-  contacts: Contact[];
-  selectedContact: Contact | null;
-  messages: Message[];
-  messageText: string;
-  onMessageChange: (v: string) => void;
-  onSend: (e?: React.FormEvent) => void;
-  onSelectContact: (c: Contact) => void;
-  messagesEndRef: React.RefObject<HTMLDivElement>;
-  isAdmin?: boolean;
-  // slots/overrides
-  renderRightHeaderActions?: (args: { selectedContact: Contact | null }) => React.ReactNode;
-}) {
-  const {
-    contacts, onSelectContact
-  } = props;
+export default function ChatView() {
+
+  const chat = useChat({ initialContacts: [], currentUserId: 1 });
+  const { contacts, selectContact: onSelectContact } = chat;
 
   return (
     <section className="h-hero content-container w-full px-3 sm:px-6 md:px-8">
@@ -66,7 +20,8 @@ export default function ChatView(props: {
             <ChatList contacts={contacts} onSelect={onSelectContact} />
           </div>
 
-          <ChatRoom {...props} />
+          {/* Chat Room Outlet */}
+          <Outlet />
 
         </div>
       </div>

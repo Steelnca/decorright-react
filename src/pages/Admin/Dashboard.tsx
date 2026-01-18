@@ -75,7 +75,7 @@ export default function Dashboard () {
     return (
         <>
             <main>
-                <section className="content-container relative flex flex-col space-y-16 w-full">
+                <section className="content-container relative flex flex-col md:py-6 w-full">
                 <div className="flex flex-col gap-4 w-full h-full">
 
 

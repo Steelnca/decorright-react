@@ -7,12 +7,13 @@ import MessageItem from '@components/chat/ChatMessageItem';
 export default function ChatBody({ messages, messagesEndRef, currentUserId = 1 }:
     {
         messages: Message[];
-        messagesEndRef: React.RefObject<HTMLDivElement>;
+        messagesEndRef: React.RefObject<HTMLDivElement> | null;
         currentUserId?: number;
+
     }) {
 
     return (
-        <div className="relative flex flex-col gap-8 w-full h-full py-4 px-2 overflow-y-scroll min-scrollbar" role="list">
+        <div className="relative flex flex-col gap-8 w-full h-full py-4 px-2 overflow-y-auto min-scrollbar" role="list">
             {messages.length > 0 ? (
                 messages.map((m) => (
                     <div role="listitem" key={m.id}>

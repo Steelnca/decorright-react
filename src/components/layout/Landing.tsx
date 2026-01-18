@@ -1,5 +1,5 @@
 
-import HeroImgSrc from "/public/hero-image.jpg"
+const HeroImgSrc = "/hero-image.jpg";
 import { ICONS } from "@/icons"
 import { PATHS } from "@/routers/Paths"
 import { PCTALink, SCTALink } from "../ui/CTA"
@@ -44,12 +44,12 @@ export function HeroCTA() {
 
         <div className="flex max-md:flex-col gap-4">
             {user
-            ?
-            <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE}> Request Service </PCTALink>
-            :
-            <PCTALink to={PATHS.SERVICE_LIST}> Services </PCTALink>
+                ?
+                <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE}> Request Service </PCTALink>
+                :
+                <PCTALink to={PATHS.SERVICE_LIST}> Services </PCTALink>
             }
-            <SCTALink to={PATHS.PROJECT_LIST} className="flex items-center gap-2"> Projects & Categories {ICONS.chevronRight({className:'size-4 text-foreground'})}</SCTALink>
+            <SCTALink to={PATHS.PROJECT_LIST} className="flex items-center gap-2"> Projects & Categories {ICONS.chevronRight({ className: 'size-4 text-foreground' })}</SCTALink>
         </div>
     )
 }

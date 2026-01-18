@@ -5,7 +5,15 @@ import { companyNameTitle } from "@/constants/company";
 import { ICONS } from "@/icons";
 import { AdminService } from "@/services/admin.service";
 import { useEffect, useState, useCallback } from "react";
-import debounce from "lodash/debounce";
+
+// Custom debounce function to avoid lodash dependency
+function debounce<T extends (...args: any[]) => any>(func: T, wait: number) {
+    let timeout: ReturnType<typeof setTimeout>;
+    return (...args: Parameters<T>) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+    };
+}
 
 export default function Settings() {
     const [dataSaved, setDataSaved] = useState(false);
@@ -149,8 +157,7 @@ export default function Settings() {
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        </main >
+            </section>
+        </main>
     )
 }

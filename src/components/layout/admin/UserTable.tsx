@@ -1,5 +1,5 @@
 import Table from "@/components/ui/DataTable";
-import { AdminService, UserProfile } from "@/services/admin.service";
+import { AdminService, type UserProfile } from "@/services/admin.service";
 import { useEffect, useState } from "react";
 
 const columns = [

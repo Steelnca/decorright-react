@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase"
 import { useNavigate, Link } from "react-router-dom"
 import { EmailInput, PasswordInput } from "../ui/Input"
 import { LegalLinks } from "../../constants"
+import { PATHS } from "@/routers/Paths"
 
 export function LoginLayout() {
     const [email, setEmail] = useState("")
@@ -26,7 +27,7 @@ export function LoginLayout() {
 
             // Redirect will be handled by AuthProvider/AppRouter usually,
             // but we can force it here if needed.
-            navigate("/")
+            navigate(PATHS.ROOT)
         } catch (err: any) {
             setError(err.message || "Failed to login")
         } finally {
@@ -66,7 +67,7 @@ export function LoginLayout() {
                                     <input type="checkbox" name="remember" className="accent-primary" />
                                     <span className="text-xs md:text-sm"> Remember me </span>
                                 </label>
-                                <Link to={'/password-rest'} className="min-w-max w-fit"> <p className="text-2xs md:text-xs hover:text-primary px-1 underline"> Forgot your password ? </p>  </Link>
+                                <Link to={PATHS.FORGOT_PASSWORD} className="min-w-max w-fit"> <p className="text-2xs md:text-xs hover:text-primary px-1 underline"> Forgot your password ? </p>  </Link>
                             </div>
                         </div>
 
@@ -80,7 +81,7 @@ export function LoginLayout() {
                     </form>
 
                     <div className="flex flex-col items-center w-full">
-                        <Link to={'/signup'}> <p className="text-xs text-muted"> Don't have an account yet? <span className="font-medium text-foreground hover:underline active:underline"> Sign up </span> </p> </Link>
+                        <Link to={PATHS.SIGNUP}> <p className="text-xs text-muted"> Don't have an account yet? <span className="font-medium text-foreground hover:underline active:underline"> Sign up </span> </p> </Link>
                         <hr className="w-full border-t border-muted/25 my-4 mask-x-to-transparent mask-x-from-45%" />
 
                         {/* Legal Links */}

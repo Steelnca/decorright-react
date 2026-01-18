@@ -19,6 +19,8 @@ const ProjectDetail = lazy(() => import('@/pages/Public/Project'));
 const Signup = lazy(() => import('@/pages/Public/Signup'));
 const Login = lazy(() => import('@/pages/Public/Login'));
 const VerifyOTP = lazy(() => import('@/pages/VerifyOtp'));
+const ForgotPassword = lazy(() => import('@/pages/Public/ForgotPassword'));
+const ResetPassword = lazy(() => import('@/pages/Public/ResetPassword'));
 
 const ClientHome = lazy(() => import('@/pages/Client/Gallery'));
 const ClientChat = lazy(() => import('@/pages/Client/Chat'));
@@ -29,6 +31,7 @@ const ClientProfile = lazy(() => import('@/pages/Client/Profile'));
 const ClientProfileEdit = lazy(() => import('@/pages/Client/ProfileEdit'));
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard'));
+const AdminDashboardHome = lazy(() => import('@/pages/Admin/DashboardHome'));
 const AdminChat = lazy(() => import('@/pages/Admin/Chat'));
 const AdminUsers = lazy(() => import('@/pages/Admin/Users'));
 const AdminServiceRequests = lazy(() => import('@/pages/Admin/RequestServiceList'));
@@ -82,6 +85,14 @@ const router = createBrowserRouter([
         path: PATHS.VERIFY_OTP,
         element: <VerifyOTP />,
       },
+      {
+        path: PATHS.FORGOT_PASSWORD,
+        element: <ForgotPassword />,
+      },
+      {
+        path: PATHS.RESET_PASSWORD,
+        element: <ResetPassword />,
+      },
 
     ]
   },
@@ -121,11 +132,11 @@ const router = createBrowserRouter([
   // ADMIN ROUTES
   {
     path: PATHS.ADMIN.ROOT,
-    element: (<RequireAuth><AdminLayout /></RequireAuth>),
+    element: (<RequireAuth role="admin"><AdminLayout /></RequireAuth>),
     children: [
       {
         index: true,
-        element: <AdminDashboard />,
+        element: <AdminDashboardHome />,
       },
       {
         path: PATHS.ADMIN.ANALYTICS,

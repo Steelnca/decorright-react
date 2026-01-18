@@ -6,24 +6,50 @@ export type ServiceRequest = Database['public']['Tables']['service_requests']['R
 export type AdminActivity = Database['public']['Tables']['admin_activities']['Row']
 
 export const AdminService = {
+    async getMorningCoffeeStats() {
+        // Active Requests: Submitted, Under Review, Waiting for Client Info, Approved, In Progress
+        const { count: activeRequests } = await supabase
+            .from('service_requests')
+            .select('*', { count: 'exact', head: true })
+            .in('status', ['Submitted', 'Under Review', 'Waiting for Client Info', 'Approved', 'In Progress']);
+
+        // Pending Review: Specifically 'Submitted'
+        const { count: pendingReview } = await supabase
+            .from('service_requests')
+            .select('*', { count: 'exact', head: true })
+            .eq('status', 'Submitted');
+
+        // Unread Messages
+        const { count: msgCount, error: msgError } = await supabase
+            .from('messages')
+            .select('*', { count: 'exact', head: true })
+            .eq('is_read', false);
+
+        if (msgError) {
+            console.error("Error fetching unread messages:", msgError);
+        }
+
+        return {
+            activeRequests: activeRequests || 0,
+            pendingReview: pendingReview || 0,
+            unreadMessages: msgCount || 0,
+        }
+    },
+
     async getDashboardStats() {
-        const { count: totalRequests, error: totalError } = await supabase
+        const { count: totalRequests } = await supabase
             .from('service_requests')
             .select('*', { count: 'exact', head: true })
 
-        const { count: completedRequests, error: completeError } = await supabase
+        const { count: completedRequests } = await supabase
             .from('service_requests')
             .select('*', { count: 'exact', head: true })
             .eq('status', 'Completed')
 
-        const { count: totalUsers, error: usersError } = await supabase
+        const { count: totalUsers } = await supabase
             .from('profiles')
             .select('*', { count: 'exact', head: true })
             .eq('role', 'customer')
-
-        if (totalError || completeError || usersError) {
-            console.error('Error fetching dashboard stats:', { totalError, completeError, usersError })
-        }
 
         const completionRate = totalRequests && totalRequests > 0
             ? Math.round(((completedRequests || 0) / totalRequests) * 100)
@@ -117,7 +143,11 @@ export const AdminService = {
             .select(`
                 *,
                 profiles:user_id (
-                    full_name
+                    full_name,
+                    phone
+                ),
+                chat_rooms (
+                    id
                 )
             `)
             .order('created_at', { ascending: false })

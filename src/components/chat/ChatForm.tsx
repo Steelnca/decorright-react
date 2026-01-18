@@ -1,40 +1,184 @@
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AutoResizeTextarea } from "@components/ui/Input";
+import { ICONS } from "@/icons";
 
+export default function ChatForm({ message, setMessage, onSend, onSendMedia }:
+    {
+        message: string;
+        setMessage: (v: string) => void;
+        onSend: (e?: React.FormEvent) => void;
+        onSendMedia: (file: File | Blob, type: 'IMAGE' | 'AUDIO') => Promise<void>;
+    }) {
+    const [isRecording, setIsRecording] = useState(false);
+    const [recordingTime, setRecordingTime] = useState(0);
+    const [isUploading, setIsUploading] = useState(false);
 
-export default function ChatForm({ message, setMessage, onSend }:
-{
-message: string;
-setMessage: (v: string) => void;
-onSend: (e?: React.FormEvent) => void;
-}) {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const audioChunksRef = useRef<Blob[]>([]);
+    const timerRef = useRef<number | null>(null);
 
+    useEffect(() => {
+        if (isRecording) {
+            timerRef.current = window.setInterval(() => {
+                setRecordingTime(prev => prev + 1);
+            }, 1000);
+        } else {
+            if (timerRef.current) clearInterval(timerRef.current);
+            setRecordingTime(0);
+        }
+        return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    }, [isRecording]);
 
-return (
-<form action={'.'} method="post" onSubmit={onSend} className="flex items-center gap-4 w-full h-fit p-2 border border-muted/25 rounded-xl">
-<AutoResizeTextarea
-value={message}
-onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
-placeholder="Write a message..."
-minRows={1}
-maxRows={5}
-className="resize-none w-full h-fit px-2 outline-0"
-/>
+    const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    };
 
+    const startRecording = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+            audioChunksRef.current = [];
 
-{/* Voice & Upload options */}
-<div className="flex items-end gap-2 h-full">
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) audioChunksRef.current.push(event.data);
+            };
 
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+                if (audioChunksRef.current.length > 0) {
+                    setIsUploading(true);
+                    try {
+                        await onSendMedia(audioBlob, 'AUDIO');
+                    } finally {
+                        setIsUploading(false);
+                    }
+                }
+                stream.getTracks().forEach(track => track.stop());
+            };
 
-<div className={`${message && 'hidden'} flex gap-2`}>
-<button type="button" className="p-2 bg-emphasis rounded-lg ring-1 ring-muted/25">{/* ICONS.photo */}</button>
-<button type="button" className="p-2 bg-emphasis rounded-lg ring-1 ring-muted/25">{/* ICONS.microphone */}</button>
-</div>
+            mediaRecorder.start();
+            setIsRecording(true);
+        } catch (err) {
+            console.error("Error accessing microphone:", err);
+            alert("Could not access microphone.");
+        }
+    };
 
+    const stopRecording = (cancel = false) => {
+        if (!mediaRecorderRef.current) return;
+        if (cancel) audioChunksRef.current = [];
+        mediaRecorderRef.current.stop();
+        setIsRecording(false);
+    };
 
-<button type="submit" className={`${!message && 'hidden'} p-2 h-fit bg-primary rounded-lg `}>{/* ICONS.paperAirplane */}</button>
-</div>
-</form>
-);
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        try {
+            await onSendMedia(file, 'IMAGE');
+        } finally {
+            setIsUploading(false);
+            if (fileInputRef.current) fileInputRef.current.value = '';
+        }
+    };
+
+    return (
+        <div className="flex flex-col gap-2 w-full">
+            <form
+                onSubmit={onSend}
+                className={`flex items-center gap-2 sm:gap-4 w-full h-fit p-1.5 sm:p-2 border border-muted/25 bg-background/50 rounded-xl transition-all ${isRecording ? 'border-primary ring-1 ring-primary/20' : ''}`}
+            >
+                {isRecording ? (
+                    <div className="flex flex-1 items-center gap-3 px-2">
+                        <div className="flex items-center gap-2">
+                            <span className="size-2 bg-red-500 rounded-full animate-pulse" />
+                            <span className="text-sm font-medium tabular-nums">{formatTime(recordingTime)}</span>
+                        </div>
+                        <div className="flex-1 text-sm text-muted animate-pulse">Recording voice message...</div>
+                        <button
+                            type="button"
+                            onClick={() => stopRecording(true)}
+                            className="p-1 px-2 text-xs font-medium text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                ) : (
+                    <AutoResizeTextarea
+                        value={message}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
+                        placeholder={isUploading ? "Uploading..." : "Type your message..."}
+                        disabled={isUploading}
+                        minRows={1}
+                        maxRows={5}
+                        className="resize-none flex-1 h-fit px-2 outline-0 bg-transparent text-sm disabled:opacity-50"
+                        onKeyDown={(e: React.KeyboardEvent) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                onSend();
+                            }
+                        }}
+                    />
+                )}
+
+                <div className="flex items-center gap-1 sm:gap-2">
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        className="hidden"
+                    />
+
+                    {!isRecording && !message.trim() && (
+                        <>
+                            <button
+                                type="button"
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={isUploading}
+                                className="p-2 hover:bg-emphasis rounded-lg text-muted transition-colors disabled:opacity-50"
+                                title="Upload Image"
+                            >
+                                <ICONS.photo className="size-5" />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={startRecording}
+                                disabled={isUploading}
+                                className="p-2 hover:bg-emphasis rounded-lg text-muted transition-colors disabled:opacity-50"
+                                title="Record Voice"
+                            >
+                                <ICONS.microphone className="size-5" />
+                            </button>
+                        </>
+                    )}
+
+                    {isRecording ? (
+                        <button
+                            type="button"
+                            onClick={() => stopRecording(false)}
+                            className="p-2.5 bg-primary text-white rounded-lg shadow-sm hover:scale-105 transition-all"
+                        >
+                            <ICONS.paperAirplane className="size-5" />
+                        </button>
+                    ) : (
+                        <button
+                            type="submit"
+                            disabled={!message.trim() || isUploading}
+                            className={`${(!message.trim() || isUploading) ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'} p-2.5 bg-primary text-white rounded-lg shadow-sm transition-all`}
+                        >
+                            <ICONS.paperAirplane className="size-5" />
+                        </button>
+                    )}
+                </div>
+            </form>
+        </div>
+    );
 }

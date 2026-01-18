@@ -1,47 +1,62 @@
 
 import { ChatLayout } from "@components/layout/Chat"
 
-export  function ChatPage() {
-    return (
-        <main>
-            <ChatLayout/>
-        </main>
-    )
+export function ChatPage() {
+  return (
+    <main>
+      <ChatLayout />
+    </main>
+  )
 }
 
-// pages/client/ChatPage.tsx
-import ChatView from '@components/chat/ChatView';
-import { useChat } from '@/hooks/chat';
-import { requests } from "@/constants";
 
-// pages/admin/ChatPage.tsx
+
+import ChatView from '@components/chat/ChatView';
+import { useAdminChat } from '@/hooks/useAdminChat';
+import useAuth from '@/hooks/useAuth';
+
 export default function AdminChatPage() {
-  // initialize chat state for admin (replace initialContacts with ADMIN_CONTACTS if available)
-  const chat = useChat({ initialContacts: [], currentUserId: 1 });
+  const { user } = useAuth();
+  const {
+    rooms,
+    selectedRoom,
+    setSelectedRoom,
+    messages,
+    messageText,
+    setMessageText,
+    sendMessage,
+    sendMedia,
+    messagesEndRef,
+    filter,
+    setFilter,
+    loading
+  } = useAdminChat();
 
   const commonProps = {
-    contacts: chat.contacts,
-    selectedContact: chat.selectedContact,
-    messages: chat.messages,
-    messageText: chat.message,
-    onMessageChange: chat.setMessage,
-    onSend: chat.sendMessage,
-    onSelectContact: chat.selectContact,
-    messagesEndRef: chat.messagesEndRef as React.RefObject<HTMLDivElement>,
+    contacts: rooms,
+    selectedContact: selectedRoom,
+    messages: messages,
+    messageText: messageText,
+    onMessageChange: setMessageText,
+    onSend: sendMessage,
+    onSendMedia: sendMedia,
+    onSelectContact: setSelectedRoom,
+    messagesEndRef: messagesEndRef as React.RefObject<HTMLDivElement>,
+    isAdmin: true,
+    currentUserId: user?.id,
+    filter,
+    setFilter,
   };
 
-  return (
+  if (loading && rooms.length === 0) {
+    return <div className="p-10 text-center text-muted">Loading conversations...</div>;
+  }
 
-    <main>
-      <ChatView {...commonProps} contacts={requests} isAdmin renderRightHeaderActions={({selectedContact}) => (
-        <div className="flex gap-2">
-          {selectedContact} {/* not useable for now */}
-          <button onClick={() => {/* open tooling */}}>Inspect</button>
-          <button onClick={() => {/* escalate */}}>Escalate</button>
-        </div>
-      )}
+  return (
+    <main className="h-full">
+      <ChatView
+        {...commonProps}
       />
     </main>
-
   );
 }

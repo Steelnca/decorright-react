@@ -1,9 +1,10 @@
-
 import { PATHS } from "@/routers/Paths";
 import useConfirm from "@components/confirm/useConfirm";
+import { useAuth } from "@/contexts/AuthProvider";
 
-export default function LogoutButton({children, ...props}:any) {
+export default function LogoutButton({ children, ...props }: any) {
   const confirm = useConfirm();
+  const { signOut } = useAuth();
 
   async function handleLogout() {
     const ok = await confirm({
@@ -16,13 +17,10 @@ export default function LogoutButton({children, ...props}:any) {
 
     if (!ok) return;
     try {
-
-      // !!! await Logout(); SIGNOUT LOGIC HERE !!!
-
+      await signOut();
       window.location.href = PATHS.LOGIN;
     } catch (err) {
       console.error('logout failed', err);
-      // show a toast or error UI
     }
   }
 

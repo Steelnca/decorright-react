@@ -14,7 +14,16 @@ export default function RequestServiceList() {
         try {
             setLoading(true);
             const data = await AdminService.getAllServiceRequests();
-            setRequests(data || []);
+            console.log("Raw Service Requests Data:", data); // DEBUG: Check structure
+            // Transform data to flatten relations
+            const formattedData = (data || []).map(req => ({
+                ...req,
+                // Ensure chat_id is accessible at the top level for the table
+                chat_id: Array.isArray(req.chat_room) ? req.chat_room[0]?.id : (req.chat_room as any)?.id,
+                // Ensure full_name is accessible (if not already handled)
+                full_name: req.profiles?.full_name || 'Unknown Client'
+            }));
+            setRequests(formattedData);
         } catch (error) {
             console.error("Failed to load requests:", error);
         } finally {

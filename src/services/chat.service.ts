@@ -10,8 +10,12 @@ export const ChatService = {
                 service_requests (
                     id,
                     request_code,
-                    service_type,
+                    service_type_id,
                     status,
+                    service_types (
+                        name,
+                        display_name_en
+                    ),
                     profiles:user_id (
                         id,
                         full_name

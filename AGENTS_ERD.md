@@ -34,14 +34,30 @@ erDiagram
     }
 
     %% ==========================================
-    %% 2. PORTFOLIO SYSTEM (Gallery)
+    %% 2. SERVICE TYPES (Admin-Managed Reference)
     %% ==========================================
+    SERVICE_TYPES {
+        uuid id PK
+        string name UK "Machine-readable key (e.g., INTERIOR_DESIGN)"
+        string display_name_en "User-facing English name"
+        string display_name_ar "User-facing Arabic name (optional)"
+        text description "Admin notes"
+        boolean is_active "Allow admins to disable without deleting"
+        int sort_order "Control display order in dropdowns"
+        datetime created_at
+        datetime updated_at
+    }
+
+    %% ==========================================
+    %% 3. PORTFOLIO SYSTEM (Gallery)
+    %% ==========================================
+
     PROJECT {
         uuid id PK
         string title
         text description
-        %% New Service Enum based on Client Specs
-        enum service_type "INTERIOR_DESIGN, FIXED_DESIGN, DECOR_CONSULTATION, BUILDING_RENOVATION, FURNITURE_REQUEST"
+        %% Service Type - Now a FK to service_types table
+        uuid service_type_id FK "References SERVICE_TYPES.id"
         %% New Space Enum based on Client Specs
         enum space_type "HOUSES_AND_ROOMS, COMMERCIAL_SHOPS, SCHOOLS_AND_NURSERIES, OFFICES_RECEPTION, DORMITORY_LODGINGS"
         decimal area_sqm "Optional"
@@ -60,6 +76,7 @@ erDiagram
         datetime updated_at
     }
 
+
     PROJECT_IMAGE {
         uuid id PK
         uuid project_id FK
@@ -70,7 +87,7 @@ erDiagram
     }
 
     %% ==========================================
-    %% 3. SERVICE REQUESTS (The Core Loop)
+    %% 4. SERVICE REQUESTS (The Core Loop)
     %% ==========================================
     SERVICE_REQUEST {
         uuid id PK
@@ -78,7 +95,7 @@ erDiagram
         uuid client_id FK "Links to PROFILES.id"
         
         %% Core Classification
-        enum service_type "INTERIOR_DESIGN, FIXED_DESIGN, DECOR_CONSULTATION, BUILDING_RENOVATION, FURNITURE_REQUEST"
+        uuid service_type_id FK "References SERVICE_TYPES.id"
         enum space_type "HOUSES_AND_ROOMS, COMMERCIAL_SHOPS, SCHOOLS_AND_NURSERIES, OFFICES_RECEPTION, DORMITORY_LODGINGS"
         
         %% Simplified Fields
@@ -94,6 +111,7 @@ erDiagram
         datetime completed_at
     }
 
+
     REQUEST_ATTACHMENT {
         uuid id PK
         uuid request_id FK
@@ -105,7 +123,7 @@ erDiagram
     }
 
     %% ==========================================
-    %% 4. COMMUNICATION SYSTEM (Chat)
+    %% 5. COMMUNICATION SYSTEM (Chat)
     %% ==========================================
     CHAT_ROOM {
         uuid id PK
@@ -135,7 +153,7 @@ erDiagram
     }
 
     %% ==========================================
-    %% 5. SOCIAL & FEEDBACK (Simplified)
+    %% 6. SOCIAL & FEEDBACK (Simplified)
     %% ==========================================
     LIKE {
         uuid user_id PK_FK
@@ -154,7 +172,7 @@ erDiagram
     }
 
     %% ==========================================
-    %% 6. ADMIN CMS (Web Panel Only)
+    %% 7. ADMIN CMS (Web Panel Only)
     %% ==========================================
     SITE_SETTINGS {
         uuid id PK
@@ -196,6 +214,11 @@ erDiagram
     PROFILES ||--o{ TESTIMONIAL : "writes"
     PROFILES ||--o{ MESSAGE : "sends"
     PROFILES ||--o{ ADMIN_ACTIVITY : "logs (if admin)"
+    PROFILES ||--o{ SERVICE_TYPES : "manages (if admin)"
+
+    %% Service Types
+    SERVICE_TYPES ||--o{ PROJECT : "categorizes"
+    SERVICE_TYPES ||--o{ SERVICE_REQUEST : "categorizes"
 
     %% Service Request
     SERVICE_REQUEST ||--o{ REQUEST_ATTACHMENT : "has_files"

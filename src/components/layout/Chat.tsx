@@ -152,7 +152,7 @@ export function ChatLayout() {
                       {/* Context */}
                       <div className="flex flex-col w-full h-fit">
                         <h3 className="font-medium text-sm"> {request.request_code} </h3>
-                        <p className="text-2xs text-muted"> {(request.service_type || 'Unknown').replace(/_/g, ' ')} </p>
+                        <p className="text-2xs text-muted"> {(request.service_types?.display_name_en || 'Unknown').replace(/_/g, ' ')} </p>
                         <span className="text-2xs text-muted"> {new Date(request.created_at).toLocaleDateString()} </span>
                       </div>
 

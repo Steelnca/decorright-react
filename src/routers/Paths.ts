@@ -40,6 +40,7 @@ export const PATHS = {
         CHAT_ROOM: "chats/:id/",
         USERS: "/admin/users/",
         REQUEST_SERVICE_LIST: "/admin/request-service/list/",
+        SERVICE_TYPES: "/admin/service-types/",
         PROJECT_CREATE: "/admin/project/create/",
         SETTINGS: "/admin/settings/",
     },

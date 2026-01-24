@@ -95,17 +95,21 @@ export const AdminService = {
     async getTopServices() {
         const { data, error } = await supabase
             .from('service_requests')
-            .select('service_type')
+            .select('service_type_id, service_types(name, display_name_en)')
 
         if (error) throw error
 
-        const counts: Record<string, number> = {}
-        data.forEach(req => {
-            counts[req.service_type] = (counts[req.service_type] || 0) + 1
+        const counts: Record<string, { name: string, count: number }> = {}
+        data.forEach((req: any) => {
+            const serviceTypeName = req.service_types?.display_name_en || 'Unknown'
+            if (!counts[serviceTypeName]) {
+                counts[serviceTypeName] = { name: serviceTypeName, count: 0 }
+            }
+            counts[serviceTypeName].count++
         })
 
-        return Object.entries(counts)
-            .map(([service_type, value]) => ({ service_type, value }))
+        return Object.values(counts)
+            .map(({ name, count }) => ({ service_type: name, value: count }))
             .sort((a, b) => b.value - a.value)
             .slice(0, 5)
     },
@@ -165,12 +169,18 @@ export const AdminService = {
     async getRequestsByUser(userId: string) {
         const { data, error } = await supabase
             .from('service_requests')
-            .select('*')
+            .select(`
+                *,
+                service_types (
+                    name,
+                    display_name_en
+                )
+            `)
             .eq('user_id', userId)
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data as ServiceRequest[]
+        return data || []
     },
 
     async getAllServiceRequests() {
@@ -178,6 +188,11 @@ export const AdminService = {
             .from('service_requests')
             .select(`
                 *,
+                service_types (
+                    name,
+                    display_name_en,
+                    display_name_ar
+                ),
                 profiles:user_id (
                     full_name,
                     phone

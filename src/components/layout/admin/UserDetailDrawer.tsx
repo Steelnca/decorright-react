@@ -14,7 +14,7 @@ interface UserDetailDrawerProps {
 
 export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, onRequestClick }: UserDetailDrawerProps) {
     const [activeTab, setActiveTab] = useState<'profile' | 'history' | 'actions'>('profile');
-    const [requests, setRequests] = useState<ServiceRequest[]>([]);
+    const [requests, setRequests] = useState<(ServiceRequest & { service_types: { display_name_en: string } | null })[]>([]);
     const [isLoadingRequests, setIsLoadingRequests] = useState(false);
 
     // Form State
@@ -299,7 +299,7 @@ export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, 
                                                 <div className="flex justify-between items-start mb-2">
                                                     <div>
                                                         <span className="text-xs font-mono text-muted group-hover:text-primary transition-colors">#{req.request_code}</span>
-                                                        <h4 className="font-semibold text-heading text-sm">{req.service_type.replace(/_/g, ' ')}</h4>
+                                                        <h4 className="font-semibold text-heading text-sm">{req.service_types?.display_name_en || 'Unknown Service'}</h4>
                                                     </div>
                                                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase
                                                         ${req.status === 'Completed' ? 'bg-purple-500/10 text-purple-600' :

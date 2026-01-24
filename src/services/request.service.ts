@@ -34,12 +34,19 @@ export const RequestService = {
 
         const { data, error } = await supabase
             .from('service_requests')
-            .select('*')
+            .select(`
+                *,
+                service_types (
+                    name,
+                    display_name_en,
+                    display_name_ar
+                )
+            `)
             .eq('user_id', user.id)
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data as ServiceRequest[]
+        return data as any[]
     },
 
     async getRequestById(id: string) {
@@ -47,6 +54,11 @@ export const RequestService = {
             .from('service_requests')
             .select(`
                 *,
+                service_types (
+                    name,
+                    display_name_en,
+                    display_name_ar
+                ),
                 profiles (
                     full_name,
                     role

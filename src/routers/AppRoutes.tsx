@@ -35,6 +35,7 @@ const AdminDashboardHome = lazy(() => import('@/pages/Admin/DashboardHome'));
 const AdminChat = lazy(() => import('@/pages/Admin/Chat'));
 const AdminUsers = lazy(() => import('@/pages/Admin/Users'));
 const AdminServiceRequests = lazy(() => import('@/pages/Admin/RequestServiceList'));
+const AdminServiceTypes = lazy(() => import('@/pages/Admin/ServiceTypes'));
 const AdminProjectCreate = lazy(() => import('@/pages/Admin/ProjectCreate'));
 const AdminSettings = lazy(() => import('@/pages/Admin/Settings'));
 
@@ -158,6 +159,10 @@ const router = createBrowserRouter([
       {
         path: PATHS.ADMIN.REQUEST_SERVICE_LIST,
         element: <AdminServiceRequests />,
+      },
+      {
+        path: PATHS.ADMIN.SERVICE_TYPES,
+        element: <AdminServiceTypes />,
       },
       {
         path: PATHS.ADMIN.PROJECT_CREATE,

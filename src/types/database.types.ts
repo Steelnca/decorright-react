@@ -312,7 +312,7 @@ export type Database = {
                     id: string
                     location: string | null
                     main_image_url: string | null
-                    service_type: Database["public"]["Enums"]["service_type"] | null
+                    service_type_id: string
                     space_type: Database["public"]["Enums"]["space_type"] | null
                     title: string
                     updated_at: string | null
@@ -327,7 +327,7 @@ export type Database = {
                     id?: string
                     location?: string | null
                     main_image_url?: string | null
-                    service_type?: Database["public"]["Enums"]["service_type"] | null
+                    service_type_id: string
                     space_type?: Database["public"]["Enums"]["space_type"] | null
                     title: string
                     updated_at?: string | null
@@ -342,13 +342,21 @@ export type Database = {
                     id?: string
                     location?: string | null
                     main_image_url?: string | null
-                    service_type?: Database["public"]["Enums"]["service_type"] | null
+                    service_type_id?: string
                     space_type?: Database["public"]["Enums"]["space_type"] | null
                     title?: string
                     updated_at?: string | null
                     visibility?: Database["public"]["Enums"]["project_visibility"] | null
                 }
-                Relationships: []
+                Relationships: [
+                    {
+                        foreignKeyName: "projects_service_type_id_fkey"
+                        columns: ["service_type_id"]
+                        isOneToOne: false
+                        referencedRelation: "service_types"
+                        referencedColumns: ["id"]
+                    },
+                ]
             }
             service_requests: {
                 Row: {
@@ -359,7 +367,7 @@ export type Database = {
                     id: string
                     location: string
                     request_code: string
-                    service_type: Database["public"]["Enums"]["service_type"]
+                    service_type_id: string
                     space_type: Database["public"]["Enums"]["space_type"]
                     status: Database["public"]["Enums"]["request_status"] | null
                     updated_at: string | null
@@ -373,7 +381,7 @@ export type Database = {
                     id?: string
                     location: string
                     request_code: string
-                    service_type: Database["public"]["Enums"]["service_type"]
+                    service_type_id: string
                     space_type: Database["public"]["Enums"]["space_type"]
                     status?: Database["public"]["Enums"]["request_status"] | null
                     updated_at?: string | null
@@ -387,13 +395,20 @@ export type Database = {
                     id?: string
                     location?: string
                     request_code?: string
-                    service_type?: Database["public"]["Enums"]["service_type"]
+                    service_type_id?: string
                     space_type?: Database["public"]["Enums"]["space_type"]
                     status?: Database["public"]["Enums"]["request_status"] | null
                     updated_at?: string | null
                     user_id?: string
                 }
                 Relationships: [
+                    {
+                        foreignKeyName: "service_requests_service_type_id_fkey"
+                        columns: ["service_type_id"]
+                        isOneToOne: false
+                        referencedRelation: "service_types"
+                        referencedColumns: ["id"]
+                    },
                     {
                         foreignKeyName: "service_requests_user_id_fkey"
                         columns: ["user_id"]
@@ -402,6 +417,42 @@ export type Database = {
                         referencedColumns: ["id"]
                     },
                 ]
+            }
+            service_types: {
+                Row: {
+                    created_at: string
+                    description: string | null
+                    display_name_ar: string | null
+                    display_name_en: string
+                    id: string
+                    is_active: boolean
+                    name: string
+                    sort_order: number
+                    updated_at: string
+                }
+                Insert: {
+                    created_at?: string
+                    description?: string | null
+                    display_name_ar?: string | null
+                    display_name_en: string
+                    id?: string
+                    is_active?: boolean
+                    name: string
+                    sort_order?: number
+                    updated_at?: string
+                }
+                Update: {
+                    created_at?: string
+                    description?: string | null
+                    display_name_ar?: string | null
+                    display_name_en?: string
+                    id?: string
+                    is_active?: boolean
+                    name?: string
+                    sort_order?: number
+                    updated_at?: string
+                }
+                Relationships: []
             }
             site_settings: {
                 Row: {
@@ -494,12 +545,6 @@ export type Database = {
             | "Completed"
             | "Rejected"
             | "Cancelled"
-            service_type:
-            | "INTERIOR_DESIGN"
-            | "FIXED_DESIGN"
-            | "DECOR_CONSULTATION"
-            | "BUILDING_RENOVATION"
-            | "FURNITURE_REQUEST"
             space_type:
             | "HOUSES_AND_ROOMS"
             | "COMMERCIAL_SHOPS"
@@ -612,3 +657,33 @@ export type CompositeTypes<
     : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
     ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
+
+export const Constants = {
+    public: {
+        Enums: {
+            admin_action: ["STATUS_CHANGE", "PROJECT_PUBLISH", "SETTINGS_UPDATE"],
+            contact_status: ["NEW", "READ", "ARCHIVED"],
+            file_type_enum: ["IMAGE", "PDF", "DOCUMENT", "CAD", "3D_MODEL"],
+            message_type_enum: ["TEXT", "IMAGE", "AUDIO", "SYSTEM"],
+            project_visibility: ["PUBLIC", "AUTHENTICATED_ONLY", "HIDDEN"],
+            request_status: [
+                "Submitted",
+                "Under Review",
+                "Waiting for Client Info",
+                "Approved",
+                "In Progress",
+                "Completed",
+                "Rejected",
+                "Cancelled",
+            ],
+            space_type: [
+                "HOUSES_AND_ROOMS",
+                "COMMERCIAL_SHOPS",
+                "SCHOOLS_AND_NURSERIES",
+                "OFFICES_RECEPTION",
+                "DORMITORY_LODGINGS",
+            ],
+            user_role: ["customer", "admin"],
+        },
+    },
+} as const

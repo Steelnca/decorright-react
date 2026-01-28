@@ -1,4 +1,5 @@
 
+/** ---- Types ---- */
 export type MessageType = 'TEXT' | 'IMAGE' | 'AUDIO' | 'SYSTEM';
 
 export type Message = {
@@ -23,8 +24,12 @@ export type ChatRoom = {
   service_requests: {
     id: string;
     request_code: string;
-    service_type: string;
+    service_type_id: string;
     status: string;
+    service_types: {
+      name: string;
+      display_name_en: string;
+    };
     profiles: {
       id: string;
       full_name: string;
@@ -34,4 +39,5 @@ export type ChatRoom = {
   unread_count?: number;
 };
 
+// For backward compatibility while refactoring components
 export type ClientContact = ChatRoom;

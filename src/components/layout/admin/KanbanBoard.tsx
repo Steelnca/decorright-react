@@ -62,7 +62,7 @@ export default function KanbanBoard({ requests, onCardClick }: KanbanBoardProps)
                                     <div className="flex flex-col gap-1.5 mt-3">
                                         <div className="flex items-center gap-1.5 text-3xs text-muted">
                                             <ICONS.tag className="size-3" />
-                                            <span>{request.service_type}</span>
+                                            <span>{request.service_types?.display_name_en || 'Unknown'}</span>
                                         </div>
                                         <div className="flex items-center gap-1.5 text-3xs text-muted">
                                             <ICONS.rectangleStack className="size-3" />

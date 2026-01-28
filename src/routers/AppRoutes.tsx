@@ -36,6 +36,7 @@ const ClientPasswordSet = lazy(() => import('@/pages/Client/PasswordSet'));
 const ClientPasswordDone = lazy(() => import('@/pages/Client/PasswordDone'));
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard'));
+const AdminDashboardHome = lazy(() => import('@/pages/Admin/DashboardHome'));
 const AdminChat = lazy(() => import('@/pages/Admin/Chat'));
 const AdminUsers = lazy(() => import('@/pages/Admin/Users'));
 const AdminServiceRequests = lazy(() => import('@/pages/Admin/requests/RequestServiceList'));
@@ -113,7 +114,6 @@ const router = createBrowserRouter([
   {
     path: PATHS.CLIENT.ROOT,
     element: (<RequireAuth><ClientLayout /></RequireAuth>),
-
     children: [
       {
         index: true,
@@ -166,12 +166,11 @@ const router = createBrowserRouter([
   // * ADMIN ROUTES
   {
     path: PATHS.ADMIN.ROOT,
-    element: (<RequireAdmin><AdminLayout /></RequireAdmin>),
-
+    element: (<RequireAuth role="admin"><AdminLayout /></RequireAuth>),
     children: [
       {
         index: true,
-        element: <AdminDashboard />,
+        element: <AdminDashboardHome />,
       },
       {
         path: PATHS.ADMIN.ANALYTICS,
@@ -226,6 +225,16 @@ const router = createBrowserRouter([
         path: PATHS.ADMIN.PROJECT_CREATE,
         element: <AdminProjectCreate />,
       },
+
+      // {
+      //   path: PATHS.ADMIN.SERVICE_TYPES,
+      //   element: <AdminServiceTypes />,
+      // },
+      // {
+      //   path: PATHS.ADMIN.SPACE_TYPES,
+      //   element: <AdminSpaceTypes />,
+      // },
+
 
       // Gallery
       {

@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Database } from '@/types/database.types'
+import { compressImage } from '@/utils/image.utils'
 
 export type UserProfile = Database['public']['Tables']['profiles']['Row']
 export type ServiceRequest = Database['public']['Tables']['service_requests']['Row']
@@ -83,7 +84,7 @@ export const AdminService = {
             })
 
             return {
-                date: `${month} ${currentYear.toString().slice(-2)}`,
+                date: `${month} ${currentYear}`,
                 Requests: monthRequests.length,
                 Complete: monthRequests.filter(req => req.status === 'Completed').length
             }
@@ -95,17 +96,21 @@ export const AdminService = {
     async getTopServices() {
         const { data, error } = await supabase
             .from('service_requests')
-            .select('service_type')
+            .select('service_type_id, service_types(name, display_name_en)')
 
         if (error) throw error
 
-        const counts: Record<string, number> = {}
-        data.forEach(req => {
-            counts[req.service_type] = (counts[req.service_type] || 0) + 1
+        const counts: Record<string, { name: string, count: number }> = {}
+        data.forEach((req: any) => {
+            const serviceTypeName = req.service_types?.display_name_en || 'Unknown'
+            if (!counts[serviceTypeName]) {
+                counts[serviceTypeName] = { name: serviceTypeName, count: 0 }
+            }
+            counts[serviceTypeName].count++
         })
 
-        return Object.entries(counts)
-            .map(([service_type, value]) => ({ service_type, value }))
+        return Object.values(counts)
+            .map(({ name, count }) => ({ service_type: name, value: count }))
             .sort((a, b) => b.value - a.value)
             .slice(0, 5)
     },
@@ -165,12 +170,22 @@ export const AdminService = {
     async getRequestsByUser(userId: string) {
         const { data, error } = await supabase
             .from('service_requests')
-            .select('*')
+            .select(`
+                *,
+                service_types (
+                    name,
+                    display_name_en
+                ),
+                space_types (
+                    name,
+                    display_name_en
+                )
+            `)
             .eq('user_id', userId)
             .order('created_at', { ascending: false })
 
         if (error) throw error
-        return data as ServiceRequest[]
+        return data || []
     },
 
     async getAllServiceRequests() {
@@ -178,6 +193,16 @@ export const AdminService = {
             .from('service_requests')
             .select(`
                 *,
+                service_types (
+                    name,
+                    display_name_en,
+                    display_name_ar
+                ),
+                space_types (
+                    name,
+                    display_name_en,
+                    display_name_ar
+                ),
                 profiles:user_id (
                     full_name,
                     phone
@@ -229,10 +254,45 @@ export const AdminService = {
         return data
     },
 
+    async getProjects(options?: { visibility?: Database['public']['Enums']['project_visibility'][], limit?: number, slug?: string }) {
+        let query = supabase
+            .from('projects')
+            .select(`
+                *,
+                service_types(display_name_en, display_name_ar, display_name_fr),
+                space_types(display_name_en, display_name_ar, display_name_fr),
+                project_images(*)
+            `)
+            .order('created_at', { ascending: false })
+
+        if (options?.visibility) {
+            query = query.in('visibility', options.visibility)
+        }
+
+        if (options?.slug) {
+            query = query.eq('slug', options.slug)
+        }
+
+        if (options?.limit) {
+            query = query.limit(options.limit)
+        }
+
+        const { data, error } = await query
+
+        if (error) throw error
+        return data
+    },
+
     async createProject(project: Database['public']['Tables']['projects']['Insert']) {
+        const payload = {
+            ...project,
+            visibility: project.visibility?.toUpperCase() as any,
+            slug: project.slug || project.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '')
+        }
+
         const { data, error } = await supabase
             .from('projects')
-            .insert(project)
+            .insert(payload)
             .select()
             .single()
 
@@ -240,14 +300,62 @@ export const AdminService = {
         return data
     },
 
+    async updateProject(id: string, updates: Partial<Database['public']['Tables']['projects']['Update']>) {
+        const { data, error } = await supabase
+            .from('projects')
+            .update(updates)
+            .eq('id', id)
+            .select()
+            .single()
+
+        if (error) throw error
+        return data
+    },
+
+    async deleteProject(id: string) {
+        const { error } = await supabase
+            .from('projects')
+            .delete()
+            .eq('id', id)
+
+        if (error) throw error
+    },
+
+    async addProjectImages(projectId: string, imageUrls: string[], overwrite: boolean = false) {
+        if (overwrite) {
+            const { error: deleteError } = await supabase
+                .from('project_images')
+                .delete()
+                .eq('project_id', projectId)
+
+            if (deleteError) throw deleteError
+        }
+
+        const images = imageUrls.map((url, index) => ({
+            project_id: projectId,
+            image_url: url,
+            is_cover: index === 0,
+            sort_order: index
+        }))
+
+        const { error } = await supabase
+            .from('project_images')
+            .insert(images)
+
+        if (error) throw error
+    },
+
     async uploadProjectImage(file: File) {
-        const fileExt = file.name.split('.').pop()
+        const compressedBlob = await compressImage(file, 0.7)
+        const compressedFile = new File([compressedBlob], file.name, { type: 'image/jpeg' })
+
+        const fileExt = 'jpg'
         const fileName = `${Math.random()}.${fileExt}`
         const filePath = `project-images/${fileName}`
 
         const { error: uploadError } = await supabase.storage
             .from('projects')
-            .upload(filePath, file)
+            .upload(filePath, compressedFile)
 
         if (uploadError) throw uploadError
 

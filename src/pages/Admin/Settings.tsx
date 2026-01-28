@@ -3,6 +3,7 @@ import Spinner from "@/components/common/Spinner";
 import { EmailInput, Input, PhoneInput } from "@/components/ui/Input";
 import { images, SocialMediaPhoneFields, SocialMediaUrlFields } from "@/constants";
 import { companyNameTitle } from "@/constants/company";
+import { ICONS } from "@/icons";
 import { AdminService } from "@/services/admin.service";
 import { useEffect, useState, useCallback } from "react";
 
@@ -42,7 +43,6 @@ export default function Settings() {
                 await AdminService.updateSetting(key, value);
                 setDataSaved(true);
                 setTimeout(() => setDataSaved(false), 2000);
-
             } catch (error) {
                 console.error("Failed to save setting:", error);
             } finally {
@@ -68,8 +68,9 @@ export default function Settings() {
                     <h1 className="font-semibold text-lg md:text-2xl"> Settings & Contacts </h1>
 
                     {loading
-                        ? <span className="font-medium text-xs text-foreground/75 animate-pulse"> <Spinner size="sm"/> Saving Data... </span>
-                        : dataSaved
+                        ? <span className="font-medium text-xs text-foreground/75 animate-pulse"> Saving Data... </span>
+                        :
+                        dataSaved
                             ? <span className="font-medium text-xs text-success pulse"> ✓ Data-Saved </span>
                             : <span className="font-medium text-xs text-muted/75"> Auto-Save enabled </span>
                     }

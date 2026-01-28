@@ -1,7 +1,7 @@
 
 import Logo from "/public/vite.svg"
 import type { SideNavItem } from "@/types/nav"
-import { LogoutButton } from "./Confirm"
+import { LogoutButton } from "@components/common/Confirm"
 import { adminSideMenuNav } from "@/constants"
 import { NavLink, useLocation } from "react-router-dom"
 import { ICONS } from "@/icons"

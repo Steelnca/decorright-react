@@ -1,8 +1,7 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ICONS } from '@/icons';
 import { AdminService, type UserProfile, type ServiceRequest } from '@/services/admin.service';
-import { supabase } from '@/lib/supabase';
 
 interface UserDetailDrawerProps {
     user: (UserProfile & { total_requests?: number }) | null;
@@ -14,7 +13,7 @@ interface UserDetailDrawerProps {
 
 export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, onRequestClick }: UserDetailDrawerProps) {
     const [activeTab, setActiveTab] = useState<'profile' | 'history' | 'actions'>('profile');
-    const [requests, setRequests] = useState<ServiceRequest[]>([]);
+    const [requests, setRequests] = useState<(ServiceRequest & { service_types: { display_name_en: string } | null })[]>([]);
     const [isLoadingRequests, setIsLoadingRequests] = useState(false);
 
     // Form State
@@ -78,6 +77,10 @@ export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, 
 
     const handleToggleBan = async () => {
         if (!user) return;
+        if (currentUser?.id === user.id) {
+            alert("You cannot deactivate your own account.");
+            return;
+        }
         try {
             // Optimistic update
             const newStatus = !formData.is_active;
@@ -96,6 +99,10 @@ export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, 
 
     const handleRoleChange = async (newRole: 'admin' | 'customer') => {
         if (!user) return;
+        if (currentUser?.id === user.id) {
+            alert("You cannot change your own role.");
+            return;
+        }
         const confirm = window.confirm(`Are you sure you want to change this user's role to ${newRole.toUpperCase()}?`);
         if (!confirm) return;
 
@@ -108,17 +115,6 @@ export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, 
         }
     };
 
-    // Danger Zone actions
-    const handleResetPassword = async () => {
-        // Since we don't have the user's email in the profile table (usually in auth.users), 
-        // we might not be able to trigger this easily without an edge function 
-        // or stricter permissions.
-        // Assuming we might not have the email, we'll placeholder this or
-        // if user data includes email (it doesn't in profiles table usually).
-        // BUT, notice we didn't add email to profiles. 
-        // So this feature is blocked unless we fetch email from auth.users (requires service role).
-        alert("This feature requires Admin API access to auth.users which is currently restricted.");
-    };
 
     if (!user) return null;
 
@@ -299,7 +295,7 @@ export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, 
                                                 <div className="flex justify-between items-start mb-2">
                                                     <div>
                                                         <span className="text-xs font-mono text-muted group-hover:text-primary transition-colors">#{req.request_code}</span>
-                                                        <h4 className="font-semibold text-heading text-sm">{req.service_type.replace(/_/g, ' ')}</h4>
+                                                        <h4 className="font-semibold text-heading text-sm">{req.service_types?.display_name_en || 'Unknown Service'}</h4>
                                                     </div>
                                                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase
                                                         ${req.status === 'Completed' ? 'bg-purple-500/10 text-purple-600' :
@@ -351,20 +347,10 @@ export default function UserDetailDrawer({ user, isOpen, onClose, onUserUpdate, 
                                             </select>
                                         </div>
 
-                                        <div className="flex items-center justify-between p-3 bg-surface rounded-lg opacity-60 cursor-not-allowed" title="Requires Auth Admin API">
-                                            <div>
-                                                <p className="text-sm font-medium text-heading">Reset Password</p>
-                                                <p className="text-xs text-muted">Send reset email</p>
-                                            </div>
-                                            <button disabled onClick={handleResetPassword} className="px-3 py-1.5 bg-surface-tertiary hover:bg-emphasis text-heading text-xs font-semibold rounded-lg transition-colors">
-                                                Send Email
-                                            </button>
-                                        </div>
-
                                         <div className="flex items-center justify-between p-3 bg-surface rounded-lg">
                                             <div>
-                                                <p className="text-sm font-medium text-heading">Deactivate Account</p>
-                                                <p className="text-xs text-muted">Prevents login</p>
+                                                <p className="text-sm font-medium text-heading">{formData.is_active ? 'Deactivate Account' : 'Reactivate Account'}</p>
+                                                <p className="text-xs text-muted">{formData.is_active ? 'Prevents login' : 'Restores access'}</p>
                                             </div>
                                             <button
                                                 onClick={handleToggleBan}

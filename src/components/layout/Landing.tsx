@@ -1,10 +1,9 @@
 
-import HeroImgSrc from "/public/hero-image.jpg"
-import useAuth  from "@/hooks/useAuth"
-
+const HeroImgSrc = "/hero-image.jpg";
 import { ICONS } from "@/icons"
 import { PATHS } from "@/routers/Paths"
 import { PCTALink, SCTALink } from "../ui/CTA"
+import useAuth from "@/hooks/useAuth";
 
 export function HeroContentCheckListItem({ content }: { content: string }) {
     return (

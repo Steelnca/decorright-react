@@ -88,43 +88,6 @@ export default function ChatForm() {
         }
     };
 
-    // const handleMessageSend = async (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     if (!request || !user) return;
-
-    //     // If there is an active recorder open, attempt to stop it (best-effort).
-    //     if (recorderOpen) {
-    //         // If VoiceRecorder is listening for this event it should stop and emit onSend -> we capture blob.
-    //         window.dispatchEvent(new CustomEvent('voice:stop'));
-    //         // wait briefly for recorder to flush the blob to state
-    //         await new Promise(resolve => setTimeout(resolve, 300));
-    //     }
-
-    //     // If a recorded blob exists - send it instead of text
-    //     if (recordedBlob) {
-    //         await sendVoiceBlob(recordedBlob);
-    //         return;
-    //     }
-
-    //     if (message.trim()) {
-    //         const content = message.trim();
-    //         setSending(true);
-    //         setMessage(''); // Clear input early for better UX
-
-    //         try {
-    //             await ChatService.sendMessage({ requestId: request.id, content, messageType: 'TEXT' });
-    //             // Real-time subscription will handle adding the message to the list
-    //         } catch (err) {
-    //             console.error('Error sending message:', err);
-    //             // Restore message if send failed
-    //             setMessage(content);
-    //         } finally {
-    //             setSending(false);
-    //         }
-    //     }
-    // };
-
-
     return (
         <div className="flex flex-col gap-2 w-full">
             <form

@@ -18,7 +18,7 @@ export default function ChatHeader() {
 
             <div className="flex flex-col w-full h-fit">
                 <h3 className="font-medium text-sm"> {contact?.service_requests.request_code} </h3>
-                <p className="text-2xs text-muted"> {(contact?.service_requests.service_type || 'Unknown').replace(/_/g, ' ')} </p>
+                <p className="text-2xs text-muted"> {(contact?.service_requests.service_type_id || 'Unknown').replace(/_/g, ' ')} </p>
                 <span className="text-2xs text-muted"> {contact?.created_at} </span>
                 {/* <span className="text-2xs text-muted"> {new Date(selectedRoom?.created_at).toLocaleDateString()} </span> */}
             </div>

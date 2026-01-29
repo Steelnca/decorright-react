@@ -66,30 +66,12 @@ export function GalleryItem ({ gallery, index }: { gallery: any, index: number }
     )
 }
 
-export function GalleryList () {
+export function GalleryListLayout () {
     return (
         <ul className="grid justify-items-center grid-cols-1 md:grid-cols-2 gap-6 w-full h-fit">
             {galleries.map((gallery, index) => (
                 <GalleryItem key={index} gallery={gallery} index={index} />
             ))}
         </ul>
-    )
-}
-
-export function GalleryHero () {
-    return (
-
-        <section className="h-hero min-h-hero content-container relative flex flex-col items-center justify-center w-full mt-8 mb-16">
-
-            <div className="absolute right-full w-full h-[calc(100svh-18rem)] md:h-[calc(100svh-16rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-30% overflow-hidden"></div>
-
-            <div className="relative w-full h-full px-2 md:py-8">
-
-                <GalleryList/>
-            </div>
-
-            <div className="absolute left-full w-full h-[calc(100svh-18rem)] md:h-[calc(100svh-16rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>
-
-        </section>
     )
 }

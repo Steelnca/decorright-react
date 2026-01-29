@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 
-import { publicNavItems } from "../../constants";
+import { publicMenuItems } from "../../constants";
 const Logo = "/vite.svg";
 import { ICONS } from "@/icons";
 
@@ -64,7 +64,7 @@ export function Footer() {
 
                     {/* Navigation Link List */}
                     <ul className="flex flex-wrap max-md:justify-center justify-end gap-4 md:gap-6">
-                        {publicNavItems.map((item, index) => (
+                        {publicMenuItems.map((item, index) => (
                             <li key={index}>
                                 <Link to={item.path} className="text-xs hover:underline"> {item.label} </Link>
                             </li>

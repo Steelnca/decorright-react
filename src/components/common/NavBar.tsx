@@ -7,7 +7,7 @@ import { createContext, useContext, useState } from "react"
 
 import { LogoutButton} from "@components/common/Confirm"
 import { ICONS } from "@/icons"
-import { publicNavItems, clientNavItems } from "@/constants"
+import { publicMenuItems, clientMenuItems } from "@/constants"
 import { MenuCard } from "@components/ui/MenuCard"
 import { PCTALink, SCTALink } from "@components/ui/CTA"
 import { PATHS } from "@/routers/Paths"
@@ -34,7 +34,7 @@ export function NavLogo() {
 export function NavLinks() {
     return (
         <ul className="hidden md:flex justify-center gap-4 w-full">
-            {publicNavItems.map((item, index) => (
+            {publicMenuItems.map((item, index) => (
                 <li key={index}>
                     <Link to={item.path} className="font-medium text-sm p-2"> {item.label} </Link>
                 </li>
@@ -46,66 +46,142 @@ export function NavLinks() {
 
 export function AuthenticatedUserActins() {
 
-    const { isAdmin } = useContext(UserContext);
+    const { user, isAdmin } = useContext(UserContext);
+    if (!user) return;
+
+    const [chatMenuOpen, setChatMenuOpen] = useState<boolean>(false);
+    const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
+
     return (
         <>
-            { isAdmin
-            ?
-                <>
-                    {/* Request Project */}
-                    <Link to={PATHS.ADMIN.PROJECT_CREATE} title="Create Project" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-muted/15 bg-surface/75 rounded-full">
-                        Create a Project
-                    </Link>
+            <div className="flex items-center gap-2 md:gap-4">
 
-                    <Link to={PATHS.ADMIN.ROOT} title="Dashboard Panel" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
-                        <ICONS.presentationChartLine className="size-5 md:size-6" />
-                    </Link>
-                </>
+                { isAdmin
 
-                :
-                <>
-                    {/* Request Project */}
-                    <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
-                        Request Service
-                    </Link>
-                </>
+                ?   <>
+                        {/* Request Project */}
+                        <Link to={PATHS.ADMIN.PROJECT_LIST} title="Create Project" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-muted/15 bg-surface/75 rounded-full">
+                            Create a Project
+                        </Link>
+
+                        <Link to={PATHS.ADMIN.ROOT} title="Dashboard Panel" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                            <ICONS.presentationChartLine className="size-5 md:size-6" />
+                        </Link>
+
+                        {/* Chat Menu Card */}
+                        <button type="button" title="Chat Menu" onClick={() => setChatMenuOpen(!chatMenuOpen)}
+                        className="relative content-center p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
+                            <ICONS.chat className="size-5 md:size-6" />
+
+                            <span className="absolute flex size-3 top-0 left-0">
+                                <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
+                                <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
+                            </span>
+                        </button>
+                    </>
+
+                :   <>
+                        {/* Request Project */}
+                        <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
+                            Request Service
+                        </Link>
+
+                        {/* Chat Nav Page */}
+                        <Link to={PATHS.CLIENT.CHAT} title="Chats" className="relative content-center p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
+                            <ICONS.chat className="size-5 md:size-6" />
+
+                            <span className="absolute flex size-3 top-0 left-0">
+                                <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
+                                <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
+                            </span>
+                        </Link>
+
+                    </>
+
+                }
+
+                {/* User Profile Nav Page */}
+                <Link to={PATHS.CLIENT.ACCOUNT_PROFILE} title="My Profile" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                    <ICONS.user className="size-5 md:size-6" />
+                </Link>
+
+                {/* Menu Trigger */}
+                <button type="button" title="Menu" onClick={() => setNavMenuOpen(!navMenuOpen)}
+                className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                    <ICONS.menu className="size-6" />
+                </button>
+
+            </div>
+
+            {chatMenuOpen &&
+                <MenuCard title={'Menu'} open={chatMenuOpen} setOpen={setChatMenuOpen}>
+                    {/* Mobile Nav Menu */}
+
+                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
+                    </ul>
+
+                </MenuCard>
             }
 
-            {/* Chat Nav Page */}
-            <Link to={PATHS.CLIENT.CHAT} title="Chats" className="relative content-center p-2 border border-primary/45 border-muted/16 bg-surface/75 rounded-full">
-                <ICONS.chat className="size-5 md:size-6" />
+            {/* Mobile Nav Menu Card Overlay */}
+            {navMenuOpen &&
+                <MenuCard title={'Menu'} open={navMenuOpen} setOpen={setNavMenuOpen}>
+                    {/* Mobile Nav Menu */}
 
-                <span className="absolute flex size-3 top-0 left-0">
-                    <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
-                    <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
-                </span>
-            </Link>
+                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
+                        <ClientMenu />
+                    </ul>
 
-            {/* User Profile Nav Page */}
-            <Link to={PATHS.CLIENT.ACCOUNT_PROFILE} title="My Profile" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
-                <ICONS.user className="size-5 md:size-6" />
-            </Link>
+                </MenuCard>
+            }
+
         </>
     )
 }
 
 export function AnonymousUserActins() {
+
+    const { user } = useContext(UserContext);
+    if (user) return;
+
+    const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
+
     return (
+
         <>
-            {/* Login */}
-            <SCTALink to={PATHS.LOGIN} title="Login" className="max-md:hidden"> Login </SCTALink>
+            <div className="flex items-center gap-2 md:gap-4">
+                {/* Login */}
+                <SCTALink to={PATHS.LOGIN} title="Login" className="max-md:hidden"> Login </SCTALink>
 
-            {/* Sign Up */}
-            <PCTALink to={PATHS.SIGNUP} title="Sign Up"> Sign Up </PCTALink>
+                {/* Sign Up */}
+                <PCTALink to={PATHS.SIGNUP} title="Sign Up"> Sign Up </PCTALink>
 
+                {/* Menu Trigger */}
+                <button type="button" title="Menu" className="md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                    <ICONS.menu className="size-6" />
+                </button>
+
+            </div>
+
+            {/* Mobile Nav Menu Card Overlay */}
+            {navMenuOpen &&
+                <MenuCard title={'Menu'} open={navMenuOpen} setOpen={setNavMenuOpen}>
+                    {/* Mobile Nav Menu */}
+
+                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
+                        <PublicMenu />
+                    </ul>
+
+                </MenuCard>
+            }
         </>
     )
 }
 
-export function PublicNavMenuItems() {
+export function PublicMenu() {
     return (
         <>
-            {publicNavItems.map((item, index) => (
+            {publicMenuItems.map((item, index) => (
                 <li key={index} className="w-full">
                     <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
                         <div className="flex content-center gap-2">
@@ -158,7 +234,7 @@ export function PublicNavMenuItems() {
 
     )
 }
-export function ClientNavMenuItems() {
+export function ClientMenu() {
 
     const { isAdmin } = useContext(UserContext);
 
@@ -183,7 +259,7 @@ export function ClientNavMenuItems() {
                 </li>
             }
 
-            {clientNavItems.map((item, index) => (
+            {clientMenuItems.map((item, index) => (
                 <li key={index} className="w-full">
                     <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
                         <div className="flex content-center gap-2">
@@ -217,54 +293,12 @@ export function ClientNavMenuItems() {
 }
 
 export function NavActions() {
-    const user = useContext(UserContext);
-    const navMenuOpenState = useState(false);
-    const navMenuOpen = navMenuOpenState[0];
-    const setNavMenuOpen = navMenuOpenState[1];
 
     return (
 
         <>
-            <div className="flex items-center gap-2 md:gap-4">
-
-                {user
-                    ?
-                    <>
-                        <AuthenticatedUserActins />
-                        {/* Menu Trigger */}
-                        <button type="button" title="Menu" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
-                            <ICONS.menu className="size-6" />
-                        </button>
-                    </>
-                    :
-                    <>
-                        <AnonymousUserActins />
-                        {/* Menu Trigger */}
-                        <button type="button" title="Menu" className="md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
-                            <ICONS.menu className="size-6" />
-                        </button>
-                    </>
-                }
-
-            </div>
-
-
-
-            {/* Mobile Nav Menu Card Overlay */}
-            {navMenuOpen &&
-                <MenuCard title={'Menu'} open={navMenuOpen} setOpen={setNavMenuOpen}>
-                    {/* Mobile Nav Menu */}
-
-                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
-                        {user
-                            ? <ClientNavMenuItems />
-                            : <PublicNavMenuItems />
-                        }
-                    </ul>
-
-                </MenuCard>
-            }
-
+            <AuthenticatedUserActins />
+            <AnonymousUserActins />
         </>
     )
 }

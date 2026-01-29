@@ -86,7 +86,7 @@ export const adminSideMenuNav = [
 ]
 
 
-export const clientNavItems = [
+export const clientMenuItems = [
     { label: 'Home', path: PATHS.CLIENT.ROOT, icon: null, description: 'Return to the homepage' },
 
     { label: 'Messages', path: PATHS.CLIENT.CHAT, icon: null, description: 'View and continue your conversations' },
@@ -100,7 +100,7 @@ export const clientNavItems = [
     { label: 'Contact Us', path: PATHS.CONTACT, icon: null, description: 'Get in touch with our team' },
 ]
 
-export const publicNavItems = [
+export const publicMenuItems = [
     { label: 'Home', path: PATHS.ROOT, icon: null, description: 'Landing page and highlights' },
     { label: 'Projects', path: PATHS.PROJECT_LIST, icon: null, description: 'View public projects and case studies' },
     { label: 'Services', path: PATHS.SERVICE_LIST, icon: null, description: 'Learn about available services' },

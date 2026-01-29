@@ -98,7 +98,6 @@ const router = createBrowserRouter([
         path: PATHS.VERIFY_OTP,
         element: <VerifyOTP />,
       },
-
       {
         path: PATHS.PASSWORD_RESET,
         element: <PasswordReset />,

@@ -3,7 +3,7 @@ import { AdminService } from "@/services/admin.service";
 import { Link } from "react-router-dom";
 import { PATHS } from "@/routers/Paths";
 import { ICONS } from "@/icons";
-import Spinner from "../ui/Spinner";
+import Spinner from "@components/common/Spinner";
 
 export function ShowcaseCard({ project, index }: any) {
     const [hasError, setHasError] = useState(false);

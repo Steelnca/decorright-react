@@ -10,9 +10,10 @@ import { SpaceTypesService, type SpaceType } from "@/services/space-types.servic
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStagedFiles } from "@/hooks/useStagedFiles";
-import Spinner from "@/components/ui/Spinner";
+import Spinner from "@/components/common/Spinner";
+import { PATHS } from "@/routers/Paths";
 
-export default function EditProjectForm() {
+export default function ProjectUpdateForm() {
     const { id } = useParams<{ id: string }>();
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
@@ -60,7 +61,7 @@ export default function EditProjectForm() {
                             id: img.id,
                             url: img.image_url,
                             status: 'complete',
-                            file: null
+                            file: null,
                         })));
                     }
                 }
@@ -221,9 +222,9 @@ export default function EditProjectForm() {
 
             <div className="flex max-xs:flex-col md:flex-row gap-3 md:gap-4 w-full md:w-fit">
                 <PButton type="submit" className="w-full" disabled={loading}>
-                    {loading ? "Updating..." : "Update Project"}
+                    <Spinner status={loading}> Update Project </Spinner>
                 </PButton>
-                <SCTALink to={PATHS.ADMIN.PROJECTS} className="w-full"> Cancel </SCTALink>
+                <SCTALink to={PATHS.ADMIN.PROJECT_LIST} className="w-full"> Cancel </SCTALink>
             </div>
         </form>
     );

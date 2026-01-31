@@ -1,6 +1,6 @@
 
 import { Outlet } from "react-router-dom"
-import { NavBar } from "@/components/common/NavBar"
+import { NavBar } from "@/components/navigation/NavBar"
 
 export default function ClientLayout () {
     return (

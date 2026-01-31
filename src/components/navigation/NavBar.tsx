@@ -7,7 +7,7 @@ import { createContext, useContext, useState } from "react"
 
 import { LogoutButton} from "@components/common/Confirm"
 import { ICONS } from "@/icons"
-import { publicMenuItems, clientMenuItems } from "@/constants"
+import { publicMenuItems, clientMenuItems } from "@/constants/navigation"
 import { MenuCard } from "@components/ui/MenuCard"
 import { PCTALink, SCTALink } from "@components/ui/CTA"
 import { PATHS } from "@/routers/Paths"
@@ -64,7 +64,7 @@ export function AuthenticatedUserActins() {
                             Create a Project
                         </Link>
 
-                        <Link to={PATHS.ADMIN.ROOT} title="Dashboard Panel" className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                        <Link to={PATHS.ADMIN.ROOT} title="Dashboard Panel" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
                             <ICONS.presentationChartLine className="size-5 md:size-6" />
                         </Link>
 
@@ -82,12 +82,12 @@ export function AuthenticatedUserActins() {
 
                 :   <>
                         {/* Request Project */}
-                        <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
+                        <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
                             Request Service
                         </Link>
 
                         {/* Chat Nav Page */}
-                        <Link to={PATHS.CLIENT.CHAT} title="Chats" className="relative content-center p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
+                        <Link to={PATHS.CLIENT.CHAT} title="Chats" className="relative content-center p-1.5 md:p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
                             <ICONS.chat className="size-5 md:size-6" />
 
                             <span className="absolute flex size-3 top-0 left-0">
@@ -101,14 +101,14 @@ export function AuthenticatedUserActins() {
                 }
 
                 {/* User Profile Nav Page */}
-                <Link to={PATHS.CLIENT.ACCOUNT_PROFILE} title="My Profile" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                <Link to={PATHS.CLIENT.ACCOUNT_PROFILE} title="My Profile" className="max-md:hidden content-center p-1.5 md:p-2 border border-muted/15 bg-surface/75 rounded-full">
                     <ICONS.user className="size-5 md:size-6" />
                 </Link>
 
                 {/* Menu Trigger */}
                 <button type="button" title="Menu" onClick={() => setNavMenuOpen(!navMenuOpen)}
-                className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
-                    <ICONS.menu className="size-6" />
+                className="content-center p-1.5 md:p-2 border border-muted/15 bg-surface/75 rounded-full">
+                    <ICONS.menu className="size-5 md:size-6" />
                 </button>
 
             </div>
@@ -278,7 +278,7 @@ export function ClientMenu() {
             ))}
 
             <li id="logout-nav-menu-item">
-                <LogoutButton className="flex flex-col gap-1 w-full h-full px-2 py-4 border-b border-muted/15">
+                <LogoutButton className="flex w-full h-full px-2 py-4 border-b border-muted/15">
                     <div className="flex content-center gap-2">
                         {/* Icon */}
                         <ICONS.arrowRightStartOnRectangle />
@@ -314,12 +314,12 @@ export function NavBar() {
             {/* Prevent flicker or showing links prematurely during loading */}
             {authLoading
             ?
-            <div className="flex items-center justify-end gap-4 w-full">
+            <div className="flex items-center justify-end gap-2 md:gap-4 w-full">
 
-                <span className="w-35 p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
-                <span className="p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
-                <span className="p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
-                <span className="p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
+                <span className="max-md:hidden w-35 p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
+                <span className="max-md:hidden p-4 md:p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
+                <span className="p-4 md:p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
+                <span className="p-4 md:p-5 border border-muted/15 bg-surface rounded-full animate-pulse" />
 
             </div>
 

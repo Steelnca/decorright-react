@@ -1,8 +1,8 @@
 
 import { Outlet } from "react-router-dom"
 
-import { NavSideBar } from "@/components/common/NavSideBar"
-import DashboardNavBar from "@/components/common/DashboardNavBar"
+import { NavSideBar } from "@/components/navigation/NavSideBar"
+import DashboardNavBar from "@/components/navigation/DashboardNavBar"
 
 
 export default function AdminLayout() {

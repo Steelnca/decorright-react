@@ -9,8 +9,14 @@ import { useStagedFiles } from "@/hooks/useStagedFiles";
 import { ICONS } from "@/icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SelectMenu } from "@/components/ui/Select";
+import { projectVisibility, serviceSpaceTypes, serviceTypes } from "@/constants";
 
-export default function GalleryCreateLayout() {
+export default function GalleryPortfolioCreateLayout() {
+
+    const [serviceType, setServiceType] = useState<string>("");
+    const [spaceType, setSpaceType] = useState<string>("");
+    const [visibility, setVisibility] = useState<string>("public");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -55,6 +61,38 @@ export default function GalleryCreateLayout() {
                     </textarea>
                 </div>
 
+                <div className="flex flex-col gap-2">
+                    <label className="font-medium text-xs text-muted px-1"> Service Type </label>
+                    <SelectMenu
+                        options={serviceTypes}
+                        placeholder="Select a Service Type"
+                        id="select-service-design-style"
+                        onChange={(val: any) => setServiceType(val.value)}
+                    />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <label className="font-medium text-xs text-muted px-1"> Space Category </label>
+                    <SelectMenu
+                        options={serviceSpaceTypes}
+                        placeholder="Select a Space Type"
+                        id="select-service-space-type"
+                        onChange={(val: any) => setSpaceType(val.value)}
+                    />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <label className="font-medium text-xs text-muted px-1" title="Project Visibility"> Visibility </label>
+                    <SelectMenu
+                        options={projectVisibility}
+                        placeholder="Project Visibility"
+                        id="project-visibility"
+                        required
+                        onChange={(val: any) => setVisibility(val.value)}
+                    />
+                </div>
+
+
                 <div className="flex flex-col gap-2 border border-muted/15 bg-surface rounded-lg">
                     <div className="flex justify-between gap-8 w-full p-3 ">
 
@@ -68,7 +106,7 @@ export default function GalleryCreateLayout() {
                             className="flex items-center font-medium text-2xs md:text-xs text-muted border border-muted/25 bg-emphasis rounded-md px-4 py-2 shadow-2xs cursor-pointer"
                             > Upload </label>
                             <input type="file" name="gallery-before-img" id="gallery-before-img"
-                            className="hidden" accept="image/*"
+                            className="hidden" accept="image/*" required
                             onChange={onUploadChange} />
                         </div>
                     </div>
@@ -99,7 +137,7 @@ export default function GalleryCreateLayout() {
                             className="flex items-center font-medium text-2xs md:text-xs text-muted border border-muted/25 bg-emphasis rounded-md px-4 py-2 shadow-2xs cursor-pointer"
                             > Upload </label>
                             <input type="file" name="gallery-after-img" id="gallery-after-img"
-                            className="hidden" accept="image/*"
+                            className="hidden" accept="image/*" required
                             onChange={onUploadChange} />
                         </div>
                     </div>
@@ -124,7 +162,7 @@ export default function GalleryCreateLayout() {
             {/* CTA & Submit */}
             <div className="flex max-xs:flex-col md:flex-row gap-3 md:gap-4 w-full md:w-fit">
                 <PButton type="submit" className="w-full" disabled={loading}>
-                    <Spinner status={loading} size="sm"> Create Gallery </Spinner>
+                    <Spinner status={loading} size="sm"> Create Portfolio </Spinner>
                 </PButton>
                 <SCTALink to={'/admin'} className="w-full"> Cancel </SCTALink>
             </div>

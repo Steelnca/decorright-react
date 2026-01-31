@@ -48,8 +48,9 @@ export function ServiceCardList() {
 
             {services.map((service) => (
                 <li key={service.id} className="relative p-4">
-                    <div className="absolute top-0 right-0 w-full h-full bg-surface/45 shadow-xs mask-t-to-transparent -z-10 rounded-2xl"></div>
-                    <div className="absolute top-0 right-0 w-full h-full border border-muted/10 mask-b-to-transparent -z-10 rounded-2xl"></div>
+                    <div className="absolute top-0 right-0 w-full h-full bg-surface/45 shadow-xs mask-t-to-transparent -z-10 rounded-2xl" />
+                    <div className="absolute top-0 right-0 w-full h-full border border-muted/10 mask-b-to-transparent -z-10 rounded-2xl" />
+
                     <div className="w-full aspect-4/3 mb-4 overflow-hidden shadow-sm rounded-xl bg-muted/5">
                         {service.image_url ? (
                             <ZoomImage src={service.image_url} alt={service.display_name_en} />

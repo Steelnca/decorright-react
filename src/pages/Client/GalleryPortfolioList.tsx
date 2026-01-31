@@ -1,8 +1,8 @@
-import { GalleryListLayout } from "@/components/layout/GalleryList";
+import GalleryPortfolioListLayout from "@/components/layout/GalleryPortfolioList";
 
 
 
-export default function GalleryListPage () {
+export default function GalleryPortfolioList () {
     return (
 
         <main>
@@ -10,9 +10,9 @@ export default function GalleryListPage () {
 
                 <div className="absolute right-full w-full h-[calc(100svh-18rem)] md:h-[calc(100svh-16rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-30% overflow-hidden"></div>
 
-                    <div className="relative w-full h-full px-2 md:py-8">
+                    <div className="relative w-full h-full md:py-8">
 
-                        <GalleryListLayout/>
+                        <GalleryPortfolioListLayout/>
                     </div>
 
                 <div className="absolute left-full w-full h-[calc(100svh-18rem)] md:h-[calc(100svh-16rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>

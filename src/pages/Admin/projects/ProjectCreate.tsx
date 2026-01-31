@@ -1,4 +1,4 @@
-import ProjectCreateLayout from "@/components/layout/admin/ProjectCreate";
+import ProjectCreateLayout from "@/components/layout/admin/projects/ProjectCreate";
 
 
 

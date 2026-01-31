@@ -1,7 +1,7 @@
-import ProjectTable from "@/components/layout/admin/ProjectTable";
+import ProjectTable from "@/components/layout/admin/projects/ProjectTable";
 import { ICONS } from "@/icons";
 import { useState } from "react";
-import ProjectDrawer from "@/components/layout/admin/ProjectDrawer";
+import ProjectDrawer from "@/components/layout/admin/projects/ProjectDrawer";
 
 export default function AdminProjectList() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);

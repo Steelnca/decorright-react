@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 
-import { publicMenuItems } from "../../constants";
+import { publicMenuItems } from "@/constants/navigation";
 const Logo = "/vite.svg";
 import { ICONS } from "@/icons";
 

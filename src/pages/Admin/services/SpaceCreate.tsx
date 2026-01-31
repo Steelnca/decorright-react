@@ -1,4 +1,4 @@
-import ServiceCreateLayout from "@/components/layout/admin/services/ServiceCreate";
+import ServiceSpaceCreateLayout from "@/components/layout/admin/services/ServiceSpaceCreate";
 
 export default function ServiceCreate() {
     return (
@@ -10,7 +10,7 @@ export default function ServiceCreate() {
 
                     <div className="w-full lg:w-2/3 border border-red-400">
                         {/* Service creation form or content goes here */}
-                        <ServiceCreateLayout />
+                        <ServiceSpaceCreateLayout />
                     </div>
 
                 </div>

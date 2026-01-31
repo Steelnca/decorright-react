@@ -1,10 +1,9 @@
 
-const image2 = "/s2.jpg"
-const image3 = "/s3.jpg"
-const image4 = "/s4.jpg"
-const image6 = "/s6.jpg"
-const user = "/user.png"
-import { PATHS } from "@/routers/Paths"
+const image2 = "/public/s2.jpg"
+const image3 = "/public/s3.jpg"
+const image4 = "/public/s4.jpg"
+const image6 = "/public/s6.jpg"
+const user = "/public/user.png"
 
 const SpacesPlaning = "/services/IMG_3766.jpg";
 const ColorConsultation = "/services/IMG_3767.jpg";
@@ -41,129 +40,62 @@ export const UserRoles = {
 
 export const userPhoneIsVerified = false;
 
-// Admin navigation item list for menu
-export const adminMenuNav = [
-    { id: '1', label: 'Dashboard', path: PATHS.ADMIN.ANALYTICS, icon: null, description: 'Overview metrics, KPIs and site analytics' },
-    { id: '2', label: 'Chats & Requests', path: PATHS.ADMIN.CHAT, icon: null, description: 'Manage conversations and incoming service requests' },
-    { id: '3', label: 'Users & Activity', path: PATHS.ADMIN.USERS, icon: null, description: 'View and manage user accounts, roles and activity logs' },
-    { id: '4', label: 'Service Requests', path: PATHS.ADMIN.REQUEST_SERVICE_LIST, icon: null, description: 'Browse, filter and update service requests' },
-    { id: '5', label: 'Service List', path: PATHS.ADMIN.SERVICE_LIST, icon: null, description: 'Manage published services and their details' },
-    { id: '6', label: 'Create Service', path: PATHS.ADMIN.SERVICE_CREATE, icon: null, description: 'Add a new service offering with images and pricing' },
-    { id: '7', label: 'Projects Create', path: PATHS.ADMIN.PROJECT_CREATE, icon: null, description: 'Create new projects and configure project settings' },
-    { id: '8', label: 'Gallery List', path: PATHS.ADMIN.GALLERY_LIST, icon: null, description: 'Manage gallery entries and categories' },
-    { id: '9', label: 'Create Gallery', path: PATHS.ADMIN.GALLERY_CREATE, icon: null, description: 'Upload and organize new gallery items' },
-    { id: '10', label: 'Settings', path: PATHS.ADMIN.SETTINGS, icon: null, description: 'Application settings, preferences and integrations' },
-]
-
-// Admin Navigation Data (with support for nested items)
-export const adminSideMenuNav = [
-    { id: '1', label: 'Dashboard', path: PATHS.ADMIN.ANALYTICS, icon: null, description: 'Overview metrics, KPIs and site analytics' },
-
-    { id: '2', label: 'Chat & Requests', path: PATHS.ADMIN.CHAT, icon: null, description: 'Manage conversations and incoming service requests' },
-
-    { id: '3', label: 'Users & Activity', path: PATHS.ADMIN.USERS, icon: null, description: 'View and manage user accounts, roles and activity logs' },
-
-    { id: '4', label: 'Service Request', icon: null, children: [
-        { id: '4.1', label: 'Request List', path: PATHS.ADMIN.REQUEST_SERVICE_LIST, icon: null, description: 'Browse, filter and update service requests' },
-    ], description: '' },
-
-    { id: '5', label: 'Services', icon: null, children: [
-        { id: '5.1', label: 'Service List', path: PATHS.ADMIN.SERVICE_LIST, icon: null, description: 'Manage published services and their details' },
-        { id: '5.2', label: 'Create a Service', path: PATHS.ADMIN.SERVICE_CREATE, icon: null, description: 'Add a new service offering with images and pricing' },
-    ], description: '' },
-
-    { id: '6', label: 'Projects', icon: null, children:[
-        { id: '6.1', label: 'Project List', path: PATHS.ADMIN.PROJECT_LIST, icon: null, description: 'View and manage all your projects.' },
-        { id: '6.2', label: 'Create a Project', path: PATHS.ADMIN.PROJECT_CREATE, icon: null, description: 'Create new projects and configure project settings' },
-    ], description: '' },
-
-    { id: '7', label: 'Gallery', icon: null, children:[
-        { id: '7.1', label: 'Gallery List', path: PATHS.ADMIN.GALLERY_LIST, icon: null, description: 'Manage gallery entries and categories' },
-        { id: '7.2', label: 'Create a Gallery', path: PATHS.ADMIN.GALLERY_CREATE, icon: null, description: 'Upload and organize new gallery items' },
-    ], description: '' },
-
-    { id: '8', label: 'Settings', path: PATHS.ADMIN.SETTINGS, icon: null, description: 'Application settings, preferences and integrations' },
-]
 
 
-export const clientMenuItems = [
-    { label: 'Home', path: PATHS.CLIENT.ROOT, icon: null, description: 'Return to the homepage' },
-
-    { label: 'Messages', path: PATHS.CLIENT.CHAT, icon: null, description: 'View and continue your conversations' },
-
-    { label: 'Request Service', path: PATHS.CLIENT.REQUEST_SERVICE, icon: null, description: 'Start a new service request' },
-    { label: 'Your Requests', path: PATHS.CLIENT.REQUEST_SERVICE_LIST, icon: null, description: 'See the status of your service requests' },
-    { label: 'Portfolio', path: PATHS.GALLERY, icon: null, description: 'Browse our gallery and past work' },
-
-    { label: 'Projects', path: PATHS.PROJECT_LIST, icon: null, description: 'Explore completed projects and case studies' },
-    { label: 'Services', path: PATHS.SERVICE_LIST, icon: null, description: 'Explore services we offer' },
-    { label: 'Contact Us', path: PATHS.CONTACT, icon: null, description: 'Get in touch with our team' },
-]
-
-export const publicMenuItems = [
-    { label: 'Home', path: PATHS.ROOT, icon: null, description: 'Landing page and highlights' },
-    { label: 'Projects', path: PATHS.PROJECT_LIST, icon: null, description: 'View public projects and case studies' },
-    { label: 'Services', path: PATHS.SERVICE_LIST, icon: null, description: 'Learn about available services' },
-    { label: 'Contact Us', path: PATHS.CONTACT, icon: null, description: 'Contact information and form' },
-]
-
-export const galleries = [
+export const gallery = [
     {
+        id: '1',
         label: 'Residential', value: 'residential',
-        images: [image6, image2, image3, image4],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur unde excepturi magnam cum labore laboriosam ad obcaecati provident laborum!",
+        images: {before: image6, after: image2},
         checklist: [
             'Customized interior design solutions',
             'Expert space planning and layout optimization',
             'Selection of furniture and decor',
             'Comprehensive project management',
         ],
-        project: {
-            id: '1',
-            badge: 'Top seller',
-            rating: '4.8'
-        }
+        service: "Restructuring Redesign",
+        space: "Houses and Rooms",
     },
     {
+        id: '2',
         label: 'Commercial', value: 'commercial',
-        images: [image6, image2, 'image3', image4],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur unde excepturi accusamus consequatur? Consequuntur odio similique ratione qui laudantium! Quos atque distinctio, magnam cum labore laboriosam ad obcaecati provident laborum!",
+        images: {before: image4, after: image3},
         checklist: [
             'Customized interior design solutions',
             'Expert space planning and layout optimization',
             'Selection of furniture and decor',
             'Comprehensive project management',
         ],
-        project: {
-            id: '2',
-            badge: 'Best sales',
-            rating: '4.2'
-        }
+        service: "Interior Design",
     },
     {
+        id: '3',
         label: 'Office', value: 'office',
-        images: [image6, image2, 'image3', image4],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.adipisicing elit. Aspernatur unde excepturi accusamus consequatur? Aspernatur unde excepturi accusamus consequatur? Consequuntur adipisicing elit. Aspernatur unde excepturi accusamus consequatur? odio similique ratione qui laudantium! Quos atque distinctio, magnam cum labore laboriosam ad obcaecati provident laborum!",
+        images: {before: image2, after: image6},
         checklist: [
             'Customized interior design solutions',
             'Selection of furniture and decor',
         ],
-        project: {
-            id: '3',
-            badge: 'Classic Style',
-            rating: '3.4'
-        }
+        service: "Restructuring Redesign",
+        space: "Houses and Rooms",
     },
     {
         label: 'Hospitality', value: 'hospitality',
-        images: [image6, image2, 'image3', image4],
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. odio similique ratione qui laudantium! Quos atque distinctio, magnam cum labore laboriosam ad obcaecati provident laborum!",
+        images: {before: image4, after: image6},
         checklist: [
             'Customized interior design solutions',
             'Expert space planning and layout optimization',
             'Comprehensive project management',
         ],
-        project: {
-            id: '1',
-            badge: 'Fast Made',
-            rating: '2.8'
-        }
+        id: '1',
+        service: "Restructuring Redesign",
+        space: "Houses and Rooms",
+        rating: '2.8'
+
     },
     // { label: 'Retail', value: 'retail', icon: 'retail' },
     // { label: 'Residential', value: 'residential', icon: 'residential' },
@@ -178,7 +110,7 @@ export const serviceTypes = [
     { label: 'Interior Design', value: 'redesign', src: InteriorDesign, description: 'Transform your interiors with cohesive themes, furniture, lighting, and decor that reflect your taste.' },
     { label: 'Exterior Design', value: 'furniture-selection', src: ExteriorDesign, description: 'Make your home stand out — façades, landscaping, and outdoor lighting that look great and work well.' },
     { label: 'Color Consultation', value: 'color-consultation', src: ColorConsultation, description: 'Get tailored palettes and finish advice (with sample testing) to set the perfect mood for each room.' },
-    { label: 'Project Management', value: 'project-management', src: ProjectManaging, description: 'We’ll coordinate contractors, schedules, and budgets so your project runs smoothly from start to finish.' },
+    { label: 'Restructuring Redesign', value: 'project-management', src: ProjectManaging, description: 'We’ll coordinate contractors, schedules, and budgets so your project runs smoothly from start to finish.' },
     { label: 'Restructuring Redesign', value: 'redesign', src: RestructuringRedesign, description: 'Reconfigure layouts and structure to improve flow, safety, and comfort — smart changes that refresh your space.' },
 ]
 
@@ -187,7 +119,7 @@ export const serviceSpaceTypes = [
     { label: 'Commercial Shops', value: 'COMMERCIAL_SHOPS' },
     { label: 'Schools and Nurseries', value: 'SCHOOLS_AND_NURSERIES' },
     { label: 'Offices Reception', value: 'OFFICES_RECEPTION' },
-    { label: 'Dormitory Lodgings', value: 'DORMITORY_LODGINGS' },
+    { label: 'Restructuring Redesign', value: 'DORMITORY_LODGINGS' },
 ]
 
 
@@ -216,56 +148,72 @@ export const projects = [
         title: 'Interior Design Furniture Selection & Project Management Decr Furniture Selection & Project Management Decr',
         date: '6 months ago',
         src: images[0],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Space Planning",
+        space_type: "Houses and Rooms",
     },
 
     {
         title: 'Furniture Selection Interior Design',
         date: '2 months ago',
         src: images[2],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Interior Design",
+        space_type: "Commercial Shops",
     },
 
     {
         title: 'Interior Redesign & Color Consultation',
         date: '18 days ago',
         src: images[3],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Space Planning",
+        space_type: "Schools and Nurseries",
     },
 
     {
         title: 'Space Planning & Color Consultation',
         date: '3 years ago',
         src: images[4],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Space Planning",
+        space_type: "Houses and Rooms",
     },
 
     {
         title: 'Project Management & Space Planning',
         date: '11 months ago',
         src: images[5],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Exterior Design",
+        space_type: "Houses and Rooms",
     },
 
     {
         title: 'Redesign & Interior Design',
         date: '4 years ago',
         src: images[6],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Interior Design",
+        space_type: "Restructuring Redesign",
     },
 
     {
         title: 'Furniture Selection & Redesign',
         date: '3 weeks ago',
         src: images[0],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Space Planning",
+        space_type: "Restructuring Redesign",
     },
 
     {
         title: 'Color Consultation & Interior Design',
         date: '9 weeks ago',
         src: images[1],
-        alt: "Interior Design"
+        alt: "Interior Design",
+        service_type: "Restructuring Redesign",
+        space_type: "Houses and Rooms",
     },
 ];
 

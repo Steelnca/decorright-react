@@ -49,7 +49,7 @@ export function HeroCTA() {
                 :
                 <PCTALink to={PATHS.SERVICE_LIST}> Services </PCTALink>
             }
-            <SCTALink to={PATHS.PROJECT_LIST} className="flex items-center gap-2"> Projects & Categories {ICONS.chevronRight({ className: 'size-4 text-foreground' })}</SCTALink>
+            <SCTALink to={PATHS.PROJECT_LIST} className="flex items-center justify-center gap-2"> Projects & Categories <ICONS.arrowLongRight className="size-4 text-foreground"/> </SCTALink>
         </div>
     )
 }

@@ -279,7 +279,17 @@
     .text-ellipsis-3line {
         overflow: hidden;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
+        /* Limits the text to a maximum of 2 lines */
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        /* Adds the ellipsis (...) at the end of the truncated text */
+    }
+
+    .text-ellipsis-6line {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
         /* Limits the text to a maximum of 2 lines */
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
@@ -383,5 +393,10 @@
 
     .phone-not-verified {
         @apply text-amber-900 border border-amber-300/25 bg-amber-300/25;
+    }
+
+    .coloured-slider {
+        --divider-color: var(--color-muted);
+        --default-handle-color: var(--color-white);
     }
 }

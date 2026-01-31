@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@img-comparison-slider/react": "^8.0.2",
     "@remixicon/react": "^4.8.0",
     "@supabase/supabase-js": "^2.89.0",
     "@tailwindcss/vite": "^4.1.18",
@@ -21,6 +22,7 @@
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.562.0",
+    "pnpm": "^10.28.2",
     "react": "^19.2.0",
     "react-confirm": "^0.5.0-1",
     "react-day-picker": "^9.13.0",

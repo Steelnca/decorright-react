@@ -5,12 +5,11 @@ import toast from "react-hot-toast";
 import React, { useCallback, useEffect, useState } from "react";
 import type { Database } from "@/types/database.types";
 import { images, Languages } from "@/constants";
-import { EmailInput, Input, PhoneInput } from "../ui/Input";
+import { EmailInput, Input, PhoneInput } from "@components/ui/Input";
 import { supabase } from "@/lib/supabase";
 import { PATHS } from "@/routers/Paths";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { RequestService } from "@/services/request.service";
-import { SelectMenu } from "../ui/Select";
+import { SelectMenu } from "@components/ui/Select";
 import { DEFAULT_AUTH_USER_LANGUAGE, USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "@/config";
 import { ICONS } from "@/icons";
 import { PHONE_REGEX, USERNAME_REGEX } from "@/utils/validators";
@@ -25,7 +24,7 @@ type Settings = {
 
 export type FieldKey = "firstName" | "lastName" | "phone";
 
-export function AccountSettingsLayout () {
+export default function AccountSettingsLayout () {
     const navigate = useNavigate() // moved to top-level hook call
 
     const { user, loading: authLoading } = useAuth()

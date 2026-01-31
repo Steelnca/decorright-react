@@ -2,7 +2,7 @@
 import Logo from "/public/vite.svg"
 import type { SideNavItem } from "@/types/nav"
 import { LogoutButton } from "@components/common/Confirm"
-import { adminSideMenuNav } from "@/constants"
+import { adminSideMenuNav } from "@/constants/navigation"
 import { NavLink, useLocation } from "react-router-dom"
 import { ICONS } from "@/icons"
 import { useEffect, useState } from "react"
@@ -136,8 +136,12 @@ function NavActionList() {
         <ul className="flex flex-col gap-2 w-full h-fit p-2">
             <li key={'action-item-logout'}>
                 <LogoutButton className="flex justify-between font-medium text-sm p-2 w-full border border-muted/15 hover:bg-emphasis rounded-lg">
-                    <span className="px-2"> Logout </span>
-                    <ICONS.arrowRightStartOnRectangle />
+                    <div className="flex content-center gap-2">
+                        {/* Icon */}
+                        <ICONS.arrowRightStartOnRectangle />
+                        {/* Label */}
+                        <span className="font-medium text-sm"> Logout </span>
+                    </div>
                 </LogoutButton>
             </li>
         </ul>

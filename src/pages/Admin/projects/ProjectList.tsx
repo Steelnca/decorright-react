@@ -1,5 +1,5 @@
 
-import { ProjectCardList } from "@/components/layout/admin/ProjectList";
+import { ProjectCardList } from "@/components/layout/admin/projects/ProjectList";
 
 export default function ProjectList () {
     return (

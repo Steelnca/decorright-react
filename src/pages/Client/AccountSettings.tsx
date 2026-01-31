@@ -1,5 +1,5 @@
 
-import { AccountSettingsLayout } from "@/components/layout/AccountSettings"
+import AccountSettingsLayout from "@components/layout/client/AccountSettings"
 
 export default function AccountSettings () {
     return (

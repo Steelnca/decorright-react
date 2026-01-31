@@ -7,33 +7,32 @@ import ClientLayout from '@/layouts/ClientLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 import RequireAuth from '@/components/auth/RequireAuth';
 import Spinner from '@/components/common/Spinner';
-import RequireAdmin from '@/components/auth/RequireAdmin';
 
-const Landing = lazy(() => import('@/pages/Public/Landing'));
-const About = lazy(() => import('@/pages/Public/About'));
-const Contact = lazy(() => import('@/pages/Public/Contact'));
-const ServiceList = lazy(() => import('@/pages/Public/ServiceList'));
-const ProjectList = lazy(() => import('@/pages/Public/ProjectList'));
-const ProjectDetail = lazy(() => import('@/pages/Public/Project'));
+const Landing = lazy(() => import('@/pages/public/Landing'));
+const About = lazy(() => import('@/pages/public/About'));
+const Contact = lazy(() => import('@/pages/public/Contact'));
+const ServiceList = lazy(() => import('@/pages/public/ServiceList'));
+const ProjectList = lazy(() => import('@/pages/public/ProjectList'));
+const ProjectDetail = lazy(() => import('@/pages/public/Project'));
 
-const Signup = lazy(() => import('@/pages/Public/Signup'));
-const Login = lazy(() => import('@/pages/Public/Login'));
+const Signup = lazy(() => import('@/pages/public/Signup'));
+const Login = lazy(() => import('@/pages/public/Login'));
 const VerifyOTP = lazy(() => import('@/pages/VerifyOtp'));
 const PasswordReset = lazy(() => import('@/pages/PasswordReset'));
 const PasswordSent = lazy(() => import('@/pages/PasswordSent'));
 
 const ChatRoom = lazy(() => import('@components/chat/ChatRoom'));
 
-const ClientHome = lazy(() => import('@/pages/Client/Gallery'));
-const ClientChat = lazy(() => import('@/pages/Client/Chat'));
-const ClientGallery = lazy(() => import('@/pages/Client/Gallery'));
-const ClientRequestList = lazy(() => import('@/pages/Client/RequestServiceList'));
-const ClientRequestService = lazy(() => import('@/pages/Client/RequestService'));
-const ClientAccountProfile = lazy(() => import('@/pages/Client/AccountProfile'));
-const ClientAccountSettings = lazy(() => import('@/pages/Client/AccountSettings'));
-const ClientPasswordChange = lazy(() => import('@/pages/Client/PasswordChange'));
-const ClientPasswordSet = lazy(() => import('@/pages/Client/PasswordSet'));
-const ClientPasswordDone = lazy(() => import('@/pages/Client/PasswordDone'));
+const ClientHome = lazy(() => import('@/pages/client/GalleryPortfolioList'));
+const ClientChat = lazy(() => import('@/pages/client/Chat'));
+const ClientGalleryPortfolioList = lazy(() => import('@/pages/client/GalleryPortfolioList'));
+const ClientRequestList = lazy(() => import('@/pages/client/RequestServiceList'));
+const ClientRequestService = lazy(() => import('@/pages/client/RequestService'));
+const ClientAccountProfile = lazy(() => import('@/pages/client/AccountProfile'));
+const ClientAccountSettings = lazy(() => import('@/pages/client/AccountSettings'));
+const ClientPasswordChange = lazy(() => import('@/pages/client/PasswordChange'));
+const ClientPasswordSet = lazy(() => import('@/pages/client/PasswordSet'));
+const ClientPasswordDone = lazy(() => import('@/pages/client/PasswordDone'));
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard'));
 const AdminDashboardHome = lazy(() => import('@/pages/Admin/DashboardHome'));
@@ -43,12 +42,13 @@ const AdminServiceRequests = lazy(() => import('@/pages/Admin/requests/RequestSe
 const AdminServiceRequest = lazy(() => import('@/pages/Admin/requests/RequestService'));
 const AdminServiceList = lazy(() => import('@/pages/Admin/services/ServiceList'));
 const AdminServiceCreate = lazy(() => import('@/pages/Admin/services/ServiceCreate'));
-const AdminServiceEdit = lazy(() => import('@/pages/Admin/services/ServiceEdit'));
+const AdminServiceUpdate = lazy(() => import('@/pages/Admin/services/ServiceUpdate'));
 const AdminProjectCreate = lazy(() => import('@/pages/Admin/projects/ProjectCreate'));
 const AdminProjectList = lazy(() => import('@/pages/Admin/projects/ProjectList'));
-const AdminGalleryList = lazy(() => import('@/pages/Admin/gallery/GalleryList'));
-const AdminGalleryCreate = lazy(() => import('@/pages/Admin/gallery/GalleryCreate'));
-const AdminGalleryEdit = lazy(() => import('@/pages/Admin/gallery/GalleryEdit'));
+const AdminProjectUpdate = lazy(() => import('@/pages/Admin/projects/ProjectUpdate'));
+const AdminGalleryPortfolioList = lazy(() => import('@/pages/Admin/gallery/GalleryPortfolioList'));
+const AdminGalleryPortfolioCreate = lazy(() => import('@/pages/Admin/gallery/GalleryPortfolioCreate'));
+const AdminGalleryPortfolioUpdate = lazy(() => import('@/pages/Admin/gallery/GalleryPortfolioUpdate'));
 const AdminSettings = lazy(() => import('@/pages/Admin/Settings'));
 
 const router = createBrowserRouter([
@@ -83,8 +83,8 @@ const router = createBrowserRouter([
         element: <ProjectDetail />,
       },
       {
-        path: PATHS.GALLERY,
-        element: <ClientGallery />,
+        path: PATHS.GALLERY_PORTFOLIO_LIST,
+        element: <ClientGalleryPortfolioList />,
       },
       {
         path: PATHS.LOGIN,
@@ -211,8 +211,8 @@ const router = createBrowserRouter([
         element: <AdminServiceCreate />,
       },
       {
-        path: PATHS.ADMIN.SERVICE_EDIT,
-        element: <AdminServiceEdit />,
+        path: PATHS.ADMIN.SERVICE_UPDATE,
+        element: <AdminServiceUpdate />,
       },
 
       // Projects
@@ -223,6 +223,10 @@ const router = createBrowserRouter([
       {
         path: PATHS.ADMIN.PROJECT_CREATE,
         element: <AdminProjectCreate />,
+      },
+      {
+        path: PATHS.ADMIN.PROJECT_UPDATE,
+        element: <AdminProjectUpdate />,
       },
 
       // {
@@ -237,16 +241,16 @@ const router = createBrowserRouter([
 
       // Gallery
       {
-        path: PATHS.ADMIN.GALLERY_LIST,
-        element: <AdminGalleryList />,
+        path: PATHS.ADMIN.GALLERY_PORTFOLIO_LIST,
+        element: <AdminGalleryPortfolioList />,
       },
       {
-        path: PATHS.ADMIN.GALLERY_CREATE,
-        element: <AdminGalleryCreate />,
+        path: PATHS.ADMIN.GALLERY_PORTFOLIO_CREATE,
+        element: <AdminGalleryPortfolioCreate />,
       },
       {
-        path: PATHS.ADMIN.GALLERY_EDIT,
-        element: <AdminGalleryEdit />,
+        path: PATHS.ADMIN.GALLERY_PORTFOLIO_UPDATE,
+        element: <AdminGalleryPortfolioUpdate />,
       },
 
       // Settings

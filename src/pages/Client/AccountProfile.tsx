@@ -1,5 +1,5 @@
 
-import AccountProfileLayout from "@/components/layout/AccountProfile"
+import AccountProfileLayout from "@/components/layout/client/AccountProfile"
 
 export default function AccountProfile () {
     return (

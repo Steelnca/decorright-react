@@ -18,7 +18,7 @@ export function LogoutButton({ children, ...props }: Props) {
   async function handleLogout() {
     if (pending) return;
 
-    const ok = await confirm({
+    const confirmed = await confirm({
       title: "Sign me out",
       description: "Are you sure you want to log out of your account?",
       confirmText: "Logout",
@@ -26,7 +26,7 @@ export function LogoutButton({ children, ...props }: Props) {
       variant: "default",
     });
 
-    if (!ok) return;
+    if (!confirmed) return;
 
     setPending(true);
     try {
@@ -57,36 +57,32 @@ export function LogoutButton({ children, ...props }: Props) {
   );
 }
 
-export function VerifyPhone({ children, ...props }: Props) {
+export function VerifyPhone({ children, phone, ...props }:any) {
   const confirm = useConfirm();
-  const navigate = useNavigate();
   const [pending, setPending] = useState(false);
 
-  async function handleLogout() {
+  async function handleVerification() {
     if (pending) return;
 
-    const ok = await confirm({
-      title: "Sign me out",
-      description: "Are you sure you want to log out of your account?",
-      confirmText: "Logout",
+    const confirmed = await confirm({
+      title: "Get Phone Verification Code",
+      description: `Sending code to this number: ${phone}`,
+      confirmText: "Get Code",
       cancelText: "Cancel",
       variant: "default",
     });
 
-    if (!ok) return;
+    if (!confirmed) return;
 
     setPending(true);
     try {
-      // best-effort: sign out via Supabase if available
       try {
-        await supabase.auth.signOut();
+
       } catch (err) {
         // non-fatal — still navigate to login
         console.warn("supabase.signOut() failed:", err);
       }
 
-      // navigate within app (no full reload)
-      navigate(PATHS.LOGIN);
     } catch (err) {
       console.error("logout failed", err);
       // TODO: show user-facing toast
@@ -96,10 +92,10 @@ export function VerifyPhone({ children, ...props }: Props) {
   }
 
   return (
-    <button type="button" onClick={handleLogout} disabled={pending || props.disabled} aria-busy={pending}
+    <button type="button" onClick={handleVerification} disabled={pending || props.disabled} aria-busy={pending}
       {...props}
     >
-      <Spinner status={pending} size="sm" > {children ?? "Logout"} </Spinner>
+      <Spinner status={pending} size="sm" > {children ?? "Get Code"} </Spinner>
     </button>
   );
 }

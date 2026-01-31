@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Table from "@/components/ui/DataTable";
 import { AdminService } from "@/services/admin.service";
 import { ICONS } from "@/icons";
+import { PATHS } from '@/routers/Paths';
 
 interface RequestServiceTableProps {
     onRowClick?: (request: any) => void;
@@ -202,7 +203,7 @@ export default function RequestServiceTable({ onRowClick, externalData, onRefres
                         </button>
                         {row.chat_id && (
                             <Link
-                                to={`/admin/chats?room=${row.chat_id}`}
+                                to={PATHS.ADMIN.chatRoom(row.chat_id)} // to={`/admin/chats?room=${row.chat_id}`}
                                 className="px-2 py-1.5 w-full text-sm text-start hover:bg-emphasis rounded flex items-center gap-2"
                                 onClick={(e) => e.stopPropagation()}
                             >

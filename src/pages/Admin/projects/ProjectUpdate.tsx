@@ -1,7 +1,9 @@
-import { SCTALink } from "@/components/ui/CTA";
-import EditProjectForm from "@/components/layout/admin/EditProject";
 
-export default function AdminProjectEdit() {
+import { SCTALink } from "@/components/ui/CTA";
+import ProjectUpdateForm from "@/components/layout/admin/projects/ProjectUpdate";
+import { PATHS } from "@/routers/Paths";
+
+export default function AdminProjectUpdate() {
     return (
         <div className="flex flex-col gap-14 py-5 w-full">
             {/* Header Section */}
@@ -14,12 +16,12 @@ export default function AdminProjectEdit() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <SCTALink to="/admin/projects" className="py-2.5 px-6"> Back to Projects </SCTALink>
+                    <SCTALink to={PATHS.ADMIN.PROJECT_LIST} className="py-2.5 px-6"> Back to Projects </SCTALink>
                 </div>
             </header>
 
             {/* Edit Form */}
-            <EditProjectForm />
+            <ProjectUpdateForm />
         </div>
     );
 }

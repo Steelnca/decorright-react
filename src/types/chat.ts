@@ -4,11 +4,11 @@ export type MessageType = 'TEXT' | 'IMAGE' | 'AUDIO' | 'SYSTEM';
 
 export type Message = {
   id: string;
-  request_id: string;
+  request_id?: string;
   sender_id: string;
   content: string;
-  message_type: MessageType;
-  media_url?: string;
+  type: MessageType;
+  attachment_url?: string;
   duration_seconds?: number;
   created_at: string;
   attachments?: any;

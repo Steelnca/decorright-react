@@ -125,8 +125,8 @@ export const ChatService = {
                 chat_room_id: rId,
                 sender_id: user.id,
                 content: text,
-                message_type: mType,
-                media_url: mUrl,
+                type: mType,
+                attachment_url: mUrl,
                 is_read: true
             })
             .select()

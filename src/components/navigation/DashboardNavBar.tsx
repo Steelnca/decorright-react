@@ -111,7 +111,7 @@ export default function DashboardNavBar() {
 
     return (
 
-        <div className="navbar-height relative z-40 flex justify-between gap-2 md:gap-4 w-full px-3 sm:px-6 md:px-9 bg-background/95 backdrop-blur-sm border-b border-muted/5">
+        <div className="navbar-height absolute z-50 flex justify-between gap-2 md:gap-4 w-full px-3 sm:px-6 md:px-9">
             <NavLogo />
             <nav className="flex items-center justify-end w-full">
                 <NavActions />

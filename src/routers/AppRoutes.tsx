@@ -43,6 +43,9 @@ const AdminServiceRequest = lazy(() => import('@/pages/Admin/requests/RequestSer
 const AdminServiceList = lazy(() => import('@/pages/Admin/services/ServiceList'));
 const AdminServiceCreate = lazy(() => import('@/pages/Admin/services/ServiceCreate'));
 const AdminServiceUpdate = lazy(() => import('@/pages/Admin/services/ServiceUpdate'));
+const AdminServiceSpaceList = lazy(() => import('@/pages/Admin/services/SpaceList'));
+const AdminServiceSpaceCreate = lazy(() => import('@/pages/Admin/services/SpaceCreate'));
+const AdminServiceSpaceUpdate = lazy(() => import('@/pages/Admin/services/SpaceUpdate'));
 const AdminProjectCreate = lazy(() => import('@/pages/Admin/projects/ProjectCreate'));
 const AdminProjectList = lazy(() => import('@/pages/Admin/projects/ProjectList'));
 const AdminProjectUpdate = lazy(() => import('@/pages/Admin/projects/ProjectUpdate'));
@@ -214,6 +217,18 @@ const router = createBrowserRouter([
         path: PATHS.ADMIN.SERVICE_UPDATE,
         element: <AdminServiceUpdate />,
       },
+      {
+        path: PATHS.ADMIN.SERVICE_SPACE_LIST,
+        element: <AdminServiceSpaceList />,
+      },
+      {
+        path: PATHS.ADMIN.SERVICE_SPACE_CREATE,
+        element: <AdminServiceSpaceCreate />,
+      },
+      {
+        path: PATHS.ADMIN.SERVICE_SPACE_UPDATE,
+        element: <AdminServiceSpaceUpdate />,
+      },
 
       // Projects
       {
@@ -228,16 +243,6 @@ const router = createBrowserRouter([
         path: PATHS.ADMIN.PROJECT_UPDATE,
         element: <AdminProjectUpdate />,
       },
-
-      // {
-      //   path: PATHS.ADMIN.SERVICE_TYPES,
-      //   element: <AdminServiceTypes />,
-      // },
-      // {
-      //   path: PATHS.ADMIN.SPACE_TYPES,
-      //   element: <AdminSpaceTypes />,
-      // },
-
 
       // Gallery
       {

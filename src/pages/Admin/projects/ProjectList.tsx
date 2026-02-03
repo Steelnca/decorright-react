@@ -1,5 +1,6 @@
 
 import { ProjectCardList } from "@/components/layout/admin/projects/ProjectList";
+import { projects, serviceTypes, serviceSpaceTypes, projectVisibilityStags } from "@/constants";
 
 export default function ProjectList () {
     return (
@@ -9,7 +10,7 @@ export default function ProjectList () {
                 <div className="relative flex flex-col gap-8 h-full">
                     <h1 className="font-semibold text-lg md:text-2xl w-fit"> Project List </h1>
                     <div className="w-full">
-                        <ProjectCardList />
+                        <ProjectCardList projects={projects} serviceTypes={serviceTypes} serviceSpaceTypes={serviceSpaceTypes} visibilityStags={projectVisibilityStags} />
                     </div>
                 </div>
             </section>

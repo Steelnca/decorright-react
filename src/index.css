@@ -1,8 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "tailwind-scrollbar-hide";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Define custom variants for each language */
+@custom-variant lang-en (&:where([lang="en"], [lang="en"] *));
+@custom-variant lang-fr (&:where([lang="fr"], [lang="fr"] *));
+@custom-variant lang-ar (&:where([lang="ar"], [lang="ar"] *));
+
 
 :root {
     --acme-background: oklch(0.92 0 0);
@@ -114,8 +119,8 @@
     --breakpoint-3xs: 280px;
 
     /* text */
-    --text-2xs: 0.625rem;
-    --text-3xs: 0.5rem;
+    --text-2xs: 0.65rem;
+    --text-3xs: 0.55rem;
 
     /* blur */
     --blur-2xs: 2px;
@@ -134,11 +139,11 @@
     }
 
     body {
-        @apply bg-background overflow-x-hidden;
+        @apply bg-background;
     }
 
     main {
-        @apply flex flex-col items-center overflow-x-hidden;
+        @apply flex flex-col items-center overflow-x-clip overflow-y-clip;
     }
 
     .navbar-height {

@@ -106,27 +106,27 @@ export const gallery = [
 ]
 
 export const serviceTypes = [
-    { label: 'Space Planning', value: 'space-planning', src: SpacesPlaning, description: 'Practical layouts and furniture plans that boost usability and circulation while matching your style.' },
-    { label: 'Interior Design', value: 'redesign', src: InteriorDesign, description: 'Transform your interiors with cohesive themes, furniture, lighting, and decor that reflect your taste.' },
-    { label: 'Exterior Design', value: 'furniture-selection', src: ExteriorDesign, description: 'Make your home stand out — façades, landscaping, and outdoor lighting that look great and work well.' },
-    { label: 'Color Consultation', value: 'color-consultation', src: ColorConsultation, description: 'Get tailored palettes and finish advice (with sample testing) to set the perfect mood for each room.' },
-    { label: 'Restructuring Redesign', value: 'project-management', src: ProjectManaging, description: 'We’ll coordinate contractors, schedules, and budgets so your project runs smoothly from start to finish.' },
-    { label: 'Restructuring Redesign', value: 'redesign', src: RestructuringRedesign, description: 'Reconfigure layouts and structure to improve flow, safety, and comfort — smart changes that refresh your space.' },
+    { id:'1', label: 'Space Planning', value: 'space-planning', src: SpacesPlaning, description: 'Practical layouts and furniture plans that boost usability and circulation while matching your style.' },
+    { id:'2', label: 'Interior Design', value: 'redesign', src: InteriorDesign, description: 'Transform your interiors with cohesive themes, furniture, lighting, and decor that reflect your taste.' },
+    { id:'3', label: 'Exterior Design', value: 'furniture-selection', src: ExteriorDesign, description: 'Make your home stand out — façades, landscaping, and outdoor lighting that look great and work well.' },
+    { id:'4', label: 'Color Consultation', value: 'color-consultation', src: ColorConsultation, description: 'Get tailored palettes and finish advice (with sample testing) to set the perfect mood for each room.' },
+    { id:'5', label: 'Restructuring Redesign', value: 'project-management', src: ProjectManaging, description: 'We’ll coordinate contractors, schedules, and budgets so your project runs smoothly from start to finish.' },
+    { id:'6', label: 'Restructuring Redesign', value: 'redesign', src: RestructuringRedesign, description: 'Reconfigure layouts and structure to improve flow, safety, and comfort — smart changes that refresh your space.' },
 ]
 
 export const serviceSpaceTypes = [
-    { label: 'Houses and Rooms', value: 'HOUSES_AND_ROOMS' },
-    { label: 'Commercial Shops', value: 'COMMERCIAL_SHOPS' },
-    { label: 'Schools and Nurseries', value: 'SCHOOLS_AND_NURSERIES' },
-    { label: 'Offices Reception', value: 'OFFICES_RECEPTION' },
-    { label: 'Restructuring Redesign', value: 'DORMITORY_LODGINGS' },
+    { id:'1', label: 'Houses and Rooms', value: 'HOUSES_AND_ROOMS' },
+    { id:'2', label: 'Commercial Shops', value: 'COMMERCIAL_SHOPS' },
+    { id:'3', label: 'Schools and Nurseries', value: 'SCHOOLS_AND_NURSERIES' },
+    { id:'4', label: 'Offices Reception', value: 'OFFICES_RECEPTION' },
+    { id:'5', label: 'Restructuring Redesign', value: 'DORMITORY_LODGINGS' },
 ]
 
 
-export const projectVisibility = [
-    { label: 'Public', value: 'public' },
-    { label: 'Private Clients Only', value: 'authenticated_only' },
-    { label: 'Hidden', value: 'hidden' },
+export const projectVisibilityStags = [
+    { id:'1', label: 'Public', value: 'public' },
+    { id:'2', label: 'Clients', value: 'clients' },
+    { id:'3', label: 'Hidden', value: 'hidden' },
 ]
 
 export const serviceDesignStyle = [
@@ -145,75 +145,123 @@ export const LegalLinks = [
 
 export const projects = [
     {
+        id: '1',
         title: 'Interior Design Furniture Selection & Project Management Decr Furniture Selection & Project Management Decr',
         date: '6 months ago',
         src: images[0],
         alt: "Interior Design",
         service_type: "Space Planning",
-        space_type: "Houses and Rooms",
+        service_space_type: "Houses and Rooms",
+        stage: {label: 'Clients', value: 'clients' },
+        views:121,
+        likes:64,
+        created_at: '2026-02-01T17:35:29.707536+00:00',
+        updated_at: '2026-02-01T17:35:29.707536+00:00',
     },
 
     {
+        id: '2',
         title: 'Furniture Selection Interior Design',
         date: '2 months ago',
         src: images[2],
         alt: "Interior Design",
         service_type: "Interior Design",
-        space_type: "Commercial Shops",
+        service_space_type: "Commercial Shops",
+        stage: {label: 'Hidden', value: 'hidden' },
+        views:762,
+        likes:441,
+        created_at: '2026-01-27T10:16:39.502926+00:00',
+        updated_at: '2026-02-01T17:35:29.707536+00:00',
     },
 
     {
+        id: '3',
         title: 'Interior Redesign & Color Consultation',
         date: '18 days ago',
         src: images[3],
         alt: "Interior Design",
         service_type: "Space Planning",
-        space_type: "Schools and Nurseries",
+        service_space_type: "Schools and Nurseries",
+        stage: {label: 'Clients', value: 'clients' },
+        views:92,
+        likes:419,
+        created_at: '2026-01-27T10:16:39.502926+00:00',
+        updated_at: '2026-02-01T17:35:29.707536+00:00',
     },
 
     {
+        id: '4',
         title: 'Space Planning & Color Consultation',
         date: '3 years ago',
         src: images[4],
         alt: "Interior Design",
         service_type: "Space Planning",
-        space_type: "Houses and Rooms",
+        service_space_type: "Houses and Rooms",
+        stage: {label: 'Public', value: 'public' },
+        views:363,
+        likes:93,
+        created_at: '2026-01-27T10:23:53.719066+00:00',
+        updated_at: '2026-02-01T17:35:29.707536+00:00',
     },
 
     {
+        id: '5',
         title: 'Project Management & Space Planning',
         date: '11 months ago',
         src: images[5],
         alt: "Interior Design",
         service_type: "Exterior Design",
-        space_type: "Houses and Rooms",
+        service_space_type: "Houses and Rooms",
+        stage: {label: 'Public', value: 'public' },
+        views:244,
+        likes:41,
+        created_at: '2026-02-01T17:35:29.707536+00:00',
+        updated_at: '2026-02-01T17:35:29.707536+00:00',
     },
 
     {
+        id: '6',
         title: 'Redesign & Interior Design',
         date: '4 years ago',
         src: images[6],
         alt: "Interior Design",
         service_type: "Interior Design",
-        space_type: "Restructuring Redesign",
+        service_space_type: "Restructuring Redesign",
+        stage: {label: 'Public', value: 'public' },
+        views:162,
+        likes:13,
+        created_at: '2026-04-27T10:23:53.719066+00:00',
+        updated_at: '2026-06-01T17:35:29.707536+00:00',
     },
 
     {
+        id: '7',
         title: 'Furniture Selection & Redesign',
         date: '3 weeks ago',
         src: images[0],
         alt: "Interior Design",
         service_type: "Space Planning",
-        space_type: "Restructuring Redesign",
+        service_space_type: "Restructuring Redesign",
+        stage: {label: 'Clients', value: 'clients' },
+        views:762,
+        likes:413,
+        created_at: '2026-01-27T10:21:53.719066+00:00',
+        updated_at: '2026-02-01T17:35:29.707536+00:00',
     },
 
     {
+        id: '8',
         title: 'Color Consultation & Interior Design',
         date: '9 weeks ago',
         src: images[1],
         alt: "Interior Design",
         service_type: "Restructuring Redesign",
-        space_type: "Houses and Rooms",
+        service_space_type: "Houses and Rooms",
+        stage: {label: 'Public', value: 'public' },
+        views:762,
+        likes:413,
+        created_at: '2026-01-27T10:23:53.719066+00:00',
+        updated_at: '2026-01-27T10:23:53.719066+00:00',
     },
 ];
 

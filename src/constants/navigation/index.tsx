@@ -20,13 +20,14 @@ export const adminSideMenuNav = [
 
     { id: '3', label: 'Users & Activity', path: PATHS.ADMIN.USERS, icon: null, description: 'View and manage user accounts, roles and activity logs' },
 
-    { id: '4', label: 'Service Request', icon: null, children: [
-        { id: '4.1', label: 'Request List', path: PATHS.ADMIN.REQUEST_SERVICE_LIST, icon: null, description: 'Browse, filter and update service requests' },
-    ], description: '' },
+    { id: '4', label: 'Service Requests', path: PATHS.ADMIN.REQUEST_SERVICE_LIST, icon: null, description: 'Browse, filter and update service requests' },
 
-    { id: '5', label: 'Services', icon: null, children: [
+    { id: '5', label: 'Services & Spaces', icon: null, children: [
         { id: '5.1', label: 'Service List', path: PATHS.ADMIN.SERVICE_LIST, icon: null, description: 'Manage published services and their details' },
         { id: '5.2', label: 'Create a Service', path: PATHS.ADMIN.SERVICE_CREATE, icon: null, description: 'Add a new service offering with images and pricing' },
+
+        { id: '5.3', label: 'Space Service List', path: PATHS.ADMIN.SERVICE_SPACE_LIST, icon: null, description: 'Manage published space services and their details' },
+        { id: '5.4', label: 'Create a Space Service', path: PATHS.ADMIN.SERVICE_SPACE_CREATE, icon: null, description: 'Add a new space service.' },
     ], description: '' },
 
     { id: '6', label: 'Projects', icon: null, children:[

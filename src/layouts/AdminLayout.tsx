@@ -7,19 +7,18 @@ import DashboardNavBar from "@/components/navigation/DashboardNavBar"
 
 export default function AdminLayout() {
     return (
-        <div className="flex max-md:flex-col">
+        <div className="flex max-md:flex-col w-full mx-auto">
             <aside className="max-md:hidden sticky top-0 w-1/6 min-w-64 h-screen border-r border-muted/15 z-50 bg-background">
                 <NavSideBar />
             </aside>
 
-            <div className="flex-1 flex flex-col h-screen overflow-hidden min-w-0 bg-background relative">
-                <header className="relative z-30 flex-none">
+            <div className="relative flex flex-col h-screen w-full overflow-y-auto">
+                <header className="relative z-50">
                     <DashboardNavBar />
                 </header>
 
-                <div className="flex-1 overflow-auto">
-                    <Outlet />
-                </div>
+                <Outlet />
+
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 
-export default function ServiceEdit() {
+export default function ServiceSpaceUpdate() {
     return (
         <main>
             <section className="h-hero min-h-hero relative flex flex-col w-full md:pt-8 mb-40">

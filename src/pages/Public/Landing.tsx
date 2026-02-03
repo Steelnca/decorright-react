@@ -12,7 +12,7 @@ import { ICONS } from "@/icons"
 export default function Landing() {
     return (
         <>
-            <main className="bg-linear-0 from-transparent to-primary/4">
+            <main className="bg-linear-0 from-transparent to-primary/4 overflow-y-clip">
                 <Hero />
             </main>
             <section className="relative my-8 py-12 px-3 sm:px-6 md:px-8">

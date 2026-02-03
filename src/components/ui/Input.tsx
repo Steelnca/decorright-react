@@ -4,15 +4,20 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import { ICONS } from "@/icons";
 
 export function Input({ className, children, ...props }: any) {
+
   return (
-    <div className="relative flex flex-col mb-2 w-full">
+
+    <div className="relative flex flex-col gap-1 w-full">
       <div className="relative flex items-center">
-        <input
+        <input dir="auto"
         className={`
-          content-center text-sm h-10 w-full px-2 py-1.5 md:py-2 border border-muted/15
+          content-center text-sm cursor-text h-10 w-full px-2 py-1.5 md:py-2
           ${ props.readOnly && 'ltr:pr-8 ltr:sm:pr-10 rtl:pl-8 rtl:sm:pl-10'}
           ${props.value && props.error ? 'outline-danger/45' : 'outline-muted/15'}
-          bg-emphasis/75 rounded-lg outline-0 focus:outline-1 placeholder:max-md:text-xs ${className}
+          bg-emphasis/75 rounded-lg outline-0 focus:outline-1 placeholder:max-md:text-xs
+          lang-ar:placeholder:text-right
+          border ${props.error ? 'border-danger/45' : 'border-muted/15'}
+          ${className}
         `}
         {...props} />
         {children}
@@ -22,7 +27,7 @@ export function Input({ className, children, ...props }: any) {
         <ICONS.lockClosed className="size-4 md:size-5 text-muted/75" />
       </span>}
 
-      {props.value && props.error && <span title={props.error} aria-label="error" className="absolute flex items-center top-full text-xs text-danger/75 px-0.5"> {props.error} </span>}
+      {props.error && <p title={props.error} aria-label="error" className="text-xs text-danger/75 px-0.5"> {props.error} </p>}
     </div>
   )
 }
@@ -92,6 +97,25 @@ export function EmailOrPhoneInput({ id = 'email_or_phone_field', label = 'Email 
     </Input>
   );
 };
+
+export function TextArea({...props}:any) {
+  return (
+    <>
+      <textarea
+      dir="auto"
+      className={
+        `w-full p-2.5 text-sm text-muted bg-emphasis/75 rounded-lg cursor-text outline-1
+        hover:outline-muted/25 focus:outline-muted/45
+        ${props.error ? 'outline-danger/45' : 'outline-muted/15'}
+        ${props.className}`
+      }
+
+      {...props}
+      />
+      {props.error && <p className="text-xs text-danger">{ props.error }</p>}
+    </>
+  )
+}
 
 type AutoResizeTextareaProps = {
   value: string;

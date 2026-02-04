@@ -10,7 +10,7 @@ import { ICONS } from "@/icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SelectMenu } from "@/components/ui/Select";
-import { projectVisibility, serviceSpaceTypes, serviceTypes } from "@/constants";
+import { projectVisibilityStags, serviceSpaceTypes, serviceTypes } from "@/constants";
 
 export default function GalleryPortfolioCreateLayout() {
 
@@ -84,7 +84,7 @@ export default function GalleryPortfolioCreateLayout() {
                 <div className="flex flex-col gap-2">
                     <label className="font-medium text-xs text-muted px-1" title="Project Visibility"> Visibility </label>
                     <SelectMenu
-                        options={projectVisibility}
+                        options={projectVisibilityStags}
                         placeholder="Project Visibility"
                         id="project-visibility"
                         required

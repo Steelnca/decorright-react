@@ -1,8 +1,43 @@
 
-import { ServiceCard } from "@/components/layout/admin/services/ServiceList";
-import { serviceTypes } from "@/constants";
+import Spinner from "@/components/common/Spinner";
+import ServiceListLayout from "@/components/layout/admin/services/ServiceList";
+import { serviceStatus } from "@/constants";
+import { ServiceTypesService, type ServiceType } from "@/services/service-types.service";
+import { useEffect, useState } from "react";
 
 export default function ServiceList() {
+
+    const [serviceTypes, setServiceTypes] = useState<ServiceType[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchProjects() {
+            try {
+                const data = await ServiceTypesService.getAll();
+                setServiceTypes(data || []);
+            } catch (err) {
+                console.error("Failed to fetch showcase projects:", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchProjects();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center p-8">
+                <Spinner status={loading} />
+            </div>
+        )
+    };
+
+    if (setServiceTypes.length === 0) {
+        return (
+            <div className="text-center p-8 text-muted">No services was made yet.</div>
+        )
+    }
+
     return (
         <main>
             <section className="h-hero min-h-hero relative flex flex-col w-full md:pt-8 mb-40">
@@ -10,13 +45,7 @@ export default function ServiceList() {
                     <h1 className="font-semibold text-lg md:text-2xl"> Service List </h1>
                     {/* Service content goes here */}
 
-                    <ul className="grid max-md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] grid-cols-3 gap-6 w-full">
-
-                        {serviceTypes.map((service, index) => (
-                            <ServiceCard id={service.value} key={index} label={service.label} description={service.description} src={service.src} />
-                        ))}
-
-                    </ul>
+                    <ServiceListLayout serviceTypes={serviceTypes} serviceStatus={serviceStatus} />
 
                 </div>
             </section>

@@ -129,6 +129,17 @@ export const projectVisibilityStags = [
     { id:'3', label: 'Hidden', value: 'hidden' },
 ]
 
+export const serviceStatus = [
+    { id:'1', label: 'Active', value: 'active' },
+    { id:'2', label: 'Inactive', value: 'inactive' },
+]
+
+
+export const serviceSpaceStatus = [
+    { id:'1', label: 'Active', value: 'active' },
+    { id:'2', label: 'Inactive', value: 'inactive' },
+]
+
 export const serviceDesignStyle = [
     { label: 'Interior Design', value: 'INTERIOR_DESIGN' },
     { label: 'Fixed Design', value: 'FIXED_DESIGN' },

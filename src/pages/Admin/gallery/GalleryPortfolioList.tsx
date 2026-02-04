@@ -2,6 +2,7 @@
 // Request page for admin users to overview and manage request
 
 import GalleryPortfolioListLayout from "@/components/layout/admin/gallery/GalleryPortfolioList";
+import { projects, projectVisibilityStags, serviceSpaceTypes, serviceTypes } from "@/constants";
 
 export default function GalleryListPage() {
     return (
@@ -12,7 +13,7 @@ export default function GalleryListPage() {
                     {/* Request overview content goes here */}
 
                     <div className="w-full">
-                        <GalleryPortfolioListLayout />
+                        <GalleryPortfolioListLayout gallery={projects} serviceTypes={serviceTypes} serviceSpaceTypes={serviceSpaceTypes} visibilityStags={projectVisibilityStags}  />
                     </div>
 
                 </div>

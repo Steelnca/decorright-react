@@ -4,7 +4,7 @@ import { SCTALink } from "@/components/ui/CTA";
 import FileUploadPanel from "@/components/ui/FileUploadPanel";
 import { DateInput, Input } from "@/components/ui/Input";
 import { SelectMenu } from "@/components/ui/Select";
-import { projectVisibility, serviceSpaceTypes, serviceTypes } from "@/constants";
+import { projectVisibilityStags, serviceSpaceTypes, serviceTypes } from "@/constants";
 import { AdminService } from "@/services/admin.service";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -101,7 +101,7 @@ export default function ProjectCreateLayout() {
                     <div className="flex flex-col gap-2">
                         <label className="font-medium text-xs text-muted px-1" title="Project Visibility"> Visibility </label>
                         <SelectMenu
-                            options={projectVisibility}
+                            options={projectVisibilityStags}
                             placeholder="Project Visibility"
                             id="project-visibility"
                             required

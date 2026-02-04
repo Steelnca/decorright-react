@@ -13,7 +13,7 @@ const About = lazy(() => import('@/pages/public/About'));
 const Contact = lazy(() => import('@/pages/public/Contact'));
 const ServiceList = lazy(() => import('@/pages/public/ServiceList'));
 const ProjectList = lazy(() => import('@/pages/public/ProjectList'));
-const ProjectDetail = lazy(() => import('@/pages/public/Project'));
+const ProjectDetail = lazy(() => import('@/pages/public/ProjectDetail'));
 
 const Signup = lazy(() => import('@/pages/public/Signup'));
 const Login = lazy(() => import('@/pages/public/Login'));
@@ -43,9 +43,9 @@ const AdminServiceRequest = lazy(() => import('@/pages/Admin/requests/RequestSer
 const AdminServiceList = lazy(() => import('@/pages/Admin/services/ServiceList'));
 const AdminServiceCreate = lazy(() => import('@/pages/Admin/services/ServiceCreate'));
 const AdminServiceUpdate = lazy(() => import('@/pages/Admin/services/ServiceUpdate'));
-const AdminServiceSpaceList = lazy(() => import('@/pages/Admin/services/SpaceList'));
-const AdminServiceSpaceCreate = lazy(() => import('@/pages/Admin/services/SpaceCreate'));
-const AdminServiceSpaceUpdate = lazy(() => import('@/pages/Admin/services/SpaceUpdate'));
+const AdminServiceSpaceList = lazy(() => import('@/pages/Admin/services/ServiceSpaceList'));
+const AdminServiceSpaceCreate = lazy(() => import('@/pages/Admin/services/ServiceSpaceCreate'));
+const AdminServiceSpaceUpdate = lazy(() => import('@/pages/Admin/services/ServiceSpaceUpdate'));
 const AdminProjectCreate = lazy(() => import('@/pages/Admin/projects/ProjectCreate'));
 const AdminProjectList = lazy(() => import('@/pages/Admin/projects/ProjectList'));
 const AdminProjectUpdate = lazy(() => import('@/pages/Admin/projects/ProjectUpdate'));

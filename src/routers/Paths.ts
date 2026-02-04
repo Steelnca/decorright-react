@@ -56,11 +56,12 @@ export const PATHS = {
         SERVICE_LIST: "/admin/service/list",
         SERVICE_CREATE: "/admin/service/create",
         SERVICE_UPDATE: "/admin/service/:id/edit",
-        serviceUpdate: (id: string) => `/admin/service/${encodeURIComponent(id)}/edit`,
+        serviceUpdate: (slug: string) => `/admin/service/${encodeURIComponent(slug)}/edit`,
         SERVICE_SPACE_LIST: "/admin/service-space/list",
         serviceSpaceListItem: (id: string) => `/admin/service-space/list#${encodeURIComponent(id)}`,
         SERVICE_SPACE_CREATE: "/admin/service-space/create",
         SERVICE_SPACE_UPDATE: "/admin/service-space/:id/edit",
+        serviceSpaceUpdate: (slug: string) => `/admin/service-space/${encodeURIComponent(slug)}/edit`,
 
         PROJECT_LIST: "/admin/project/list",
         PROJECT_CREATE: "/admin/project/create",

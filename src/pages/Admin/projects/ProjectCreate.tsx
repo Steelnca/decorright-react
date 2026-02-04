@@ -1,7 +1,5 @@
 import ProjectCreateLayout from "@/components/layout/admin/projects/ProjectCreate";
 
-
-
 export default function ServiceCreate () {
     return (
 

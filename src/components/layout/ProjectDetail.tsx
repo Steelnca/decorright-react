@@ -1,5 +1,5 @@
-import { ICONS } from "../../icons"
-import { PCTALink } from "../ui/CTA"
+
+import { ICONS } from "@/icons"
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,7 +15,7 @@ export function ProjectCardItem({ project, index }: { project: any, index: numbe
     return (
         <li key={index}>
             <Link to={PATHS.projectDetail(project.slug || project.id)} className="flex max-md:flex-col gap-1 h-full">
-                <div className="w-full h-full aspect-video rounded-lg overflow-hidden shrink-0">
+                <div className="w-fit h-30 aspect-video rounded-lg overflow-hidden shrink-0">
                     <img src={project.thumbnail_url} alt={project.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex flex-col gap-1 w-full h-full overflow-hidden">
@@ -97,11 +97,10 @@ export function ProjectDetail() {
         : (project.thumbnail_url ? [{ id: 'main', src: project.thumbnail_url, alt: project.title }] : []);
 
     return (
-        <section className="min-h-hero content-container relative h-full w-full py-8">
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-18 w-full">
 
                 {/* Main Project Content */}
-                <div className="relative w-full lg:w-[70%] h-fit">
+                <div className="flex flex-col w-full h-fit">
                     <Swiper
                         loop={imgs.length > 1}
                         navigation={imgs.length > 1}
@@ -119,32 +118,24 @@ export function ProjectDetail() {
                     </Swiper>
 
                     <div className="flex flex-col gap-4 w-full mt-6">
-                        <div className="flex flex-col gap-2">
-                            <h1 className="font-semibold text-lg md:text-2xl text-heading leading-tight">{project.title}</h1>
-                            <div className="flex flex-wrap gap-2">
-                                <span className="text-2xs font-medium px-2 py-0.5 rounded-full bg-primary/5 text-primary border border-primary/10">
+                        <div className="flex max-lg:flex-col lg:justify-between gap-2">
+                            <h1 className="font-semibold text-lg md:text-xl text-heading leading-tight line-clamp-2">{project.title}</h1>
+                            <div className="flex flex-wrap gap-2 min-w-max">
+                                <span className="text-2xs md:text-xs px-3 py-1 h-fit rounded-full bg-muted/5 text-muted border border-muted/15">
                                     {project.service_types?.display_name_en}
                                 </span>
-                                <span className="text-2xs font-medium px-2 py-0.5 rounded-full bg-secondary/5 text-secondary border border-secondary/10">
+                                <span className="text-2xs md:text-xs px-3 py-1 h-fit rounded-full bg-muted/5 text-muted border border-muted/15">
                                     {project.space_types?.display_name_en}
                                 </span>
                             </div>
                         </div>
 
                         {/* Location and Area Info */}
-                        <div className="flex items-center gap-6 py-2 px-1 border-b border-muted/10">
-                            <div className="flex items-center gap-2 text-muted">
-                                {ICONS.mapPin({ className: 'size-4' })}
-                                <span className="text-xs font-medium">{project.location || 'N/A'}</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-muted">
-                                {/* {ICONS.layout({ className: 'size-4' })} */}
-                                <span className="text-xs font-medium">{project.area_sqm ? `${project.area_sqm} m²` : 'N/A'}</span>
-                            </div>
-                        </div>
+
 
                         <div className="flex flex-wrap w-full gap-4 items-center">
-                            <PCTALink to={'/request-service'}> Request Similar Project </PCTALink>
+                            <Link to={PATHS.CLIENT.REQUEST_SERVICE} className="font-semibold text-xs text-center text-white min-w-max px-3 py-2 bg-primary rounded-full"
+                            > Request a Project </Link> {/* Request Similar Project */}
 
                             <button
                                 onClick={() => setLiked(!liked)}
@@ -157,54 +148,66 @@ export function ProjectDetail() {
 
                         <div className="flex flex-col gap-4 p-4 bg-muted/5 border border-muted/15 rounded-2xl">
                             <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <p className="font-medium text-xs text-muted/75">
+                                <div className="flex items-center">
+                                    <p className="font-medium text-2xs md:text-xs text-muted/75 after:content-['•'] after:mx-2 last:after:content-none">
+                                        5,805 views
+                                    </p>
+                                    <p className="font-medium text-2xs md:text-xs text-muted/75 after:content-['•'] after:mx-2 last:after:content-none">
                                         {new Date(project.created_at).toLocaleDateString()}
                                     </p>
                                 </div>
                                 <button
-                                    className="font-medium text-xs text-primary cursor-pointer hover:underline"
+                                    className="font-medium text-xs text-primary cursor-pointer"
                                     onClick={() => setDescOpen(!descOpen)}
                                 >
-                                    {descOpen ? 'Read Less' : 'Read More'}
+                                    {descOpen ? <ICONS.chevronUp/> : <ICONS.chevronDown/> }
                                 </button>
                             </div>
-                            <div>
-                                <h4 className="font-medium text-sm mb-1"> Project Description </h4>
-                                <p className={`text-xs text-body leading-relaxed ${!descOpen && 'line-clamp-3'}`}>
-                                    {project.description}
+                            <div className="flex flex-wrap items-center gap-6">
+                                { project.location &&
+                                    <div className="flex items-center gap-2 text-muted">
+                                        <div className="flex gap-1">
+                                            <ICONS.mapPin className="size-4" />
+                                            <h5 className="text-xs text-muted"> Location </h5>
+                                        </div>
+                                        <span className="text-xs font-medium"> {project.location || 'N/A'} </span>
+                                    </div>
+                                }
+
+                                { project.area_sqm &&
+                                    <div className="flex items-center gap-2 text-muted">
+                                        <div className="flex gap-1">
+                                            <ICONS.layout className="size-4" />
+                                            <h5 className="text-xs text-muted"> Floor area </h5>
+                                        </div>
+                                        <span className="text-xs font-medium"> {project.area_sqm ? `${project.area_sqm} m²` : 'N/A'} </span>
+                                    </div>
+                                }
+                            </div>
+                            <div onClick={() => setDescOpen(!descOpen)}>
+
+                                <p className={`text-xs text-body leading-relaxed ${!descOpen && 'line-clamp-2'}`}>
+                                    {project.description} Lorem ipsum dolor sit amet consectetur, Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quaerat cumque placeat vel harum iure quisquam officiis adipisci ipsa non, asperiores doloremque voluptate? Explicabo, nemo tempora aperiam aut maxime quae!
+                            Deserunt totam est temporibus pariatur aliquid eum, iusto sunt eaque error dignissimos id veritatis consequuntur? Ea accusantium modi corrupti dignissimos quia eaque necessitatibus quibusdam repellendus, alias numquam maxime quis cupiditate.
+                            Nihil accusantium tempora temporibus sit officia facere libero neque similique accusamus illo quasi repellat eos excepturi, mollitia doloremque inventore esse nesciunt hic est totam nobis? Ut id ea reprehenderit sint!
+                            Deserunt fugiat, odit ea harum voluptate, recusandae nulla facilis Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus ad eaque iure amet cum accusamus, ducimus vel eligendi iste, beatae voluptate dolorem. Sapiente facere numquam sunt, expedita quos modi molestias. ipsa assumenda consectetur debitis, totam suscipit ab corporis temporibus consequuntur animi non. Reiciendis quaerat dolore sunt fugit. Corrupti blanditiis quasi commodi?
+                            Ipsa ad beatae temporibus facilis sunt eveniet illo officiis odit? Consequatur nostrum tenetur earum, sit deserunt perferendis ducimus modi atque suscipit temporibus, distinctio, quas necessitatibus eaque ipsam magnam iste quos? adipisicing elit. Nemo mollitia dolorem delectus fugit iusto animi minima voluptatem aut commodi impedit eaque, illo nam eligendi facilis, corrupti soluta dignissimos ad accusantium!
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                {/* More & Similar Projects Container */}
-                <div className="w-full lg:w-[30%]">
-                    <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
-                        <ICONS.presentationChartLine className="size-4" />
-                        Explore More Projects
-                    </h3>
-                    <ProjectSimilarList />
-                </div>
+                    {/* More & Similar Projects Container
+                    <div className="w-full">
+                        <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
+                            <ICONS.presentationChartLine className="size-4" />
+                            Explore More Projects
+                        </h3>
+                        <ProjectSimilarList />
+                    </div> */}
 
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-1">
-                                <p className="font-medium text-2xs md:text-xs text-muted/75 after:content-['•'] after:mx-1 last:after:content-none"> 5,805 views </p>
-                                <p className="font-medium text-2xs md:text-xs text-muted/75"> 6 months ago </p>
-                            </div>
-                            <span className="font-medium text-2xs md:text-xs text-muted/75 cursor-pointer" onClick={() => setDescOpen(!descOpen)}> {descOpen ? 'Read Less' : 'Read More'} </span>
-                        </div>
-                        <div>
-                            <h4 className="font-medium text-xs"> Description </h4>
-                            <p className={`text-2xs md:text-xs text-muted ${!descOpen && 'text-ellipsis-2line' } `}> Lorem ipsum dolor sit amet consectetur, Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quaerat cumque placeat vel harum iure quisquam officiis adipisci ipsa non, asperiores doloremque voluptate? Explicabo, nemo tempora aperiam aut maxime quae!
-                            Deserunt totam est temporibus pariatur aliquid eum, iusto sunt eaque error dignissimos id veritatis consequuntur? Ea accusantium modi corrupti dignissimos quia eaque necessitatibus quibusdam repellendus, alias numquam maxime quis cupiditate.
-                            Nihil accusantium tempora temporibus sit officia facere libero neque similique accusamus illo quasi repellat eos excepturi, mollitia doloremque inventore esse nesciunt hic est totam nobis? Ut id ea reprehenderit sint!
-                            Deserunt fugiat, odit ea harum voluptate, recusandae nulla facilis Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus ad eaque iure amet cum accusamus, ducimus vel eligendi iste, beatae voluptate dolorem. Sapiente facere numquam sunt, expedita quos modi molestias. ipsa assumenda consectetur debitis, totam suscipit ab corporis temporibus consequuntur animi non. Reiciendis quaerat dolore sunt fugit. Corrupti blanditiis quasi commodi?
-                            Ipsa ad beatae temporibus facilis sunt eveniet illo officiis odit? Consequatur nostrum tenetur earum, sit deserunt perferendis ducimus modi atque suscipit temporibus, distinctio, quas necessitatibus eaque ipsam magnam iste quos? adipisicing elit. Nemo mollitia dolorem delectus fugit iusto animi minima voluptatem aut commodi impedit eaque, illo nam eligendi facilis, corrupti soluta dignissimos ad accusantium! </p>
-                        </div>
                     </div>
 
                 </div>
-        </ section>
     )
 }

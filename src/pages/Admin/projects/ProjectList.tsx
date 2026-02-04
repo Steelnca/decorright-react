@@ -1,5 +1,5 @@
 
-import { ProjectCardList } from "@/components/layout/admin/projects/ProjectList";
+import ProjectCardList  from "@/components/layout/admin/projects/ProjectList";
 import { projects, serviceTypes, serviceSpaceTypes, projectVisibilityStags } from "@/constants";
 
 export default function ProjectList () {

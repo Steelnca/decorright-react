@@ -57,7 +57,9 @@ export function NavMenuItems() {
 
 export function NavActions() {
 
+    const [chatMenuOpen, setChatMenuOpen] = useState<boolean>(false);
     const [navMenuOpen, setNavMenuOpen] = useState(false);
+
 
     return (
 
@@ -69,14 +71,16 @@ export function NavActions() {
                     Create a Project
                 </Link>
 
-                {/* Chat Nav Page */}
-                <Link to={PATHS.ADMIN.CHAT} title="Chats" className="relative content-center p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
-                    <ICONS.chat className="size-5 md:size-6"/>
+                {/* Chat Menu Card */}
+                <button type="button" title="Chat Menu" onClick={() => setChatMenuOpen(!chatMenuOpen)}
+                className="relative content-center p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
+                    <ICONS.chat className="size-5 md:size-6" />
+
                     <span className="absolute flex size-3 top-0 left-0">
                         <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
                         <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
                     </span>
-                </Link>
+                </button>
 
                 {/* User Profile Nav Page */}
                 <Link to={PATHS.CLIENT.ROOT} title="Client Home Page" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
@@ -89,7 +93,15 @@ export function NavActions() {
                 </button>
             </div>
 
+            {chatMenuOpen &&
+                <MenuCard title={'Menu'} open={chatMenuOpen} setOpen={setChatMenuOpen}>
+                    {/* Mobile Nav Menu */}
 
+                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
+                    </ul>
+
+                </MenuCard>
+            }
 
             {/* Mobile Nav Menu Card Overlay */}
             {navMenuOpen &&

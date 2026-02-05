@@ -40,12 +40,6 @@ const AdminChat = lazy(() => import('@/pages/Admin/Chat'));
 const AdminUsers = lazy(() => import('@/pages/Admin/Users'));
 const AdminServiceRequests = lazy(() => import('@/pages/Admin/requests/RequestServiceList'));
 const AdminServiceRequest = lazy(() => import('@/pages/Admin/requests/RequestService'));
-const AdminServiceList = lazy(() => import('@/pages/Admin/services/ServiceList'));
-const AdminServiceCreate = lazy(() => import('@/pages/Admin/services/ServiceCreate'));
-const AdminServiceUpdate = lazy(() => import('@/pages/Admin/services/ServiceUpdate'));
-const AdminServiceSpaceList = lazy(() => import('@/pages/Admin/services/ServiceSpaceList'));
-const AdminServiceSpaceCreate = lazy(() => import('@/pages/Admin/services/ServiceSpaceCreate'));
-const AdminServiceSpaceUpdate = lazy(() => import('@/pages/Admin/services/ServiceSpaceUpdate'));
 const AdminProjectList = lazy(() => import('@/pages/Admin/projects/ProjectList'));
 const AdminProjectCreate = lazy(() => import('@/pages/Admin/projects/ProjectCreate'));
 const AdminProjectUpdate = lazy(() => import('@/pages/Admin/projects/ProjectUpdate'));
@@ -209,31 +203,6 @@ const router = createBrowserRouter([
         element: <AdminServiceRequest />,
       },
 
-      // Services
-      {
-        path: PATHS.ADMIN.SERVICE_LIST,
-        element: <AdminServiceList />,
-      },
-      {
-        path: PATHS.ADMIN.SERVICE_CREATE,
-        element: <AdminServiceCreate />,
-      },
-      {
-        path: PATHS.ADMIN.SERVICE_UPDATE,
-        element: <AdminServiceUpdate />,
-      },
-      {
-        path: PATHS.ADMIN.SERVICE_SPACE_LIST,
-        element: <AdminServiceSpaceList />,
-      },
-      {
-        path: PATHS.ADMIN.SERVICE_SPACE_CREATE,
-        element: <AdminServiceSpaceCreate />,
-      },
-      {
-        path: PATHS.ADMIN.SERVICE_SPACE_UPDATE,
-        element: <AdminServiceSpaceUpdate />,
-      },
 
       // Projects
       {

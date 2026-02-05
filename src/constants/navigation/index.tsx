@@ -5,12 +5,6 @@ export const adminMenuNav = [
     { id: '1', label: 'Dashboard', path: PATHS.ADMIN.ANALYTICS, icon: null, description: 'Overview metrics, KPIs and site analytics' },
     { id: '3', label: 'Users & Activity', path: PATHS.ADMIN.USERS, icon: null, description: 'View and manage user accounts, roles and activity logs' },
     { id: '4', label: 'Service Requests', path: PATHS.ADMIN.REQUEST_SERVICE_LIST, icon: null, description: 'Browse, filter and update service requests' },
-    { id: '5', label: 'Service List', path: PATHS.ADMIN.SERVICE_LIST, icon: null, description: 'Manage published services and their details' },
-    { id: '6', label: 'Create Service', path: PATHS.ADMIN.SERVICE_CREATE, icon: null, description: 'Add a new service offering with images and pricing' },
-    { id: '7', label: 'Gallery List', path: PATHS.ADMIN.GALLERY_LIST, icon: null, description: 'View and Manage all gallery items' },
-    { id: '8', label: 'Create Gallery Item', path: PATHS.ADMIN.GALLERY_CREATE, icon: null, description: 'Add new gallery items' },
-    { id: '9', label: 'Project List', path: PATHS.ADMIN.PROJECT_LIST, icon: null, description: 'View and Manage all real projects' },
-    { id: '10', label: 'Create a Project', path: PATHS.ADMIN.PROJECT_CREATE, icon: null, description: 'Create new real projects' },
     { id: '11', label: 'Settings', path: PATHS.ADMIN.SETTINGS, icon: null, description: 'Application settings, preferences and integrations' },
 ]
 
@@ -26,14 +20,6 @@ export const adminSideMenuNav = [
         ], description: ''
     },
 
-    {
-        id: '5', label: 'Services & Spaces', icon: null, children: [
-            { id: '5.1', label: 'Service List', path: PATHS.ADMIN.SERVICE_LIST, icon: null, description: 'Manage published services and their details' },
-            { id: '5.2', label: 'Create a Service', path: PATHS.ADMIN.SERVICE_CREATE, icon: null, description: 'Add a new service offering with images and pricing' },
-            { id: '5.3', label: 'Space Service List', path: PATHS.ADMIN.SERVICE_SPACE_LIST, icon: null, description: 'Manage published space services and their details' },
-            { id: '5.4', label: 'Create a Space Service', path: PATHS.ADMIN.SERVICE_SPACE_CREATE, icon: null, description: 'Add a new space service.' },
-        ], description: ''
-    },
 
     {
         id: '12', label: 'Gallery Management', icon: null, children: [
@@ -50,7 +36,7 @@ export const adminSideMenuNav = [
     },
 
     {
-        id: '6', label: 'System Configuration', icon: null, children: [
+        id: '6', label: 'Services & Spaces', icon: null, children: [
             { id: '6.1', label: 'Service Types', path: PATHS.ADMIN.SERVICE_TYPES, icon: null, description: 'Manage generic service categories offered' },
             { id: '6.2', label: 'Space Types', path: PATHS.ADMIN.SPACE_TYPES, icon: null, description: 'Manage different space categories' },
         ], description: ''

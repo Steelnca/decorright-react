@@ -2,8 +2,9 @@
 import { Link } from "react-router-dom"
 import { PATHS } from "@/routers/Paths";
 import ZoomImage from "@/components/ui/ZoomImage";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ICONS } from "@/icons";
+import { SelectMenu } from "@/components/ui/Select";
 
 type Portfolio = {
     id: string;
@@ -60,6 +61,7 @@ export default function GalleryPortfolioListLayout ({gallery, onAction, serviceT
     const [placement, setPlacement] = useState<"bottom" | "top">("bottom");
 
     // search + filters
+    const [filtersOpen, setFiltersOpen] = useState<boolean>(false); // Display search filters or not for small screen sizes
     const [query, setQuery] = useState("");
     const [serviceTypeFilter, setServiceTypeFilter] = useState<string | "all">("all");
     const [serviceSpaceTypeFilter, setServiceSpaceTypeFilter] = useState<string | "all">("all");
@@ -193,23 +195,34 @@ if (sortDir === "asc") sorted.reverse();
     return (
         <div ref={rootRef} className="w-full h-full">
             {/* Search + filters */}
-            <div className="flex max-lg:flex-col gap-4 mb-4 w-full">
-                <div className="flex items-center min-w-40 w-full rounded-full border border-muted/15 bg-surface">
-                    <span className="p-2"> <ICONS.magnifyingGlass className="size-5 text-muted" /> </span>
-                    <input
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search portfolios..."
-                        className="flex-1 w-full py-2 text-sm focus:outline-none"
-                    />
+            <div className="flex max-xl:flex-col items-center gap-2 mb-2 sm:mb-4 w-full h-fit">
+                <div className="flex gap-2 w-full">
+                    <div className="flex items-center min-w-40 w-full rounded-full border border-muted/15 bg-surface">
+                        <span className="p-2"> <ICONS.magnifyingGlass className="size-5 text-muted" /> </span>
+                        <input
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Search portfolios..."
+                            className="flex-1 w-full py-2 text-sm focus:outline-none"
+                        />
+
+                    </div>
+                <button type="button"
+                onClick={() => {setFiltersOpen(!filtersOpen)}}
+                area-label="Search filters"
+                className="md:hidden p-2 w-fit h-fit rounded-full border border-muted/15 bg-surface"
+                > {filtersOpen ? <ICONS.chevronUp/> : <ICONS.adjustmentsHorizontal/> } </button>
                 </div>
 
-                <div className="flex max-md:flex-wrap items-center gap-2 md:gap-4">
+                <div
+                className={`flex max-lg:flex-wrap items-center gap-2 w-full overflow-clip duration-150 transition-all h-full
+                    ${filtersOpen ? "max-md:mb-2 max-md:max-h-fit" : "max-md:max-h-0"}`
+                    }>
 
                     <div className="relative flex items-center max-xs:w-full h-fit rounded-full border border-muted/15 bg-surface">
                         <select value={serviceTypeFilter}
                         onChange={(e) => setServiceTypeFilter((e.target.value as string) || "all")}
-                        className="text-xs md:text-sm appearance-none min-w-25 w-full p-2 md:pr-8 cursor-pointer focus:outline-none"
+                        className="flex appearance-none text-xs md:text-sm py-2 pl-2 pr-12 min-w-max w-full cursor-pointer focus:outline-none"
                         >
                             <option value="all"> All Services </option>
                             {serviceTypeOptions.map((s:any) => (
@@ -222,7 +235,7 @@ if (sortDir === "asc") sorted.reverse();
                     <div className="relative flex items-center max-xs:w-full h-fit rounded-full border border-muted/15 bg-surface">
                         <select value={serviceSpaceTypeFilter}
                         onChange={(e) => setServiceSpaceTypeFilter((e.target.value as string) || "all")}
-                        className="text-xs md:text-sm appearance-none min-w-25 w-full p-2 md:pr-8 cursor-pointer focus:outline-none"
+                        className="flex appearance-none text-xs md:text-sm py-2 pl-2 pr-12 min-w-max w-full cursor-pointer focus:outline-none"
                         >
                             <option value="all"> All Space Services </option>
                             {serviceSpaceTypeOptions.map((s:any) => (
@@ -235,7 +248,7 @@ if (sortDir === "asc") sorted.reverse();
                     <div className="relative flex items-center max-xs:w-full h-fit rounded-full border border-muted/15 bg-surface">
                         <select value={visibilityStagFilter}
                         onChange={(e) => setVisibilityStagFilter((e.target.value as string) || "all")}
-                        className="flex appearance-none text-xs md:text-sm p-2 md:pr-12 w-full cursor-pointer min-w-25 focus:outline-none"
+                        className="flex appearance-none text-xs md:text-sm py-2 pl-2 pr-12 min-w-max w-full cursor-pointer focus:outline-none"
                         >
                             <option value="all"> All Status </option>
                             {stageOptions.map((s:any) => (
@@ -253,7 +266,7 @@ if (sortDir === "asc") sorted.reverse();
                         </button>
                         <div className="relative flex items-center w-full">
                             <select value={sortBy} onChange={e => setSortBy(e.target.value as any)}
-                            className="appearance-none text-xs md:text-sm p-2 md:pr-8 cursor-pointer min-w-25 focus:outline-0">
+                            className="flex appearance-none text-xs md:text-sm py-2 pl-2 pr-12 min-w-max w-full cursor-pointer focus:outline-0">
                                 <option value="newest">Newest</option>
                                 <option value="likes">Most liked</option>
                                 <option value="views">Most viewed</option>

@@ -27,8 +27,9 @@ export default function ServiceSpaceList() {
 
     if (loading) {
         return (
-            <div className="flex justify-center p-8">
+            <div className="flex flex-col items-center justify-center gap-4 p-8 w-full h-full">
                 <Spinner status={loading} />
+                <span className="text-sm"> Loading Spaces... </span>
             </div>
         )
     };
@@ -44,10 +45,8 @@ export default function ServiceSpaceList() {
             <section className="h-hero min-h-hero relative flex flex-col w-full md:pt-8 mb-40">
                 <div className="relative flex flex-col gap-8 h-full">
                     <h1 className="font-semibold text-lg md:text-2xl"> Space Service List </h1>
-
                     {/* Service content goes here */}
                     <ServiceSpaceListLayout spaceTypes={spaces} serviceSpaceStatus={serviceSpaceStatus}/>
-
                 </div>
             </section>
         </main>

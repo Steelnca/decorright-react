@@ -3,13 +3,13 @@ import { SCTALink } from "@/components/ui/CTA";
 import FileUploadPanel from "@/components/ui/FileUploadPanel";
 import { DateInput } from "@/components/ui/Input";
 import { SelectMenu } from "@/components/ui/Select";
-import { projectVisibility } from "@/constants";
+import { projectVisibilityStags } from "@/constants";
 import { AdminService } from "@/services/admin.service";
 import { ServiceTypesService, type ServiceType } from "@/services/service-types.service";
 import { SpaceTypesService, type SpaceType } from "@/services/space-types.service";
 import { useState, useEffect } from "react";
 import { useStagedFiles } from "@/hooks/useStagedFiles";
-import Spinner from "@/components/ui/Spinner";
+import Spinner from "@components/common/Spinner";
 
 interface ProjectFormProps {
     project?: any;
@@ -263,8 +263,8 @@ export default function ProjectForm({ project, onSuccess, onCancel }: ProjectFor
                     <div className="flex flex-col gap-2">
                         <label className="font-medium text-xs text-muted px-1"> Visibility </label>
                         <SelectMenu
-                            options={projectVisibility}
-                            defaultValue={projectVisibility.find(v => v.value.toUpperCase() === (project?.visibility || 'public').toUpperCase())}
+                            options={projectVisibilityStags}
+                            defaultValue={projectVisibilityStags.find(v => v.value.toUpperCase() === (project?.visibility || 'public').toUpperCase())}
                             placeholder="Project Visibility"
                             id="project-visibility"
                             required

@@ -99,7 +99,7 @@ function NavItem({
         </button>
 
         <ul id={`children-${item.id}`} role="group"
-          className={`relative px-1 space-y-2 overflow-hidden transition-[max-height] duration-150 ${isOpen ? "max-h-96" : "max-h-0"}`}
+          className={`relative px-1 space-y-2 overflow-clip transition-[max-height] duration-150 ${isOpen ? "max-h-96" : "max-h-0"}`}
         >
             {item.children.map((child) => (
                 <li key={child.id} className="flex items-center last:mb-2">

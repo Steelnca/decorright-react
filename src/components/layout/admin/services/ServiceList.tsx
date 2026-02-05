@@ -30,6 +30,7 @@ export default function ServiceSpaceListLayout ({serviceTypes, onAction, service
     const [placement, setPlacement] = useState<"bottom" | "top">("bottom");
 
     // search + filters
+    const [filtersOpen, setFiltersOpen] = useState<boolean>(false); // Display search filters or not for small screen sizes
     const [query, setQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState< string | "active" | "inactive" | "all">("all");
     const [sortBy, setSortBy] = useState<"newest">("newest");
@@ -141,23 +142,34 @@ if (sortDir === "asc") sorted.reverse();
     return (
         <div ref={rootRef} className="w-full h-full">
             {/* Search + filters */}
-            <div className="flex max-lg:flex-col gap-4 mb-4 w-full">
-                <div className="flex items-center min-w-40 w-full rounded-full border border-muted/15 bg-surface">
-                    <span className="p-2"> <ICONS.magnifyingGlass className="size-5 text-muted" /> </span>
-                    <input
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Search services..."
-                        className="flex-1 w-full py-2 text-sm focus:outline-none"
-                    />
+            <div className="flex max-lg:flex-col items-center gap-2 mb-2 sm:mb-4 w-full h-fit">
+                <div className="flex gap-2 w-full">
+                    <div className="flex items-center min-w-40 w-full rounded-full border border-muted/15 bg-surface">
+                        <span className="p-2"> <ICONS.magnifyingGlass className="size-5 text-muted" /> </span>
+                        <input
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Search portfolios..."
+                            className="flex-1 w-full py-2 text-sm focus:outline-none"
+                        />
+
+                    </div>
+                <button type="button"
+                onClick={() => {setFiltersOpen(!filtersOpen)}}
+                area-label="Search filters"
+                className="md:hidden p-2 w-fit h-fit rounded-full border border-muted/15 bg-surface"
+                > {filtersOpen ? <ICONS.chevronUp/> : <ICONS.adjustmentsHorizontal/> } </button>
                 </div>
 
-                <div className="flex max-md:flex-wrap items-center gap-2 md:gap-4">
+                <div
+                className={`flex max-lg:flex-wrap items-center gap-2 max-lg:w-full h-fit overflow-clip duration-150 transition-all
+                    ${filtersOpen ? "max-md:mb-2 max-md:max-h-fit" : "max-md:max-h-0"}`
+                }>
 
                     <div className="relative flex items-center max-xs:w-full h-fit rounded-full border border-muted/15 bg-surface">
                         <select value={statusFilter}
                         onChange={(e) => setStatusFilter((e.target.value as string) || "all")}
-                        className="flex appearance-none text-xs md:text-sm p-2 md:pr-12 w-full cursor-pointer min-w-25 focus:outline-none"
+                        className="flex appearance-none text-xs md:text-sm py-2 pl-2 pr-12 min-w-max w-full cursor-pointer focus:outline-none"
                         >
                             <option value="all"> All Status </option>
                             {stageOptions.map((s:any) => (
@@ -175,10 +187,8 @@ if (sortDir === "asc") sorted.reverse();
                         </button>
                         <div className="relative flex items-center w-full">
                             <select value={sortBy} onChange={e => setSortBy(e.target.value as any)}
-                            className="appearance-none text-xs md:text-sm p-2 md:pr-8 cursor-pointer min-w-25 focus:outline-0">
+                            className="flex appearance-none text-xs md:text-sm py-2 pl-2 pr-12 min-w-max w-full cursor-pointer focus:outline-0">
                                 <option value="newest">Newest</option>
-                                <option value="likes">Most liked</option>
-                                <option value="views">Most viewed</option>
                             </select>
                             <span className="absolute flex items-center px-2 pointer-events-none inset-y-0 right-0"> <ICONS.caretDown className="size-4"/> </span>
                         </div>
@@ -186,106 +196,106 @@ if (sortDir === "asc") sorted.reverse();
                 </div>
             </div>
 
-                { sorted.length > 0
+            { sorted.length > 0
 
-                ?
-                    <ul className="relative flex flex-col gap-4 pt-4 w-full border-t border-t-muted/15">
+            ?
+                <ul className="relative flex flex-col gap-4 pt-4 w-full border-y border-y-muted/15">
 
-                        {sorted.map((service) => (
-                            <>
-                                <li className="flex gap-2">
-                                    <Link to={PATHS.ADMIN.galleryPortfolioUpdate('slug')} className="flex max-xs:flex-col gap-4 w-full">
-                                        <div className="xs:min-w-max xs:h-28 aspect-video overflow-hidden">
-                                            { service.image_url
-                                                ? <ZoomImage src={service.image_url} alt="" className="object-cover h-full w-full rounded-md" />
-                                                : <div className="flex items-center justify-center w-full h-full border border-muted/15 rounded-md"> <ICONS.photo className="size-16 text-muted/30" /> </div>
-                                            }
-                                        </div>
+                    {sorted.map((service) => (
+                        <>
+                            <li className="flex gap-2">
+                                <Link to={PATHS.ADMIN.galleryPortfolioUpdate('slug')} className="flex max-xs:flex-col gap-4 w-full">
+                                    <div className="xs:min-w-max xs:h-28 aspect-video overflow-hidden">
+                                        { service.image_url
+                                            ? <ZoomImage src={service.image_url} alt="" className="object-cover h-full w-full rounded-md" />
+                                            : <div className="flex items-center justify-center w-full h-full border border-muted/15 rounded-md"> <ICONS.photo className="size-16 text-muted/30" /> </div>
+                                        }
+                                    </div>
 
-                                        <div className="flex gap-2 w-full">
-                                            <div className="flex flex-col gap-2 w-full">
+                                    <div className="flex gap-2 w-full">
+                                        <div className="flex flex-col gap-2 w-full">
 
-                                                <h4 className="line-clamp-2 font-medium text-sm md:text-lg text-muted"> {service.display_name_en} </h4>
+                                            <h4 className="line-clamp-2 font-medium text-sm md:text-lg text-muted"> {service.display_name_en} </h4>
 
-                                                <div className="flex flex-wrap">
-                                                    <span className="text-2xs md:text-xs min-w-max after:content-['•'] after:mx-1 last:after:content-none">{service.is_active ? "Active" : "Inactive"}</span>
-                                                </div>
-
-                                                <div className="flex flex-wrap">
-                                                    <span className="text-2xs md:text-xs min-w-max after:content-['•'] after:mx-1 last:after:content-none">{service.created_at}</span>
-                                                </div>
-
+                                            <div className="flex flex-wrap">
+                                                <span className="text-2xs md:text-xs min-w-max after:content-['•'] after:mx-1 last:after:content-none">{service.is_active ? "Active" : "Inactive"}</span>
                                             </div>
-                                            <div className="w-fit">
-                                                <button
-                                                    type="button"
-                                                    aria-haspopup="menu"
-                                                    aria-expanded={openId === service.id}
-                                                    ref={triggerRef}
-                                                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleMenu(service.id); }}
-                                                    className="relative inline-flex items-center justify-center sm:p-2 rounded-full ring-muted/15 hover:ring-1 focus:ring-1 hover:bg-surface active:bg-surface focus:outline-none"
-                                                    title="Actions"
 
-                                                >
-                                                    <ICONS.ellipsisVertical/>
-                                                    {openId === service.id && (
-                                                        <div role="menu"
-                                                            aria-label={`Actions for ${service.display_name_en}`}
-                                                            className={"absolute right-0 w-45 rounded-md border border-muted/25 bg-surface shadow-xs z-20 overflow-hidden " +
-                                                            (placement === "bottom" ? "top-full mt-2" : "bottom-full mb-2")}
-                                                            onClick={(e) => e.stopPropagation()}
-                                                        >
-                                                            <button role="menuitem"
-                                                                onClick={() => handleAction(service.id, "edit")}
-                                                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                                                            > Edit </button>
-
-                                                            <button role="menuitem"
-                                                                onClick={() => handleAction(service.id, "edit")}
-                                                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                                                            > Publish </button>
-
-                                                            <button role="menuitem"
-                                                                onClick={() => handleAction(service.id, "edit")}
-                                                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                                                            > Hide </button>
-
-                                                            <button role="menuitem"
-                                                                onClick={() => handleAction(service.id, "edit")}
-                                                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                                                            > Delete </button>
-
-                                                            <div className="border-t" />
-
-                                                            <button role="menuitem"
-                                                                onClick={() => handleAction(service.id, "edit")}
-                                                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
-                                                            > Delete </button>
-                                                        </div>
-                                                    )}
-                                                </button>
+                                            <div className="flex flex-wrap">
+                                                <span className="text-2xs md:text-xs min-w-max after:content-['•'] after:mx-1 last:after:content-none">{service.created_at}</span>
                                             </div>
+
                                         </div>
+                                        <div className="w-fit">
+                                            <button
+                                                type="button"
+                                                aria-haspopup="menu"
+                                                aria-expanded={openId === service.id}
+                                                ref={triggerRef}
+                                                onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleMenu(service.id); }}
+                                                className="relative inline-flex items-center justify-center sm:p-2 rounded-full ring-muted/15 hover:ring-1 focus:ring-1 hover:bg-surface active:bg-surface focus:outline-none"
+                                                title="Actions"
 
-                                    </Link>
+                                            >
+                                                <ICONS.ellipsisVertical/>
+                                                {openId === service.id && (
+                                                    <div role="menu"
+                                                        aria-label={`Actions for ${service.display_name_en}`}
+                                                        className={"absolute right-0 w-45 rounded-md border border-muted/25 bg-surface shadow-xs z-20 overflow-hidden " +
+                                                        (placement === "bottom" ? "top-full mt-2" : "bottom-full mb-2")}
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    >
+                                                        <button role="menuitem"
+                                                            onClick={() => handleAction(service.id, "edit")}
+                                                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
+                                                        > Edit </button>
 
-                                </li>
-                                <div className="w-full h-full border-b border-muted/15 last:border-0 mask-r-to-transparent mask-r-from-100%"/>
-                            </>
-                        ))}
+                                                        <button role="menuitem"
+                                                            onClick={() => handleAction(service.id, "edit")}
+                                                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
+                                                        > Publish </button>
 
-                    </ul>
-                :
-                    <div className="flex items-center justify-center gap-2 w-full h-full">
-                        <ICONS.informationCircle className="size-6" />
-                        <p>
-                            No services match your current search or filters.
-                        </p>
-                        <button type="button" onClick={handleResetFilters}
-                        className="font-medium underline"
-                        > Reset filters </button>
-                    </div>
-                }
+                                                        <button role="menuitem"
+                                                            onClick={() => handleAction(service.id, "edit")}
+                                                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
+                                                        > Hide </button>
+
+                                                        <button role="menuitem"
+                                                            onClick={() => handleAction(service.id, "edit")}
+                                                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
+                                                        > Delete </button>
+
+                                                        <div className="border-t" />
+
+                                                        <button role="menuitem"
+                                                            onClick={() => handleAction(service.id, "edit")}
+                                                            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"
+                                                        > Delete </button>
+                                                    </div>
+                                                )}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </Link>
+
+                            </li>
+                            <div className="w-full h-full border-b border-muted/15 last:border-0 mask-r-to-transparent mask-r-from-100%"/>
+                        </>
+                    ))}
+
+                </ul>
+            :
+                <div className="flex items-center justify-center gap-2 w-full h-full">
+                    <ICONS.informationCircle className="size-6" />
+                    <p>
+                        No services match your current search or filters.
+                    </p>
+                    <button type="button" onClick={handleResetFilters}
+                    className="font-medium underline"
+                    > Reset filters </button>
+                </div>
+            }
         </div>
     )
 }

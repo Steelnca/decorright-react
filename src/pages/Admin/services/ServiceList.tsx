@@ -26,8 +26,9 @@ export default function ServiceList() {
 
     if (loading) {
         return (
-            <div className="flex justify-center p-8">
+            <div className="flex flex-col items-center justify-center gap-4 p-8 w-full h-full">
                 <Spinner status={loading} />
+                <span className="text-sm"> Loading Services... </span>
             </div>
         )
     };

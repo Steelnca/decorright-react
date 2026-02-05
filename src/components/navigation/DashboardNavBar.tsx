@@ -78,7 +78,7 @@ export function NavActions() {
                         <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
                         <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
                     </span>
-                </button>
+                </Link>
 
                 {/* User Profile Nav Page */}
                 <Link to={PATHS.CLIENT.ROOT} title="Client Home Page" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">

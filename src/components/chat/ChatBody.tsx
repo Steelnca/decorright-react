@@ -29,7 +29,7 @@ export default function ChatBody({ messages: propsMessages, messagesEndRef: prop
     )
 
     return (
-        <div className="flex flex-col gap-8 w-full h-full py-4 px-2" role="list">
+        <div className="flex flex-col gap-8 w-full px-2 mt-4" role="list">
             {displayMessages.length > 0 ? (
                 displayMessages.map((m) => (
                     <div role="listitem" key={m.id}>

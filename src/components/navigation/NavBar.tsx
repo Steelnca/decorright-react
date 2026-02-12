@@ -69,7 +69,7 @@ export function AuthenticatedUserActins() {
                             Create a Project
                         </Link>
 
-                        <Link to={PATHS.ADMIN.ROOT} title="Dashboard Panel" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
+                        <Link to={PATHS.ADMIN.ANALYTICS} title="Dashboard Panel" className="max-md:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full">
                             <ICONS.presentationChartLine className="size-5 md:size-6" />
                         </Link>
 
@@ -278,7 +278,7 @@ export function ClientMenu() {
         <>
             {isAdmin &&
                 <li id="admin-dashboard-nav-menu-item" className="w-full">
-                    <Link to={PATHS.ADMIN.ROOT} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+                    <Link to={PATHS.ADMIN.ANALYTICS} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
                         <div className="flex content-center gap-2">
                             {/* Icon */}
                             <ICONS.presentationChartLine />

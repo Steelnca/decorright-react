@@ -1,8 +1,61 @@
 
 import { memo } from 'react';
 import type { Message } from '@/types/chat';
-import ZoomImage from '../ui/ZoomImage';
+import ZoomImage from '@components/ui/ZoomImage';
+import VoiceMessagePlayer from '../ui/VoiceMessagePlayer';
 
+
+// src/utils/formatMessageTime.ts
+export type FormatOptions = {
+  locale?: string;    // e.g. 'en-GB' or undefined to use user locale
+  hour12?: boolean;   // true = 12h (AM/PM), false = 24h, undefined = browser default
+};
+
+/**
+ * Format message timestamp:
+ * - Today -> "07:19 PM"
+ * - Yesterday -> "Yesterday, 07:19 PM"
+ * - Same year -> "Feb 11, 07:19 PM"
+ * - Different year -> "2025 Feb 11, 07:19 PM"
+ */
+export function formatMessageTime(
+  dateInput: string | number | Date,
+  opts: FormatOptions = {}
+): string {
+  const { locale, hour12 } = opts;
+  const d = new Date(dateInput);
+  if (isNaN(d.getTime())) return '';
+
+  const now = new Date();
+
+  // start of day helpers (local)
+  const startOfDay = (dt: Date) => new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+  const msPerDay = 24 * 60 * 60 * 1000;
+  const diffDays = Math.round((startOfDay(now).getTime() - startOfDay(d).getTime()) / msPerDay);
+
+  const timeOptions: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12 };
+  const timePart = d.toLocaleTimeString(locale, timeOptions);
+
+  if (diffDays === 0) {
+    // today -> show only time
+    return timePart;
+  }
+
+  if (diffDays === 1) {
+    // yesterday -> localized "Yesterday" fallback
+    // Many locales don't have a built-in "Yesterday" label, so keep English default.
+    // If you want localized "yesterday", integrate with your i18n library.
+    return `Yesterday, ${timePart}`;
+  }
+
+  // same year? omit year
+  const sameYear = d.getFullYear() === now.getFullYear();
+  const dateOptions: Intl.DateTimeFormatOptions = sameYear
+    ? { month: 'short', day: '2-digit', ...timeOptions }               // "Feb 11, 07:19 PM"
+    : { year: 'numeric', month: 'short', day: '2-digit', ...timeOptions }; // "2025 Feb 11, 07:19 PM"
+
+  return d.toLocaleString(locale, dateOptions);
+}
 
 
 export default memo(function MessageItem({ message, currentUserId }:
@@ -11,10 +64,14 @@ export default memo(function MessageItem({ message, currentUserId }:
     const isSystem = message.message_type === 'SYSTEM';
 
 
-    const containerClass = `flex ${isSystem ? 'justify-center' : isMe ? 'justify-end' : 'justify-start'}`;
+    const containerClass = `flex flex-col ${isSystem ? 'items-center' : isMe ? 'items-end' : 'items-start'}`;
     const bubbleClass = isSystem
         ? 'bg-muted/10 text-muted px-4 py-1.5 rounded-full text-2xs font-medium border border-muted/20'
-        : `max-w-[75%] p-3 rounded-2xl shadow-sm ${isMe ? 'bg-primary text-white rounded-tr-none' : 'bg-surface border border-muted/10 text-foreground rounded-tl-none'}`;
+        : `max-w-[75%] rounded-2xl
+        ${isMe
+            ? 'text-muted border border-muted/30 bg-surface'
+            : 'text-foreground border border-muted/10 bg-emphasis'
+        }`;
 
 
     return (
@@ -24,26 +81,22 @@ export default memo(function MessageItem({ message, currentUserId }:
                     <p>{message.content}</p>
                 ) : (
                     <>
-                        {message.message_type === 'TEXT' && <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</p>}
+                        {message.message_type === 'TEXT' && <p className="whitespace-pre-wrap text-sm leading-relaxed px-3 py-2">{message.content}</p>}
 
 
                         {message.message_type === 'AUDIO' && (
-                            <div className="flex flex-col gap-1 min-w-[200px] sm:min-w-[250px] py-1">
-                                <audio
-                                    controls
-                                    src={message.media_url}
-                                    className="w-full h-10"
-                                    crossOrigin="anonymous"
-                                />
+                            <div className="flex flex-col gap-1 p-2 min-w-50 sm:min-w-64">
+
+                                <VoiceMessagePlayer src={message.media_url || ''} />
                                 {message.duration_seconds ? <span className="text-3xs opacity-70 px-1">{message.duration_seconds}s</span> : null}
                             </div>
                         )}
 
 
                         {message.message_type === 'IMAGE' && (
-                            <div className="flex flex-col gap-2 py-1">
+                            <div className="flex flex-col gap-2 p-2">
                                 {message.media_url && (
-                                    <div className="rounded-lg overflow-hidden border border-white/10 shadow-sm transition-opacity hover:opacity-95 max-w-full">
+                                    <div className="rounded-lg overflow-hidden border border-white/10 transition-opacity hover:opacity-95 max-w-full">
                                         <ZoomImage
                                             src={message.media_url}
                                             alt="Chat attachment"
@@ -56,13 +109,14 @@ export default memo(function MessageItem({ message, currentUserId }:
                                 {message.content && <p className="text-sm px-1">{message.content}</p>}
                             </div>
                         )}
-
-                        <div className={`text-3xs mt-2 ${isMe ? 'text-white/70 text-right' : 'text-muted text-left'}`}>
-                            {new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </div>
                     </>
                 )}
+
+            </div>
+            <div className={`text-3xs text-muted px-1.5 mt-2 ${isMe ? 'text-right' : 'text-muted text-left'} hover:text-foreground cursor-default`}>
+                <span>{formatMessageTime(message.created_at)}</span>
             </div>
         </div>
     );
 });
+

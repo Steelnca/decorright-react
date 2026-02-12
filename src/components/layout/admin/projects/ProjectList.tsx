@@ -279,28 +279,29 @@ export default function ProjectCardListLayout ({projects, onAction, serviceTypes
 
                             </div>
                             <div className="w-fit">
-                                <button type="button" aria-haspopup="menu" aria-expanded={openId === project.id} ref={triggerRef} onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleMenu(project.id); }} className="relative inline-flex items-center justify-center sm:p-2 rounded-full ring-muted/15 hover:ring-1 focus:ring-1 hover:bg-surface active:bg-surface focus:outline-none" title="Actions">
-                                    <ICONS.ellipsisVertical/>
-                                            {openId === project.id && (
-                                    <div role="menu" aria-label={`Actions for ${project.title}`} className={"absolute right-0 w-45 rounded-md border border-muted/25 bg-surface shadow-xs z-20 overflow-hidden " +
-                                                    (placement === "bottom" ? "top-full mt-2" : "bottom-full mb-2")} onClick={(e) => e.stopPropagation()}
-                                                >
-                                    <button role="menuitem" onClick={() => handleAction(project.id, "edit")} className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"> Edit </button>
+                                <button
+                                    type="button"
+                                    aria-haspopup="menu"
+                                    aria-expanded={openId === project.id} ref={triggerRef}
+                                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleMenu(project.id); }}
+                                    className="relative inline-flex items-center justify-center sm:p-2 rounded-full ring-muted/15 hover:ring-1 focus:ring-1 hover:bg-surface active:bg-surface focus:outline-none"
+                                    title="Actions"
+                                    >   <ICONS.ellipsisVertical/>
+                                        {openId === project.id && (
+                                        <div role="menu" aria-label={`Actions for ${project.title}`}
+                                            className={"absolute right-0 w-45 rounded-md border border-muted/25 bg-surface shadow-xs z-20 overflow-hidden " + (placement === "bottom" ? "top-full mt-2" : "bottom-full mb-2")}
+                                            onClick={(e) => e.stopPropagation()}
 
-                                    <button role="menuitem" onClick={() => handleAction(project.id, "edit")} className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"> Publish </button>
+                                        >   <button role="menuitem" onClick={() => handleAction(project.id, "edit")} className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"> Edit </button>
 
-                                    <button role="menuitem" onClick={() => handleAction(project.id, "edit")} className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"> Hide </button>
+                                            <div className="border-t border-y-muted" />
 
-                                    <button role="menuitem" onClick={() => handleAction(project.id, "edit")} className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"> Delete </button>
-
-                                    <div className="border-t" />
-
-                                    <button role="menuitem" onClick={() => handleAction(project.id, "edit")} className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50"> Delete </button>
-                                </div>
-                                            )}
-                            </button>
+                                            <button role="menuitem" onClick={() => handleAction(project.id, "edit")} className="w-full text-left px-3 py-2 text-sm hover:text-white hover:bg-danger"> Delete </button>
+                                        </div>
+                                        )}
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
                 </Link>
 

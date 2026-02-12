@@ -371,6 +371,7 @@
     .confirm-dialog {
         @apply p-8 bg-background;
     }
+
 }
 
 @layer utilities {

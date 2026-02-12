@@ -35,19 +35,21 @@ export default function ChatHeader({ selected, rightActions }: { selected?: any,
             </div>
 
             {/* Right actions slot */}
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-3 shrink-0">
                 {rightActions ? rightActions : (
                     <>
-                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${contact?.service_requests?.status === 'Completed' ? 'bg-success/10 text-success' :
-                            contact?.service_requests?.status === 'Cancelled' ? 'bg-danger/10 text-danger' :
-                                'bg-primary/10 text-primary'
+                        <span className={`px-2.5 p-1 md:py-1.5 rounded-full text-xs font-medium cursor-default select-none
+                            ${
+                                contact?.service_requests?.status === 'Completed' ? 'bg-success/10 text-success border border-success/25' :
+                                contact?.service_requests?.status === 'Cancelled' ? 'bg-muted/10 text-muted border border-muted/25' :
+                                'bg-sky-400/10 text-sky-800 border border-sky-400/25'
                             }`}>
                             {contact?.service_requests?.status}
                         </span>
                         {requestDetailsPath && (
                             <Link
                                 to={requestDetailsPath}
-                                className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-primary border border-primary/20 rounded-lg hover:bg-primary/5 transition-colors"
+                                className="flex items-center gap-1.5 px-2.5 p-1 md:py-1.5 text-xs font-medium border border-muted/25 rounded-full hover:bg-emphasis transition-colors"
                                 title="View Request Details"
                             >
                                 <ICONS.eye className="size-4" />

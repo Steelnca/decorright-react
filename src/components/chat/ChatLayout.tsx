@@ -11,7 +11,8 @@ function ChatLayoutInner() {
   const { selectedRoom, roomIdFromUrl } = useChat();
 
   return (
-    <div className="flex gap-4 w-full h-full min-h-0">
+    <div dir="ltr" className="flex gap-4 w-full h-full min-h-0">
+
       {/* Chat List Panel */}
       <div className={`${roomIdFromUrl && 'max-md:hidden'} flex flex-col gap-2 md:gap-4 w-full lg:w-2/3 xl:w-1/3 min-h-0 p-2 md:p-4 border border-muted/15 bg-surface rounded-2xl`}>
         <h3 className="font-medium text-sm p-2.5 border border-muted/15 rounded-lg shrink-0"> Requests </h3>
@@ -19,6 +20,7 @@ function ChatLayoutInner() {
           <ChatList />
         </div>
       </div>
+
       {/* Chat Room Panel */}
       <div className={`${!roomIdFromUrl && 'max-md:hidden'} flex flex-col w-full min-h-0 p-2 sm:p-4 border border-muted/15 bg-surface rounded-2xl`}>
         {roomIdFromUrl || selectedRoom

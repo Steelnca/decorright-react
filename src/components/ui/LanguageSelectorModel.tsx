@@ -1,6 +1,6 @@
 
 import { ICONS } from '@/icons';
-import { languages } from '@/constants/navigation';
+import { languageChoices } from '@/constants';
 import { useTranslation } from 'react-i18next';
 import { allowedLocales } from '@/constants';
 import i18n from '@/utils/i18n';
@@ -16,7 +16,13 @@ export default function MenuLanguageSelectorModal({ isOpen, onClose, onSuccess }
 
     if (!isOpen) return null;
 
-    const { t } = useTranslation('nav')
+    const { t } = useTranslation()
+
+    const languageChoices = [
+        { id:'en', label: t('common.english'), value: 'en', icon: null, },
+        { id:'fr', label: t('common.french'), value: 'fr', icon: null, },
+        { id:'ar', label: t('common.arabic'), value: 'ar', icon: null, },
+    ]
 
     function handleChange(value: string) {
 
@@ -33,15 +39,15 @@ export default function MenuLanguageSelectorModal({ isOpen, onClose, onSuccess }
                 <div className="flex flex-col gap-2 w-full h-full p-2 border border-muted/25 bg-surface rounded-lg">
                     {/* Card Header */}
                     <div className="flex justify-between w-full h-fit border border-muted/15 p-2 rounded-lg">
-                        <h2 className="text-sm font-semibold"> { t('nav:menu_language_settings_header') } </h2>
-                        <button type="button" title={ t('nav:menu_language_settings_area_label') } area-label={ t('nav:menu_language_settings_area_label') } onClick={onClose}>
+                        <h2 className="text-sm font-semibold"> { t('nav.language') } </h2>
+                        <button type="button" title={ t('common.exit') } area-label={ t('common.exit') } onClick={onClose}>
                             <ICONS.xMark />
                         </button>
                     </div>
 
                     {/* Card Content */}
                     <ul className="flex flex-col w-full h-full border border-muted/15 rounded-lg overflow-auto">
-                        { languages().map((lang) => (
+                        { languageChoices.map((lang) => (
                             <li onClick={() => handleChange(lang.value)}
                                 className="flex items-center justify-between font-medium px-2 py-4 border-b border-b-muted/15 cursor-pointer hover:bg-emphasis active:bg-emphasis"
                                 > <span> { lang.label } </span> <ICONS.chevronRight className="size-4 rtl:rotate-180" />

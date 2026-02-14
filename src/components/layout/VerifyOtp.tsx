@@ -6,7 +6,7 @@ import { LegalLinks } from "../../constants"
 import { PATHS } from "@/routers/Paths"
 import OtpInput from 'react-otp-input';
 import Spinner from "../common/Spinner"
-import { Trans, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import toast from "react-hot-toast"
 
 export function VerifyOtp() {
@@ -16,11 +16,10 @@ export function VerifyOtp() {
     const [loading, setLoading] = useState(false)
     const [pageLoading, setPageLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const { t } = useTranslation()
 
     // Get email from navigation state or query params
     const email = location.state?.email || new URLSearchParams(location.search).get('email')
-
-    const { t } = useTranslation(['pages', 'common', 'messages'])
 
     useEffect(() => {
         if (email) {
@@ -33,7 +32,7 @@ export function VerifyOtp() {
     const handleVerifyToken = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!token || token.length < 6) {
-            setError(t('messages:validation.otp_length'))
+            setError(t('auth.otp.error_invalid_length'))
             return
         }
 
@@ -51,7 +50,7 @@ export function VerifyOtp() {
 
             navigate(PATHS.ROOT)
         } catch (err: any) {
-            setError(err.message || t('messages:errors.invalid_otp'))
+            setError(err.message || t('auth.otp.error_invalid'))
         } finally {
             setLoading(false)
         }
@@ -67,9 +66,9 @@ export function VerifyOtp() {
                 email: email,
             })
             if (resendError) throw resendError
-            toast.success(t('messages:success.send_otp_sent'))
+            toast.success(t('auth.otp.resend_success'))
         } catch (err: any) {
-            setError(err.message || t('messages:errors.send_otp_field'))
+            setError(err.message || t('auth.otp.error_resend'))
         } finally {
             setLoading(false)
         }
@@ -80,20 +79,17 @@ export function VerifyOtp() {
         <div className="relative flex flex-col items-center md:justify-center gap-14 w-full md:w-4/5 p-2 md:p-4 lg:p-8">
 
             {pageLoading
-            ?
+                ?
                 <div className="flex flex-col gap-2">
                     <Spinner />
-                    <span className="text-sm"> { t('common:loading_moment') } </span>
+                    <span className="text-sm"> {t('auth.otp.loading_moment')} </span>
                 </div>
-            :
+                :
                 <>
                     {/* Form Header */}
-                    <div className="flex flex-col gap-2 text-center">
-                        <h1 className="font-semibold text-2xl md:text-3xl mb-2"> { t('pages:verify_otp.header') } </h1>
-                        <p className="text-xs md:text-xs text-muted">
-                            <Trans i18nKey="pages:verify_otp.subheader" values={{'email':email}}
-                            components={[<span className="font-medium text-nowrap underline" />]} />
-                        </p>
+                    <div className="text-center space-y-2 md:space-y-3">
+                        <h1 className="font-semibold text-2xl md:text-3xl"> {t('auth.otp.verify_account')} </h1>
+                        <p className="text-ellipsis-2line text-2xs md:text-xs text-muted">{t('auth.otp.description', { email })}</p>
                     </div>
 
                     <form onSubmit={handleVerifyToken} className="flex flex-col items-center gap-8">
@@ -104,7 +100,7 @@ export function VerifyOtp() {
                             value={token}
                             onChange={setToken}
                             numInputs={6}
-                            renderInput={(props) => <input {...props} required className="font-semibold text-xl xs:text-2xl md:text-3xl text-center w-8 xs:w-10 md:w-12 h-full ring-1 ring-muted/15 bg-emphasis rounded-md outline-muted/25"/>}
+                            renderInput={(props) => <input {...props} required className="font-semibold text-xl xs:text-2xl md:text-3xl text-center w-8 xs:w-10 md:w-12 h-full ring-1 ring-muted/15 bg-emphasis rounded-md outline-muted/25" />}
                         />
 
 
@@ -116,7 +112,7 @@ export function VerifyOtp() {
                                 disabled={loading || token.length < 6}
                                 className="font-semibold text-white/95 w-full px-4 p-2 bg-primary rounded-xl disabled:opacity-50"
                             >
-                                <Spinner status={loading} size="sm"> { t('common:action.verify_otp') } </Spinner>
+                                <Spinner status={loading} size="sm"> {t('auth.otp.verify_button')} </Spinner>
                             </button>
                         </div>
                     </form>
@@ -128,14 +124,14 @@ export function VerifyOtp() {
                             disabled={loading}
                             className="text-xs text-muted hover:text-foreground underline"
                         >
-                            { t('pages:verify_otp.resend_label') }
+                            {t('auth.otp.resend_prompt')} {t('auth.otp.resend_button')}
                         </button>
 
                         <hr className="w-full border-t border-muted/25 my-4 mask-x-to-transparent mask-x-from-45%" />
                         {/* Legal Links */}
                         <nav className="flex flex-wrap items-center">
                             {LegalLinks.map((item, index) => (
-                                <Link key={index} to={item.path} className="flex justify-center text-3xs sm:text-2xs text-muted hover:underline active:underline after:content-['•'] after:mx-2 last:after:content-none"> {item.label} </Link>
+                                <Link key={index} to={item.path} className="flex justify-center text-3xs sm:text-2xs text-muted hover:underline active:underline after:content-['•'] after:mx-2 rtl:after:mx-2 last:after:content-none"> {t(`footer.legal.${item.key}`)} </Link>
                             ))}
                         </nav>
                     </div>

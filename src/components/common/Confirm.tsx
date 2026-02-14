@@ -5,6 +5,8 @@ import { PATHS } from "@/routers/Paths";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import Spinner from "./Spinner";
+import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: React.ReactNode;
@@ -15,14 +17,16 @@ export function LogoutButton({ children, ...props }: Props) {
   const navigate = useNavigate();
   const [pending, setPending] = useState(false);
 
+  const { t } = useTranslation()
+
   async function handleLogout() {
     if (pending) return;
 
     const confirmed = await confirm({
-      title: "Sign me out",
-      description: "Are you sure you want to log out of your account?",
-      confirmText: "Logout",
-      cancelText: "Cancel",
+      title: t('confirm.sign_me_out'),
+      description: t('confirm.signout_description'),
+      confirmText: t('auth.logout'),
+      cancelText: t('common.cancel'),
       variant: "default",
     });
 
@@ -42,7 +46,8 @@ export function LogoutButton({ children, ...props }: Props) {
       navigate(PATHS.LOGIN);
     } catch (err) {
       console.error("logout failed", err);
-      // TODO: show user-facing toast
+      toast.error(t('auth.error_failed_logout'))
+
     } finally {
       setPending(false);
     }
@@ -52,7 +57,7 @@ export function LogoutButton({ children, ...props }: Props) {
     <button type="button" onClick={handleLogout} disabled={pending || props.disabled} aria-busy={pending}
       {...props}
     >
-      <Spinner status={pending} size="sm" > {children ?? "Logout"} </Spinner>
+      <Spinner status={pending} size="sm" > {children ?? t('auth.Logout') } </Spinner>
     </button>
   );
 }
@@ -61,14 +66,16 @@ export function VerifyPhone({ children, phone, ...props }:any) {
   const confirm = useConfirm();
   const [pending, setPending] = useState(false);
 
+  const { t } = useTranslation()
+
   async function handleVerification() {
     if (pending) return;
 
     const confirmed = await confirm({
-      title: "Get Phone Verification Code",
-      description: `Sending code to this number: ${phone}`,
-      confirmText: "Get Code",
-      cancelText: "Cancel",
+      title: t('confirm.phone_verification'),
+      description: t('confirm.phone_verification_description', {phone: phone}),
+      confirmText: t('confirm.phone_verification_cta'),
+      cancelText: t('common.cancel'),
       variant: "default",
     });
 
@@ -95,7 +102,7 @@ export function VerifyPhone({ children, phone, ...props }:any) {
     <button type="button" onClick={handleVerification} disabled={pending || props.disabled} aria-busy={pending}
       {...props}
     >
-      <Spinner status={pending} size="sm" > {children ?? "Get Code"} </Spinner>
+      <Spinner status={pending} size="sm" > {children ?? t('confirm.phone_verification_cta')} </Spinner>
     </button>
   );
 }

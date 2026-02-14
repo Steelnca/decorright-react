@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { UserRoles } from '@/constants';
+import { userRoles } from '@/constants';
 
 type AuthContextValue = {
   user: { id: string; email?: string; role?: string; phoneVerified?: boolean } | null;
@@ -36,14 +36,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.error('Failed to load profile:', error);
       }
 
-      const rawRole = profile?.role || 'customer';
-      const role = rawRole.toLowerCase() === 'customer' ? 'client' : rawRole.toLowerCase();
-
+      const role = user?.role.toLowerCase() || "client";
       setUser({
         id: session.user.id,
         email: session.user.email ?? undefined,
         role,
-        phoneVerified: !!profile?.phone_verified,
+        phoneVerified: !!profile?.phone_verified, // !!! Does profile has phone_verified ??
       });
 
       setLoading(false);
@@ -59,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const value: AuthContextValue = {
     user,
     loading,
-    isAdmin: user?.role === UserRoles.ADMIN,
+    isAdmin: user?.role === userRoles.ADMIN,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

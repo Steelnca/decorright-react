@@ -18,8 +18,8 @@ i18n
 // init i18next
 // for all options read: https://www.i18next.com/overview/configuration-options
 .init({
-  ns: ['common', 'pages', 'nav', 'messages'],
-  defaultNS: 'common',
+  ns: ['translation', 'gallery'],
+  defaultNS: 'translation',
   debug: true,
   fallbackLng: 'en',
   react: {
@@ -75,3 +75,22 @@ i18n.on('languageChanged', (lng) => {
 });
 
 export default i18n;
+
+export const getLocalizedContent = (data: any, field: string, language: string) => {
+  if (!data) return '';
+  const localizedField = `${field}_${language}`; // e.g., title_ar
+
+  // If the specific language field exists and is not empty, use it.
+  if (data[localizedField]) {
+    return data[localizedField];
+  }
+
+  // Fallback logic:
+  // If language is English, prioritize base field.
+  if (language === 'en' || !language) {
+    return data[field] || '';
+  }
+
+  // For other languages (fr, ar), if translation is missing, fallback to English/base field.
+  return data[field] || '';
+};

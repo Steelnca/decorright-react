@@ -1,5 +1,5 @@
-
 import { ICONS } from "@/icons"
+
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,12 +10,10 @@ import ZoomImage from "@components/ui/ZoomImage";
 import { AdminService } from "@/services/admin.service";
 import Spinner from "@components/common/Spinner";
 import { PATHS } from "@/routers/Paths";
+import { getLocalizedContent } from "@/utils/i18n";
 import { useTranslation } from "react-i18next";
-import i18n from "@/utils/i18n";
-import type { ServiceType } from "@/services/service-types.service";
-import type { SpaceType } from "@/services/space-types.service";
 
-// export function ProjectCardItem({ project, index }: { project: any, index: number }) {
+// export function ProjectCardItem({ project, index, lang }: { project: any, index: number, lang: string }) {
 //     return (
 //         <li key={index}>
 //             <Link to={PATHS.projectDetail(project.slug || project.id)} className="flex max-md:flex-col gap-1 h-full">
@@ -23,7 +21,7 @@ import type { SpaceType } from "@/services/space-types.service";
 //                     <img src={project.thumbnail_url} alt={project.title} className="w-full h-full object-cover" />
 //                 </div>
 //                 <div className="flex flex-col gap-1 w-full h-full overflow-hidden">
-//                     <h3 className="font-medium text-xs md:text-2xs h-full text-ellipsis-3line"> {project.title} </h3>
+//                     <h3 className="font-medium text-xs md:text-2xs h-full text-ellipsis-3line"> {getLocalizedContent(project, 'title', lang)} </h3>
 //                     <div className="flex md:flex-col">
 //                         <p className="font-medium text-2xs md:text-3xs text-muted/75"> View Project </p>
 //                     </div>
@@ -36,11 +34,17 @@ import type { SpaceType } from "@/services/space-types.service";
 // export function ProjectSimilarList() {
 //     const [projects, setProjects] = useState<any[]>([]);
 //     const [loading, setLoading] = useState(true);
+//     const { user, isAdmin } = useAuth();
+//     const { i18n } = useTranslation();
 
 //     useEffect(() => {
 //         async function fetchSimilar() {
 //             try {
-//                 const data = await AdminService.getProjects({ visibility: ['PUBLIC'], limit: 5 });
+//                 const visibility: any[] = ['PUBLIC'];
+//                 if (user) visibility.push('AUTHENTICATED_ONLY');
+//                 if (isAdmin) visibility.push('HIDDEN');
+
+//                 const data = await AdminService.getProjects({ visibility, limit: 5 });
 //                 setProjects(data || []);
 //             } catch (err) {
 //                 console.error("Failed to fetch similar projects:", err);
@@ -49,14 +53,14 @@ import type { SpaceType } from "@/services/space-types.service";
 //             }
 //         }
 //         fetchSimilar();
-//     }, []);
+//     }, [user]);
 
 //     if (loading) return <div className="p-4 flex justify-center"><Spinner className="w-6 h-6" /></div>;
 
 //     return (
 //         <ul className="space-y-6 md:space-y-2">
 //             {projects.map((project, index) => (
-//                 <ProjectCardItem key={project.id} project={project} index={index} />
+//                 <ProjectCardItem key={project.id} project={project} index={index} lang={i18n.language} />
 //             ))}
 //         </ul>
 //     )
@@ -64,6 +68,8 @@ import type { SpaceType } from "@/services/space-types.service";
 
 export function ProjectDetail() {
     const { slug } = useParams<{ slug: string }>();
+    const { i18n } = useTranslation();
+    const lang = i18n.language;
     const [project, setProject] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [liked, setLiked] = useState(false);
@@ -102,13 +108,6 @@ export function ProjectDetail() {
         ? project.project_images.map((img: any) => ({ id: img.id, src: img.image_url, alt: project.title }))
         : (project.thumbnail_url ? [{ id: 'main', src: project.thumbnail_url, alt: project.title }] : []);
 
-    const getLocalizedLabel = (data: ServiceType | SpaceType) => {
-        const lang = i18n.language
-        if (lang === "ar" && data.display_name_ar) return data.display_name_ar
-        if (lang === "fr" && data.display_name_fr) return data.display_name_fr
-        return data.display_name_en
-    }
-
     return (
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-18 w-full">
 
@@ -132,13 +131,13 @@ export function ProjectDetail() {
 
                 <div className="flex flex-col gap-4 w-full mt-6">
                     <div className="flex max-lg:flex-col lg:justify-between gap-2">
-                        <h1 className="font-semibold text-lg md:text-xl text-heading leading-tight line-clamp-2">{project.title}</h1>
+                        <h1 className="font-semibold text-lg md:text-xl text-heading leading-tight line-clamp-2">{getLocalizedContent(project, 'title', lang)}</h1>
                         <div className="flex flex-wrap gap-2 min-w-max">
                             <span className="text-2xs md:text-xs px-3 py-1 h-fit rounded-full bg-muted/5 text-muted border border-muted/15">
-                                { getLocalizedLabel(project.service_types) }
+                                {getLocalizedContent(project.service_types, 'display_name', lang)}
                             </span>
                             <span className="text-2xs md:text-xs px-3 py-1 h-fit rounded-full bg-muted/5 text-muted border border-muted/15">
-                                { getLocalizedLabel(project.space_types) }
+                                {getLocalizedContent(project.space_types, 'display_name', lang)}
                             </span>
                         </div>
                     </div>
@@ -147,7 +146,7 @@ export function ProjectDetail() {
                     <div className="flex items-center gap-6 py-2 px-1 border-b border-muted/10">
                         <div className="flex items-center gap-2 text-muted">
                             <ICONS.mapPin className="size-4"/>
-                            <span className="text-xs font-medium">{project.location || 'N/A'}</span>
+                            <span className="text-xs font-medium">{getLocalizedContent(project, 'location', lang) || 'N/A'}</span>
                         </div>
                         <div className="flex items-center gap-2 text-muted">
                             {/* {ICONS.layout({ className: 'size-4' })} */}
@@ -192,7 +191,7 @@ export function ProjectDetail() {
                                         <ICONS.mapPin className="size-4" />
                                         <h5 className="text-xs text-muted"> { t('common:location') } </h5>
                                     </div>
-                                    <span className="text-xs font-medium"> {project.location || 'N/A'} </span>
+                                    <span className="text-xs font-medium"> {getLocalizedContent(project, 'location', lang) || 'N/A'} </span>
                                 </div>
                             }
 
@@ -209,7 +208,7 @@ export function ProjectDetail() {
                         <div onClick={() => setDescOpen(!descOpen)}>
 
                             <p className={`text-xs text-body leading-relaxed ${!descOpen && 'line-clamp-2'}`}>
-                                {project.description}
+                                {getLocalizedContent(project, 'description', lang)}
                             </p>
                         </div>
                     </div>

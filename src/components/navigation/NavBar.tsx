@@ -8,19 +8,20 @@ import { createContext, useContext, useState } from "react"
 
 import { LogoutButton } from "@components/common/Confirm"
 import { ICONS } from "@/icons"
-import { publicMenuItems, clientMenuItems, languages } from "@/constants/navigation"
+import { publicMenuItems, clientMenuItems } from "@/constants/navigation"
 import { MenuCard } from "@components/ui/MenuCard"
 import { PCTALink, SCTALink } from "@components/ui/CTA"
 import { PATHS } from "@/routers/Paths"
 import { SelectDropDownMenu } from "@components/ui/Select"
 import { allowedLocales } from "@/constants"
 import { useTranslation } from "react-i18next"
-import MenuLanguageSelectorModal from "../ui/LanguageSelectorModel"
+import MenuLanguageSelectorModal from "@components/ui/LanguageSelectorModel"
 
 const UserContext = createContext<any>(null);
 const MenuContext = createContext<any>(undefined);
 
 export function NavLogo() {
+    const { t } = useTranslation();
     return (
         <div className="flex items-center gap-2 md:gap-4 min-w-max">
             <div className="content-center w-8 md:w-10 aspect-square">
@@ -28,8 +29,8 @@ export function NavLogo() {
             </div>
             <div className="flex flex-col">
                 <h3 className="text-sm md:text-base font-medium"> Deco Right </h3>
-                <span className="text-3xs md:text-2xs text-muted hover:text-foreground" title="Decor agency">
-                    Decor agency
+                <span className="text-3xs md:text-2xs text-muted hover:text-foreground" title={t('common.decor_agency')}>
+                    {t('common.decor_agency')}
                 </span>
             </div>
         </div>
@@ -37,11 +38,12 @@ export function NavLogo() {
 }
 
 export function NavLinks() {
+    const { t } = useTranslation();
     return (
-        <ul className="hidden lg:flex justify-center gap-4 w-full">
-            {publicMenuItems().map((item, index) => (
+        <ul className="hidden xl:flex justify-center gap-4 w-full">
+            {publicMenuItems.map((item, index) => (
                 <li key={index}>
-                    <Link to={item.path} className="font-medium text-sm p-2"> {item.label} </Link>
+                    <Link to={item.path} className="font-medium text-sm p-2"> {t(`nav.${item.key}`)} </Link>
                 </li>
             ))}
 
@@ -57,12 +59,13 @@ export function AuthenticatedUserActins() {
     const [chatMenuOpen, setChatMenuOpen] = useState<boolean>(false);
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
 
+    const { t } = useTranslation()
+
     return (
         <>
             <div className="flex items-center gap-2 md:gap-4">
 
-                {isAdmin
-
+                { isAdmin
                     ? <>
                         {/* Request Project */}
                         <Link to={PATHS.ADMIN.PROJECT_CREATE} title="Create Project" className="max-md:hidden content-center p-2.5 min-w-max font-medium text-sm border border-muted/15 bg-surface/75 rounded-full">
@@ -86,23 +89,23 @@ export function AuthenticatedUserActins() {
                     </>
 
                     : <>
-                        {/* Request Project */}
-                        <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
-                            Request Service
-                        </Link>
 
-                        {/* Chat Nav Page */}
-                        <Link to={PATHS.CLIENT.CHAT} title="Chats" className="relative content-center p-1.5 md:p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
-                            <ICONS.chat className="size-5 md:size-6" />
+                    {/* Request Project */}
+                    <Link to={PATHS.CLIENT.REQUEST_SERVICE} title="Request Service" className="max-md:hidden content-center p-2 min-w-max font-medium text-sm border border-primary/45 bg-surface/75 rounded-full">
+                        Request Service
+                    </Link>
 
-                            <span className="absolute flex size-3 top-0 left-0">
-                                <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
-                                <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
-                            </span>
-                        </Link>
+                    {/* Chat Nav Page */}
+                    <Link to={PATHS.CLIENT.CHAT} title="Chats" className="relative content-center p-1.5 md:p-2 border border-primary/45 border-muted/15 bg-surface/75 rounded-full">
+                        <ICONS.chat className="size-5 md:size-6" />
+
+                        <span className="absolute flex size-3 top-0 left-0">
+                            <span className="absolute inline-flex h-full w-full animate-[ping_1.5s_infinite] rounded-full bg-primary/75"></span>
+                            <span className="relative inline-flex size-3 rounded-full bg-primary"></span>
+                        </span>
+                    </Link>
 
                     </>
-
                 }
 
                 {/* User Profile Nav Page */}
@@ -119,7 +122,7 @@ export function AuthenticatedUserActins() {
             </div>
 
             {chatMenuOpen &&
-                <MenuCard title={'Menu'} open={chatMenuOpen} setOpen={setChatMenuOpen}>
+                <MenuCard title={ t('common.menu_chat') } open={chatMenuOpen} setOpen={setChatMenuOpen}>
                     {/* Mobile Nav Menu */}
 
                     <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
@@ -130,7 +133,7 @@ export function AuthenticatedUserActins() {
 
             {/* Mobile Nav Menu Card Overlay */}
             {navMenuOpen &&
-                <MenuCard title={'Menu'} open={navMenuOpen} setOpen={setNavMenuOpen}>
+                <MenuCard title={ t('common.menu_navigation') } open={navMenuOpen} setOpen={setNavMenuOpen}>
                     {/* Mobile Nav Menu */}
 
                     <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
@@ -149,32 +152,29 @@ export function AnonymousUserActins() {
     const { user } = useContext(UserContext);
     if (user) return;
 
-    const { t } = useTranslation('nav')
-
-    const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
-    const [language, setLanguage] = useState<string | "en" | "fr" | "ar">(i18n.language || "en")
-    const [langMenuOpen, setLangMenuOpen] = useState<boolean>(false);
-
+    const { t } = useTranslation()
+    const { langMenuOpen, setLangMenuOpen, languageChoices } = useContext(MenuContext)
 
     function handleChange(value: string) {
 
+        console.log('HELLO ON CHNAGE')
         if (!allowedLocales.includes(value)) return;
-        setLanguage(value)
         i18n.changeLanguage(value); // This is the global trigger
         // Save it to the db if needed
     };
 
+    const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
+
     return (
 
         <>
-            <div className="flex items-center gap-3 xs:gap-4 w-fit">
-
+            <div className="flex items-center gap-2 md:gap-4">
                 <div className="max-md:hidden flex min-w-max">
                     <SelectDropDownMenu
-                        options={languages()}
+                        options={languageChoices}
                         placeholder="Select a Language"
                         id="select-language"
-                        value={languages().find(s => s.value === language)}
+                        value={languageChoices.find((s:any) => s.value === i18n.language)}
                         onChange={(option: any) => handleChange(option.value)}
                         isSearchable={false}
                         required
@@ -182,31 +182,25 @@ export function AnonymousUserActins() {
                 </div>
 
                 {/* Login */}
-                <SCTALink to={PATHS.LOGIN} title="Login" className="max-md:hidden"> { t('nav:auth_sign_in') } </SCTALink>
+                <SCTALink to={PATHS.LOGIN} title={t('auth.login')} className="max-md:hidden"> {t('auth.login')} </SCTALink>
 
                 {/* Sign Up */}
-                <PCTALink to={PATHS.SIGNUP} title="Sign Up" className="max-2xs:hidden"> { t('nav:auth_sign_up') } </PCTALink>
+                <PCTALink to={PATHS.SIGNUP} title={t('auth.signup')}> {t('auth.signup')} </PCTALink>
 
-                {/* Nav Menu Trigger */}
-                <button type="button" title={ t('nav:menu_navigation_header') } className="lg:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                {/* Menu Trigger */}
+                <button type="button" title={t('common.menu')} className="xl:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
                     <ICONS.menu className="size-6" />
                 </button>
 
             </div>
 
-            <MenuLanguageSelectorModal isOpen={langMenuOpen} onClose={() => {setLangMenuOpen(false)}} onSuccess={() => {setLangMenuOpen(false)}} />
-
             {/* Mobile Nav Menu Card Overlay */}
             {navMenuOpen &&
-                <MenuCard title={ t('nav:menu_navigation_header') } open={navMenuOpen} setOpen={setNavMenuOpen}>
+                <MenuCard title={ t('common.menu_navigation') } open={navMenuOpen} setOpen={setNavMenuOpen}>
                     {/* Mobile Nav Menu */}
-
                     <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
-                        <MenuContext.Provider value={{langMenuOpen, setLangMenuOpen}}>
-                            <PublicMenu />
-                        </MenuContext.Provider>
+                        <PublicMenu />
                     </ul>
-
                 </MenuCard>
             }
         </>
@@ -215,53 +209,69 @@ export function AnonymousUserActins() {
 
 export function PublicMenu() {
 
-    const { t } = useTranslation('nav')
+    const { t } = useTranslation()
     const { langMenuOpen, setLangMenuOpen } = useContext(MenuContext);
 
     return (
         <>
-            {publicMenuItems().map((item, index) => (
-                <li key={index} className="w-full">
-                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+            {publicMenuItems.map((item, index) => (
+                <li key={index} className="group/menuitem w-full">
+                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-muted/75">
                         <div className="flex content-center gap-2">
                             {/* Icon */}
-                            {/* { ICONS.informationCircle({}) } */}
+                            { item.icon ?? <ICONS.folder /> }
                             {/* Label */}
-                            <h3 className="font-medium text-sm"> {item.label} </h3>
+                            <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t(`nav.${item.key}`) } </h3>
                         </div>
 
                         {/* Description & Helper */}
                         <div className="w-full">
-                            <p className="text-2xs text-muted"> {item.description} </p>
+                            <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t(`nav.${item.key}_description`) } </p>
                         </div>
                     </Link>
                 </li>
             ))}
 
-            <li key="menu_language_settings" className="w-full">
+            <li key="menu_language_settings" className="group/menuitem w-full">
                 {/* Language Menu Trigger */}
-                <button type="button" title={ t('nav:menu_language_area_label') }
+                <button type="button" title={ t('nav.language_area') }
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15"
+                className="flex items-center w-full text-start p-2 border-b border-muted/15 hover:border-muted group-hover/menuitem:border-muted/75"
                 >
-                    <h3 className="font-medium text-sm"> { t('nav:menu_language_settings') } </h3>
+                    <ICONS.folder />
+                    <div className="w-full">
+                        <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('nav.language') } </h3>
+                        <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t('nav.language_description') } </p>
+                    </div>
+                    <ICONS.chevronRight className="rtl:rotate-180 size-4" />
                 </button>
             </li>
 
-            <li key="login" className="w-full">
-                <Link to={PATHS.LOGIN} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+            <li key="login" className="group/menuitem w-full">
+                <Link to={PATHS.LOGIN} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 hover:border-muted group-hover/menuitem:border-muted/75">
                     <div className="flex content-center gap-2">
-                        {/* { ICONS.informationCircle({}) } */}
-                        <h3 className="font-medium text-sm"> { t('nav:auth_sign_in') } </h3>
+                        <ICONS.folder />
+                        <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('auth.login') } </h3>
+                    </div>
+
+                    {/* Context */}
+                    <div className="w-full">
+                        <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t('auth.login_description') } </p>
                     </div>
                 </Link>
             </li>
 
-            <li key="signup" className="w-full">
-                <Link to={PATHS.SIGNUP} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+            <li key="signup" className="group/menuitem w-full">
+                <Link to={PATHS.SIGNUP} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-muted/75 ">
                     <div className="flex content-center gap-2">
-                        {/* { ICONS.informationCircle({}) } */}
-                        <h3 className="font-medium text-sm"> { t('nav:auth_sign_up') } </h3>
+                        <ICONS.folder />
+                        {/* Label */}
+                        <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('auth.signup') }  </h3>
+                    </div>
+
+                    {/* Context */}
+                    <div className="w-full">
+                        <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t('auth.signup_description') } </p>
                     </div>
                 </Link>
             </li>
@@ -272,45 +282,62 @@ export function PublicMenu() {
 export function ClientMenu() {
 
     const { isAdmin } = useContext(UserContext);
+    const { langMenuOpen, setLangMenuOpen } = useContext(MenuContext);
+    const { t } = useTranslation()
 
     return (
 
         <>
             {isAdmin &&
                 <li id="admin-dashboard-nav-menu-item" className="w-full">
-                    <Link to={PATHS.ADMIN.ANALYTICS} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+                    <Link to={PATHS.ADMIN.ANALYTICS} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 hover:border-muted">
                         <div className="flex content-center gap-2">
                             {/* Icon */}
                             <ICONS.presentationChartLine />
                             {/* Label */}
-                            <span className="font-medium text-sm"> Dashboard </span>
+                            <span className="font-medium text-sm"> { t('nav.dashboard') } </span>
                         </div>
 
                         {/* Context */}
                         <div className="w-full">
-                            <p className="text-2xs text-muted"> Admin dashboard & control panel  </p>
+                            <p className="text-2xs text-muted"> { t('nav.dashboard_description') }  </p>
                         </div>
                     </Link>
                 </li>
             }
 
             {clientMenuItems.map((item, index) => (
-                <li key={index} className="w-full">
-                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15">
+                <li key={index} className="group/menuitem w-full">
+                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-muted/75">
                         <div className="flex content-center gap-2">
                             {/* Icon */}
-                            {/* { ICONS.informationCircle({}) } */}
+                            { item.icon ?? <ICONS.folder /> }
                             {/* Label */}
-                            <span className="font-medium text-sm"> {item.label} </span>
+                            <span className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t(`nav.${item.key}`) } </span>
                         </div>
 
                         {/* Context */}
                         <div className="w-full">
-                            <p className="text-2xs text-muted"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus culpa  </p>
+                            <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t(`nav.${item.key}_description`) } </p>
                         </div>
                     </Link>
                 </li>
             ))}
+
+            <li key="menu_language_settings" className="group/menuitem w-full">
+                {/* Language Menu Trigger */}
+                <button type="button" title={ t('nav.language_area') }
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className="flex items-center w-full text-start p-2 border-b border-muted/15 hover:border-muted group-hover/menuitem:border-muted/75"
+                >
+                    <ICONS.folder />
+                    <div className="w-full">
+                        <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('nav.language') } </h3>
+                        <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t('nav.language_description') } </p>
+                    </div>
+                    <ICONS.chevronRight className="rtl:rotate-180 size-4" />
+                </button>
+            </li>
 
             <li id="logout-nav-menu-item">
                 <LogoutButton className="flex w-full h-full px-2 py-4 border-b border-muted/15">
@@ -318,7 +345,7 @@ export function ClientMenu() {
                         {/* Icon */}
                         <ICONS.arrowRightStartOnRectangle />
                         {/* Label */}
-                        <span className="font-medium text-sm"> Logout </span>
+                        <span className="font-medium text-sm"> { t('auth.logout') } </span>
                     </div>
                 </LogoutButton>
             </li>
@@ -329,12 +356,24 @@ export function ClientMenu() {
 
 export function NavActions() {
 
+    const [langMenuOpen, setLangMenuOpen] = useState<boolean>(false);
+
+    const { t } = useTranslation()
+
+    const languageChoices = [
+        { id:'en', label: t('common.english'), value: 'en', icon: null, },
+        { id:'fr', label: t('common.french'), value: 'fr', icon: null, },
+        { id:'ar', label: t('common.arabic'), value: 'ar', icon: null, },
+    ]
+
     return (
 
-        <>
+        <MenuContext.Provider value={{langMenuOpen, setLangMenuOpen, languageChoices}}>
             <AuthenticatedUserActins />
             <AnonymousUserActins />
-        </>
+            <MenuLanguageSelectorModal isOpen={langMenuOpen} onClose={() => {setLangMenuOpen(false)}} onSuccess={() => {setLangMenuOpen(false)}} />
+
+        </MenuContext.Provider>
     )
 }
 

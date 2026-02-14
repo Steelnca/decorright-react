@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Table from "@/components/ui/DataTable";
 import { AdminService } from "@/services/admin.service";
 import { ICONS } from "@/icons";
 import { PATHS } from '@/routers/Paths';
+import { useConfirm } from "@components/confirm";
+import { toast } from 'react-hot-toast';
 
 interface RequestServiceTableProps {
-    onRowClick?: (request: any) => void;
     externalData?: any[];
     onRefresh?: () => void;
 }
@@ -15,7 +16,9 @@ const STATUS_OPTIONS = [
     'Submitted', 'Under Review', 'Approved', 'In Progress', 'Completed', 'Rejected', 'Cancelled'
 ];
 
-export default function RequestServiceTable({ onRowClick, externalData, onRefresh }: RequestServiceTableProps) {
+export default function RequestServiceTable({ externalData, onRefresh }: RequestServiceTableProps) {
+    const navigate = useNavigate();
+    const confirm = useConfirm();
     const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
@@ -50,6 +53,27 @@ export default function RequestServiceTable({ onRowClick, externalData, onRefres
             console.error("Failed to update status:", error);
         } finally {
             setUpdatingStatusId(null);
+        }
+    };
+
+    const handleDeleteRequest = async (id: string, code: string) => {
+        const confirmed = await confirm({
+            title: 'Delete Request',
+            message: `Are you sure you want to delete request ${code}? This action cannot be undone.`,
+            confirmLabel: 'Delete',
+            variant: 'danger'
+        });
+
+        if (!confirmed) return;
+
+        try {
+            await AdminService.deleteServiceRequest(id);
+            toast.success(`Request ${code} deleted successfully`);
+            if (onRefresh) onRefresh();
+            else loadData();
+        } catch (error) {
+            console.error("Failed to delete request:", error);
+            toast.error("Failed to delete request");
         }
     };
 
@@ -163,6 +187,10 @@ export default function RequestServiceTable({ onRowClick, externalData, onRefres
         },
     ];
 
+    const handleRowClick = (row: any) => {
+        navigate(PATHS.ADMIN.requestServiceDetail(row.id));
+    };
+
     if (loading && displayData.length === 0) return (
         <div className="p-20 text-center flex flex-col items-center gap-4 animate-pulse">
             <ICONS.rectangleStack className="size-12 text-muted/20" />
@@ -175,7 +203,7 @@ export default function RequestServiceTable({ onRowClick, externalData, onRefres
             columns={columns}
             data={displayData}
             options={{
-                onRowClick: onRowClick,
+                onRowClick: handleRowClick,
                 selectable: true,
                 filterOptions: [
                     { label: 'All Requests', value: '' },
@@ -190,7 +218,7 @@ export default function RequestServiceTable({ onRowClick, externalData, onRefres
                 renderActions: (row: any) => (
                     <div className="flex flex-col gap-1.5 w-full p-1">
                         <button
-                            onClick={() => onRowClick?.(row)}
+                            onClick={() => handleRowClick(row)}
                             className="px-2 py-2 w-full text-sm text-start hover:bg-emphasis rounded-lg flex items-center gap-2.5 font-medium text-primary transition-colors"
                         >
                             <ICONS.eye className="size-4" />
@@ -215,7 +243,13 @@ export default function RequestServiceTable({ onRowClick, externalData, onRefres
                                 </button>
                             )}
                         <hr className="my-1 border-muted/10" />
-                        <button className="px-2 py-2 w-full text-sm text-start hover:bg-red-500/10 hover:text-red-600 rounded-lg flex items-center gap-2.5 font-medium transition-colors text-red-500/80">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteRequest(row.id, row.request_code);
+                            }}
+                            className="px-2 py-2 w-full text-sm text-start hover:bg-red-500/10 hover:text-red-600 rounded-lg flex items-center gap-2.5 font-medium transition-colors text-red-500/80"
+                        >
                             <ICONS.trash className="size-4" />
                             Delete Request
                         </button>

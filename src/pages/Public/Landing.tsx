@@ -1,20 +1,44 @@
-
-import { HeroSection } from "@/components/layout/Landing"
+import { useState, useEffect } from "react"
+import { Hero } from "@/components/layout/Landing"
 import { ServiceCardList } from "@components/layout/Services"
-
 import { FAQList } from "@components/layout/FAQ"
 import { SectionHeader } from "@/components/ui/SectionHeader"
 import { ShowcaseCardList } from "@/components/layout/Showcase"
+import { Link } from "react-router-dom"
+import { PATHS } from "@/routers/Paths"
+import { AdminService } from "@/services/admin.service"
 import { useTranslation } from "react-i18next"
+import { ICONS } from "@/icons"
 
-export default function LandingPage() {
+export default function Landing() {
+    const [settings, setSettings] = useState<Record<string, string>>({});
 
-    const { t } = useTranslation('pages');
+    useEffect(() => {
+        async function fetchSettings() {
+            try {
+                const data = await AdminService.getSettings();
+                setSettings(data);
+            } catch (error) {
+                console.error("Failed to fetch site settings:", error);
+            }
+        }
+        fetchSettings();
+    }, []);
+
+    const { t, i18n } = useTranslation();
+    const lang = i18n.language.startsWith('ar') ? '_ar' : i18n.language.startsWith('fr') ? '_fr' : '';
+
+    const servicesTitle = settings[`home_services_section_title${lang}`] || settings.home_services_section_title || t('landing.sections.services.title');
+    const servicesDescription = settings[`home_services_section_description${lang}`] || settings.home_services_section_description || t('landing.sections.services.description');
+    const projectsTitle = settings[`home_projects_section_title${lang}`] || settings.home_projects_section_title || t('landing.sections.projects.title');
+    const projectsDescription = settings[`home_projects_section_description${lang}`] || settings.home_projects_section_description || t('landing.sections.projects.description');
+    const faqTitle = settings[`home_faq_title${lang}`] || settings.home_faq_title || t('landing.sections.faq.title');
+    const faqDescription = settings[`home_faq_description${lang}`] || settings.home_faq_description || t('landing.sections.faq.description');
 
     return (
         <>
             <main className="bg-linear-0 from-transparent to-primary/4 overflow-y-clip">
-                <HeroSection />
+                <Hero settings={settings} />
             </main>
             <section className="relative my-8 py-12 px-3 sm:px-6 md:px-8">
 
@@ -23,8 +47,8 @@ export default function LandingPage() {
                 <div className="content-container flex flex-col gap-8 w-full">
                     {/* Section Header */}
                     <SectionHeader
-                        title={ t('pages:landing.services.header') }
-                        desc={ t('pages:landing.services.subheader') }
+                        title={servicesTitle}
+                        desc={servicesDescription}
                     />
 
                     {/* Service Cards */}
@@ -36,8 +60,8 @@ export default function LandingPage() {
                 {/* Section Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <SectionHeader
-                        title={ t('pages:landing.showcases.header') }
-                        desc={ t('pages:landing.showcases.subheader') }
+                        title={projectsTitle}
+                        desc={projectsDescription}
                     />
                 </div>
 
@@ -50,8 +74,8 @@ export default function LandingPage() {
 
                 {/* Section Header */}
                 <SectionHeader
-                    title={ t('pages:landing.faqs.header') }
-                    desc={ t('pages:landing.faqs.subheader') }
+                    title={faqTitle}
+                    desc={faqDescription}
                 />
 
                 {/* FAQ List */}

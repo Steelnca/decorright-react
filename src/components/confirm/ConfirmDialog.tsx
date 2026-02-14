@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { ConfirmOptions } from './confirm.types';
+import { useTranslation } from 'react-i18next';
 
 interface Props extends ConfirmOptions {
   open: boolean;
@@ -9,16 +10,22 @@ interface Props extends ConfirmOptions {
 
 export default function ConfirmDialog({
   open,
-  title = 'Are you sure?',
-  description = '',
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  title,
+  description,
+  confirmText,
+  cancelText,
   variant = 'default',
   onConfirm,
   onCancel,
 }: Props) {
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const confirmButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const { t } = useTranslation('common');
+  const resolvedTitle = title ?? t('confirm_default_label');
+  const resolvedDescription = description ?? t('confirm_default_description');
+  const resolvedConfirmText = confirmText ?? t('confirm');
+  const resolvedCancelText = cancelText ?? t('cancel');
 
   // manage focus when opened
   useEffect(() => {
@@ -60,19 +67,19 @@ export default function ConfirmDialog({
       >
         <div className="p-4 border border-muted/15 rounded-xl">
           <h3 id="confirm-title" className="text-lg font-semibold">
-            {title}
+            {resolvedTitle}
           </h3>
           <p id="confirm-desc" className="mt-2 text-sm text-gray-600">
-            {description}
+            {resolvedDescription}
           </p>
 
           <div className="mt-6 flex justify-end gap-3">
             <button
               onClick={onCancel}
               className="rounded-md px-4 py-2 text-sm"
-              aria-label={cancelText}
+              aria-label={resolvedCancelText}
             >
-              {cancelText}
+              {resolvedCancelText}
             </button>
 
             <button
@@ -82,9 +89,9 @@ export default function ConfirmDialog({
                 'rounded-lg px-4 py-2 text-sm text-white ' +
                 (variant === 'destructive' ? 'bg-danger/75 hover:bg-danger' : 'bg-primary/75 hover:bg-primary')
               }
-              aria-label={confirmText}
+              aria-label={resolvedConfirmText}
             >
-              {confirmText}
+              {resolvedConfirmText}
             </button>
         </div>
         </div>

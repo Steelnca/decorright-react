@@ -90,9 +90,9 @@ export default function AccountProfileLayout() {
                             <ICONS.envelope className="size-6" />
                         </div>
 
-                        <div className="flex flex-col">
-                            <label htmlFor="phone-info" className="font-medium text-xs"> {t('auth.email')} </label>
-                            <p id="phone-info" className="font-medium text-xs text-foreground"> {user.email} </p>
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="email-info" className="font-medium text-xs"> {t('auth.email')} </label>
+                            <p id="email-info" className="font-medium text-xs text-foreground"> {user.email} </p>
                         </div>
                     </li>
                     <li className="flex items-center w-full gap-4 p-3 border border-muted/15 bg-surface rounded-xl">
@@ -100,7 +100,7 @@ export default function AccountProfileLayout() {
                             <ICONS.phone className="size-6" />
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col gap-1">
                             <label htmlFor="phone-info" className="font-medium text-xs"> {t('auth.phone')} </label>
                             <p id="phone-info" className="font-medium text-xs text-foreground"> {profile?.phone || t('profile.not_provided')} </p>
                         </div>
@@ -110,9 +110,9 @@ export default function AccountProfileLayout() {
                             <ICONS.userCircle className="size-6" />
                         </div>
 
-                        <div className="flex flex-col">
-                            <label htmlFor="phone-info" className="font-medium text-xs"> {t('profile.role')} </label>
-                            <p id="phone-info" className="font-medium text-xs text-foreground"> {profile?.role || t('profile.client')} </p>
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="role-info" className="font-medium text-xs"> {t('profile.role')} </label>
+                            <p id="role-info" className="font-medium text-xs text-foreground"> {profile?.role || t('profile.client')} </p>
                         </div>
                     </li>
 

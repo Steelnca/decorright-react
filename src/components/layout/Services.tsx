@@ -140,7 +140,7 @@ export function ServiceCardList() {
                 <li
                 aria-hidden
                 style={{ gridColumn: `span ${fillerSpan}` }}
-                className="rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center p-4"
+                className="rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center p-4 border-red-400"
                 >
                 <div className="w-full h-36 rounded-md bg-white/40 flex items-center justify-center text-gray-300">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">

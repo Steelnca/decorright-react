@@ -124,10 +124,8 @@ export function AuthenticatedUserActins() {
             {chatMenuOpen &&
                 <MenuCard title={ t('common.menu_chat') } open={chatMenuOpen} setOpen={setChatMenuOpen}>
                     {/* Mobile Nav Menu */}
-
-                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
+                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-y-auto min-scrollbar">
                     </ul>
-
                 </MenuCard>
             }
 
@@ -135,11 +133,9 @@ export function AuthenticatedUserActins() {
             {navMenuOpen &&
                 <MenuCard title={ t('common.menu_navigation') } open={navMenuOpen} setOpen={setNavMenuOpen}>
                     {/* Mobile Nav Menu */}
-
-                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
+                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-y-auto min-scrollbar">
                         <ClientMenu />
                     </ul>
-
                 </MenuCard>
             }
 
@@ -197,7 +193,7 @@ export function AnonymousUserActins() {
             {navMenuOpen &&
                 <MenuCard title={ t('common.menu_navigation') } open={navMenuOpen} setOpen={setNavMenuOpen}>
                     {/* Mobile Nav Menu */}
-                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-auto">
+                    <ul className="flex flex-col w-full h-full gap-2 border border-muted/15 p-2 rounded-lg overflow-y-auto min-scrollbar">
                         <PublicMenu />
                     </ul>
                 </MenuCard>
@@ -215,7 +211,7 @@ export function PublicMenu() {
         <>
             {publicMenuItems.map((item, index) => (
                 <li key={index} className="group/menuitem w-full">
-                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-muted/75">
+                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-primary/75">
                         <div className="flex content-center gap-2">
                             {/* Icon */}
                             { item.icon ?? <ICONS.folder /> }
@@ -235,11 +231,13 @@ export function PublicMenu() {
                 {/* Language Menu Trigger */}
                 <button type="button" title={ t('nav.language_area') }
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center w-full text-start p-2 border-b border-muted/15 hover:border-muted group-hover/menuitem:border-muted/75"
+                className="flex items-center w-full text-start p-2 border-b border-muted/15 group-hover/menuitem:border-primary/75"
                 >
-                    <ICONS.folder />
-                    <div className="w-full">
-                        <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('nav.language') } </h3>
+                    <div className="flex flex-col gap-1 w-full">
+                        <div className="flex gap-2 w-full">
+                            <ICONS.language />
+                            <h4 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('nav.language') } </h4>
+                        </div>
                         <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t('nav.language_description') } </p>
                     </div>
                     <ICONS.chevronRight className="rtl:rotate-180 size-4" />
@@ -247,9 +245,9 @@ export function PublicMenu() {
             </li>
 
             <li key="login" className="group/menuitem w-full">
-                <Link to={PATHS.LOGIN} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 hover:border-muted group-hover/menuitem:border-muted/75">
+                <Link to={PATHS.LOGIN} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-primary/75">
                     <div className="flex content-center gap-2">
-                        <ICONS.folder />
+                        <ICONS.arrowRightEndOnRectangle />
                         <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('auth.login') } </h3>
                     </div>
 
@@ -261,10 +259,9 @@ export function PublicMenu() {
             </li>
 
             <li key="signup" className="group/menuitem w-full">
-                <Link to={PATHS.SIGNUP} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-muted/75 ">
+                <Link to={PATHS.SIGNUP} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-primary/75 ">
                     <div className="flex content-center gap-2">
-                        <ICONS.folder />
-                        {/* Label */}
+                        <ICONS.userPlus />
                         <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('auth.signup') }  </h3>
                     </div>
 
@@ -278,6 +275,7 @@ export function PublicMenu() {
 
     )
 }
+
 export function ClientMenu() {
     const { t } = useTranslation();
     const { isAdmin } = useContext(UserContext);
@@ -306,12 +304,12 @@ export function ClientMenu() {
 
             {clientMenuItems.map((item, index) => (
                 <li key={index} className="group/menuitem w-full">
-                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-muted/75">
+                    <Link to={item.path} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 group-hover/menuitem:border-primary/75">
                         <div className="flex content-center gap-2">
                             {/* Icon */}
                             { item.icon ?? <ICONS.folder /> }
                             {/* Label */}
-                            <span className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t(`nav.${item.key}`) } </span>
+                            <h4 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t(`nav.${item.key}`) } </h4>
                         </div>
 
                         {/* Context */}
@@ -326,24 +324,26 @@ export function ClientMenu() {
                 {/* Language Menu Trigger */}
                 <button type="button" title={ t('nav.language_area') }
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center w-full text-start p-2 border-b border-muted/15 hover:border-muted group-hover/menuitem:border-muted/75"
+                className="flex items-center w-full text-start p-2 border-b border-muted/15 group-hover/menuitem:border-primary/75"
                 >
-                    <ICONS.folder />
-                    <div className="w-full">
-                        <h3 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('nav.language') } </h3>
+                    <div className="flex flex-col gap-1 w-full">
+                        <div className="flex gap-2 w-full">
+                            <ICONS.language />
+                            <h4 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('nav.language') } </h4>
+                        </div>
                         <p className="text-2xs text-muted group-hover/menuitem:text-foreground"> { t('nav.language_description') } </p>
                     </div>
                     <ICONS.chevronRight className="rtl:rotate-180 size-4" />
                 </button>
             </li>
 
-            <li id="logout-nav-menu-item">
-                <LogoutButton className="flex w-full h-full px-2 py-4 border-b border-muted/15">
+            <li id="logout-nav-menu-item" className="group/menuitem w-full">
+                <LogoutButton className="flex w-full h-full px-2 py-4 border-b border-muted/15 group-hover/menuitem:border-primary/75">
                     <div className="flex content-center gap-2">
                         {/* Icon */}
                         <ICONS.arrowRightStartOnRectangle />
                         {/* Label */}
-                        <span className="font-medium text-sm"> { t('auth.logout') } </span>
+                        <h4 className="font-medium text-sm text-muted group-hover/menuitem:text-foreground"> { t('auth.logout') } </h4>
                     </div>
                 </LogoutButton>
             </li>

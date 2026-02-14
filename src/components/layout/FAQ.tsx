@@ -66,7 +66,7 @@ export function FAQList() {
                             </button>
                         </div>
 
-                        <div id={`faq-answer-${index}`} className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div id={`faq-answer-${index}`} className={`overflow-hidden transition-all duration-150 ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                             <p className="text-sm text-foreground mt-1 mb-4"> {answer} </p>
                         </div>
                     </li>

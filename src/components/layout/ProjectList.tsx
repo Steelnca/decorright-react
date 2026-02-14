@@ -40,7 +40,7 @@ export function ProjectCardList() {
     const { user, isAdmin } = useAuth();
     const { i18n } = useTranslation();
 
-    const { t } = useTranslation(['pages', 'nav', 'common'])
+    const { t } = useTranslation()
 
     useEffect(() => {
         async function fetchProjects() {
@@ -65,7 +65,7 @@ export function ProjectCardList() {
     }
 
     if (projects.length === 0) {
-        return <div className="text-center p-8 text-muted"> { t('nav:project_list_empty') } </div>;
+        return <div className="text-center p-8 text-muted"> { t('projects.project_list_empty') } </div>;
     }
 
     return (

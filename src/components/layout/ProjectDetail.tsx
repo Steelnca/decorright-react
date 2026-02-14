@@ -1,5 +1,4 @@
 import { ICONS } from "@/icons"
-
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';

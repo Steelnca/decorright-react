@@ -8,7 +8,7 @@ import { EmailInput, Input, PhoneInput } from "@components/ui/Input";
 import { supabase } from "@/lib/supabase";
 import { PATHS } from "@/routers/Paths";
 import { Link, Navigate } from "react-router-dom";
-import { SelectDropDownMenu, SelectMenu } from "@components/ui/Select";
+import { SelectDropDownMenu } from "@components/ui/Select";
 import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "@/config";
 import { PHONE_REGEX, USERNAME_REGEX } from "@/utils/validators";
 import { useTranslation } from "react-i18next";

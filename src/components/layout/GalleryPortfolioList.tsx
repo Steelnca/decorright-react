@@ -12,18 +12,28 @@ import { useTranslation } from "react-i18next";
 export function GalleryItemCard({ item, lang }: { item: GalleryItem, lang: string }) {
     const { t } = useTranslation();
     return (
-        <li className="relative flex flex-col gap-2 w-full h-full rounded-2xl cursor-pointer px-3 md:px-4 border border-muted/20 bg-surface overflow-clip">
-            {/* <div className='primary-gallery-card absolute top-0 left-0 w-full h-full border hover:bg-primary/10 rounded-2xl -z-10 mask-b-to-transparent mask-b-to-100%'></div> */}
-            <div className="p-3 md:p-4 h-full border-x border-muted/20">
-                <div className="flex flex-col gap-4">
+    // <li className="relative flex flex-col gap-2 w-full h-full rounded-2xl cursor-pointer px-3 md:px-4 border border-muted/20 bg-surface overflow-clip">
+    //     {/* <div className='primary-gallery-card absolute top-0 left-0 w-full h-full border hover:bg-primary/10 rounded-2xl -z-10 mask-b-to-transparent mask-b-to-100%'></div> */}
+    //     <div className="p-3 md:p-4 h-full border-x border-muted/20">
+    //         <div className="flex flex-col gap-4">
 
-                    <div className="flex flex-col gap-2">
-                        <div className="relative flex items-center gap-2">
-                            <div className="absolute w-2 aspect-square bg-emphasis border border-muted/45 rounded-full ltr:-left-4 md:ltr:-left-5 rtl:-right-5" />
-                            <h3 className="font-medium sm:text-lg lg:text-xl "> {getLocalizedContent(item, 'title', lang)} </h3>
-                        </div>
-                        <p className="text-ellipsis-6line text-2xs md:text-xs text-muted/75"> {getLocalizedContent(item, 'description', lang)} </p>
+    //             <div className="flex flex-col gap-2">
+    //                 <div className="relative flex items-center gap-2">
+    //                     <div className="absolute w-2 aspect-square bg-emphasis border border-muted/45 rounded-full ltr:-left-4 md:ltr:-left-5 rtl:-right-5" />
+    //                     <h3 className="font-medium sm:text-lg lg:text-xl "> {getLocalizedContent(item, 'title', lang)} </h3>
+    //                 </div>
+    //                 <p className="text-ellipsis-6line text-2xs md:text-xs text-muted/75"> {getLocalizedContent(item, 'description', lang)} </p>
+    //             </div>
+        <li className="relative flex flex-col gap-2 w-full h-full rounded-2xl px-3 md:px-4 border border-muted/20 bg-surface overflow-clip group">
+            <div className="p-3 md:p-4 h-full border-x border-muted/20 flex flex-col">
+                <div className="flex flex-col gap-2 mb-4">
+                    <div className="relative flex items-center gap-2">
+                        <div className="absolute w-2 aspect-square bg-primary border border-primary/20 rounded-full -left-5 md:-left-6" />
+                        <h3 className="font-semibold sm:text-lg lg:text-xl group-hover:text-primary transition-colors"> {getLocalizedContent(item, 'title', lang)} </h3>
                     </div>
+                    {item.description && (
+                        <p className="text-sm text-muted/75 line-clamp-3"> {getLocalizedContent(item, 'description', lang)} </p>
+                    )}
                 </div>
 
                 <div className="relative flex flex-col w-full mt-4">
@@ -70,7 +80,6 @@ export function GalleryItemCard({ item, lang }: { item: GalleryItem, lang: strin
         </li>
     );
 }
-
 export default function GalleryPortfolioListLayout() {
     const [items, setItems] = useState<GalleryItem[]>([]);
     const [loading, setLoading] = useState(true);

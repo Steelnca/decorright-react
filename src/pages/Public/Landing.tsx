@@ -63,6 +63,9 @@ export default function Landing() {
                         title={projectsTitle}
                         desc={projectsDescription}
                     />
+                    <Link to={PATHS.PROJECT_LIST} className="text-primary font-medium text-sm whitespace-nowrap hover:underline pb-2 flex items-center gap-1">
+                        {t('common.view_all_projects')} {ICONS.chevronRight({ className: `size-4 ${i18n.dir() === 'rtl' ? 'rotate-180' : ''}` })}
+                    </Link>
                 </div>
 
                 {/* Showcase Cards */}

@@ -92,6 +92,7 @@ export function HeroMetrics() {
 
 export function Hero({ settings = {} }: { settings?: Record<string, string> }) {
     return (
+
         <section className="content-container relative flex items-center w-full">
 
             {/* <div className="absolute right-full w-full h-[calc(100svh-20rem)] md:h-[calc(100svh-18rem)] bg-primary/10 rounded-4xl mask-l-to-transparent mask-l-to-10% overflow-hidden"></div> */}

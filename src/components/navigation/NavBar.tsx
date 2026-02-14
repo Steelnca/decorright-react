@@ -109,7 +109,7 @@ export function AuthenticatedUserActins() {
                 }
 
                 {/* User Profile Nav Page */}
-                <Link to={PATHS.CLIENT.ACCOUNT_PROFILE} title="My Profile" className="max-md:hidden content-center p-1.5 md:p-2 border border-muted/15 bg-surface/75 rounded-full">
+                <Link to={PATHS.CLIENT.ACCOUNT_PROFILE} title={t('nav.profile')} className="max-md:hidden content-center p-1.5 md:p-2 border border-muted/15 bg-surface/75 rounded-full">
                     <ICONS.user className="size-5 md:size-6" />
                 </Link>
 
@@ -148,12 +148,11 @@ export function AuthenticatedUserActins() {
 }
 
 export function AnonymousUserActins() {
-
     const { user } = useContext(UserContext);
     if (user) return;
 
-    const { t } = useTranslation()
-    const { langMenuOpen, setLangMenuOpen, languageChoices } = useContext(MenuContext)
+    const { t } = useTranslation();
+    const { languageChoices } = useContext(MenuContext)
 
     function handleChange(value: string) {
 
@@ -280,10 +279,9 @@ export function PublicMenu() {
     )
 }
 export function ClientMenu() {
-
+    const { t } = useTranslation();
     const { isAdmin } = useContext(UserContext);
     const { langMenuOpen, setLangMenuOpen } = useContext(MenuContext);
-    const { t } = useTranslation()
 
     return (
 

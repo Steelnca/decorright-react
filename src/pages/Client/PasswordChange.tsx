@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { PATHS } from "@/routers/Paths";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function PasswordChange () {
 
@@ -19,6 +20,8 @@ export default function PasswordChange () {
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+
+    const { t } = useTranslation()
 
     // Validate length + no whitespace
     useEffect(() => {
@@ -36,7 +39,7 @@ export default function PasswordChange () {
         setError(null);
 
         if(!newPasswordValid || !newPasswordsMatch) {
-            setError("Invalid password or passwords does not match")
+            setError(t('password.error_invalid_match'))
             return;
         }
 
@@ -49,12 +52,12 @@ export default function PasswordChange () {
 
             if (getUserError) {
                 console.error("getUser error", getUserError);
-                setError("Unable to verify user session. Please login again.");
+                setError(t('password.change_error_session'));
                 return;
             }
 
             if (!currentUser?.email) {
-                setError("No authenticated user. Please sign in again.");
+                setError(t('password.change_error_no_user'));
                 return;
             }
 
@@ -70,7 +73,7 @@ export default function PasswordChange () {
             if (signInError) {
                 // Common reasons: wrong password, user disabled, etc.
                 // Do not be verbose about which one for security; a simple message is fine.
-                setError("Current password is incorrect.");
+                setError(t('password.change_error_current_wrong'));
                 return;
             }
 
@@ -78,7 +81,7 @@ export default function PasswordChange () {
             if (signInData?.user && signInData.user.id !== currentUser.id) {
                 // Extremely unlikely, but check anyway
                 console.warn("Re-authenticated user id mismatch", { original: currentUser.id, reauth: signInData.user.id });
-                setError("Authentication mismatch. Try logging out and logging back in.");
+                setError(t('password.change_error_auth_mismatch'));
                 return;
             }
 
@@ -90,7 +93,7 @@ export default function PasswordChange () {
 
             if (updateError) {
                 console.error("Password update failed", updateError);
-                setError("Failed to update password. Please try again.");
+                setError(t('password.change_error_failed'));
                 return;
             }
 
@@ -101,7 +104,7 @@ export default function PasswordChange () {
             navigate(PATHS.CLIENT.PASSWORD_DONE)
         } catch (err: any) {
             console.error("Unhandled error in password change", err);
-            setError("An unexpected error occurred. Try again later.");
+            setError( t('errors.generic') );
         } finally {
             setLoading(false)
         }
@@ -117,25 +120,36 @@ export default function PasswordChange () {
                 <div className="relative flex flex-col justify-center gap-8 w-full h-full px-2 sm:px-8 md:px-16 p-4 md:py-8">
                     <div className="absolute top-0 left-0 w-full h-full border border-muted/15 rounded-4xl bg-surface/75 -z-10 mask-b-to-transparent mask-b-to-100%"></div>
 
+                    <div className="flex flex-col items-center w-full mb-8">
+                        <div className="w-1/3">
+                            {/* <img src={HeroImg} alt="" className="w-full h-full" /> */}
+                        </div>
+
+                        <div className="space-y-2 text-center">
+                            <h1 className="font-semibold text-xl md:text-3xl"> { t('password.change_title') } </h1>
+                            <p className="text-xs md:text-sm"> { t('password.change_description') } </p>
+                        </div>
+                    </div>
+
                     {error && <p className="text-xs text-danger text-center"> {error} </p>}
 
                     <form onSubmit={handleSubmit} id="password-change-form">
                         <div>
                             <label htmlFor="current-password"
                             className="font-medium text-xs text-muted"
-                            > Current Password </label>
+                            > { t('password.password_current_label') } </label>
                             <PasswordInput id="current-password" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCurrentPassword(e.target.value)} />
                         </div>
                         <div>
                             <label htmlFor="new-password"
                             className="font-medium text-xs text-muted"
-                            > New Password </label>
+                            > { t('password.password_new_label') } </label>
                             <PasswordInput id="new-password" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)} />
                         </div>
                         <div>
                             <label htmlFor="new-password2"
                             className="font-medium text-xs text-muted"
-                            > Re-type New Password </label>
+                            > { t('password.password_confirm_new_label') } </label>
                             <PasswordInput id="new-password2" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} />
                         </div>
 
@@ -146,16 +160,15 @@ export default function PasswordChange () {
                             disabled={!currentPassword || !newPassword || !confirmPassword || loading}
                             title="Submit request"
                             >
-                                <Spinner status={loading}> Change Password </Spinner>
+                                <Spinner status={loading}> { t('password.password_change_cta') } </Spinner>
                             </PButton>
-                            <SCTALink to={-1} className="w-full"> Cancel </SCTALink>
+                            <SCTALink to={-1} className="w-full"> { t('common.cancel') } </SCTALink>
                         </div>
                     </form>
 
-
                 </div>
 
-                <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>
+                <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden" />
             </section>
         </main>
 

@@ -147,6 +147,7 @@ export function AnonymousUserActins() {
     const { user } = useContext(UserContext);
     if (user) return;
 
+
     const { t } = useTranslation();
     const { languageChoices } = useContext(MenuContext)
 
@@ -183,7 +184,7 @@ export function AnonymousUserActins() {
                 <PCTALink to={PATHS.SIGNUP} title={t('auth.signup')}> {t('auth.signup')} </PCTALink>
 
                 {/* Menu Trigger */}
-                <button type="button" title={t('common.menu')} className="xl:hidden content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                <button type="button" title={t('common.menu')} className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
                     <ICONS.menu className="size-6" />
                 </button>
 
@@ -286,7 +287,7 @@ export function ClientMenu() {
         <>
             {isAdmin &&
                 <li id="admin-dashboard-nav-menu-item" className="w-full">
-                    <Link to={PATHS.ADMIN.ANALYTICS} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 hover:border-muted">
+                    <Link to={PATHS.ADMIN.ANALYTICS} className="flex flex-col gap-1 w-full h-full p-2 border-b border-muted/15 hover:border-primary">
                         <div className="flex content-center gap-2">
                             {/* Icon */}
                             <ICONS.presentationChartLine />
@@ -404,7 +405,6 @@ export function NavBar() {
                         </nav>
                         :
                         <nav className="flex items-center justify-end w-fit md:w-full">
-                            <NavLinks />
                             <NavActions />
                         </nav>
                     }

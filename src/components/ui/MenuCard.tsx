@@ -7,7 +7,7 @@ export function MenuCard({title, children, open, setOpen}: {title: string, child
 
     const wrapperRef = useRef<HTMLDivElement | null>(null);
     const listenersAddedRef = useRef(false);
-    const { t } = useTranslation('common');
+    const { t } = useTranslation();
 
     // keep a mutable ref of the current `open` so nav-effect can read latest value
     const openRef = useRef(open);
@@ -69,7 +69,7 @@ export function MenuCard({title, children, open, setOpen}: {title: string, child
                         {/* Card Header */}
                         <div className="flex justify-between w-full h-fit border border-muted/15 p-2 rounded-lg">
                             <h2 className="text-sm font-semibold">{ title }</h2>
-                            <button type="button" title={ t('common:actions.menu_close_area') } area-label={ t('common:actions.menu_close_area') } onClick={() => setOpen(!open)}>
+                            <button type="button" title={ t('common.exit') } area-label={ t('common.exit') } onClick={() => setOpen(!open)}>
                                 <ICONS.xMark />
                             </button>
                         </div>

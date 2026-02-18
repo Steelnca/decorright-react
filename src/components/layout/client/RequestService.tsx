@@ -130,8 +130,8 @@ export default function RequestServiceLayout() {
 
             <div className="flex justify-between gap-4">
                 <div className="space-y-2 w-full">
-                    <h2 className='font-semibold text-lg'> {t('request_form.title')} </h2>
-                    <p className='text-2xs md:text-xs'> {t('request_form.description')} </p>
+                    <h2 className='font-semibold text-lg'> {t('request_form.form_title')} </h2>
+                    <p className='text-2xs md:text-xs'> {t('request_form.form_description')} </p>
                 </div>
 
                 {/* CTA */}

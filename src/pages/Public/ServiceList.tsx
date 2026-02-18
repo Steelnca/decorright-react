@@ -23,20 +23,20 @@ export default function ServiceList() {
         fetchSettings();
     }, []);
 
-    const pageTitle = settings.service_list_title || t('services_page.title');
-    const pageDescription = settings.service_list_description || t('services_page.description');
-    const faqTitle = settings.service_faq_title || t('services_page.faq_title');
-    const faqDescription = settings.service_faq_description || t('services_page.faq_description');
+    const pageTitle = settings.service_list_title || t('services.service_list_title');
+    const pageDescription = settings.service_list_description || t('services.service_list_description');
+    const faqTitle = settings.service_faq_title || t('faqs.faq_title');
+    const faqDescription = settings.service_faq_description || t('faqs.faq_description');
 
     return (
-
+        <>
         <main>
-            <section className="content-container relative px-4 sm:px-8 md:px-12">
+            <section className="content-container relative w-full px-4 sm:px-8 md:px-12">
                 <div className="w-full h-full my-12 p-4 md:p-8 border border-muted/15 rounded-4xl">
                     {/* Context */}
                     <div className="flex flex-col gap-8">
-                        <div className="space-y-2 md:space-y-4">
-                            <h1 className="font-semibold text-lg sm:text-2xl md:text-3xl leading-6">
+                        <div className="space-y-2 md:space-y-3">
+                            <h1 className="font-semibold text-lg sm:text-2xl md:text-3xl">
                                 {pageTitle}
                             </h1>
                             <p className="text-3xs sm:text-2xs md:text-xs">
@@ -46,11 +46,10 @@ export default function ServiceList() {
 
                         {/* CTA */}
                         <div className="flex gap-2">
-                            <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE}> {t('services_page.request_project')} </PCTALink>
+                            <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE}> {t('services.request_project')} </PCTALink>
                         </div>
                     </div>
                 </div>
-
 
                 <div>
                     <ServiceCardList />
@@ -58,13 +57,14 @@ export default function ServiceList() {
 
             </section>
 
-            <section className="content-container relative my-18 px-4 sm:px-8 md:px-12 space-y-12">
-                <SectionHeader
-                    title={faqTitle}
-                    desc={faqDescription}
-                />
-                <FAQList />
-            </section>
         </main>
+        <section className="content-container relative my-18 px-4 sm:px-8 md:px-12 space-y-12">
+            <SectionHeader
+                title={faqTitle}
+                desc={faqDescription}
+            />
+            <FAQList />
+        </section>
+        </>
     )
 }

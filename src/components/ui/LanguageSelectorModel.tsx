@@ -1,10 +1,8 @@
 
 import { ICONS } from '@/icons';
-import { languageChoices } from '@/constants';
 import { useTranslation } from 'react-i18next';
 import { allowedLocales } from '@/constants';
 import i18n from '@/utils/i18n';
-import toast from 'react-hot-toast';
 
 interface LanguageSelectorModalProps {
     isOpen: boolean;

@@ -5,6 +5,7 @@ import { Input, PhoneInput } from '@components/ui/Input';
 import Spinner from '@/components/common/Spinner';
 import { ICONS } from '@/icons';
 import { useTranslation } from "react-i18next";
+import toast from 'react-hot-toast';
 
 interface PhoneVerificationModalProps {
     isOpen: boolean;
@@ -24,6 +25,7 @@ export default function PhoneVerificationModal({ isOpen, onClose, onSuccess }: P
 
     const handleSendOTP = async (e: React.SubmitEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         setLoading(true);
         setError(null);
 
@@ -52,12 +54,14 @@ export default function PhoneVerificationModal({ isOpen, onClose, onSuccess }: P
                 body: { phone, code },
             });
 
-            if (fnError || data.error) throw new Error(fnError?.message || data.error || t('phone_verification.error_verify'));
+            if (fnError || data.error) throw new Error(fnError?.message || data.error);
 
             onSuccess();
             onClose();
         } catch (err: any) {
             setError(err.message);
+            console.log(err.message);
+            toast.error(err.message);
         } finally {
             setLoading(false);
         }
@@ -75,22 +79,22 @@ export default function PhoneVerificationModal({ isOpen, onClose, onSuccess }: P
                                 : t('phone_verification.description_code', { phone })}
                         </p>
                     </div>
-                    <button onClick={onClose} className="p-1 hover:bg-muted/10 rounded-lg transition-colors">
+                    <button type="button" onClick={onClose} className="p-1 hover:bg-muted/10 rounded-lg transition-colors">
                         <ICONS.xMark className="size-5" />
                     </button>
                 </div>
 
                 {error && (
-                    <div className="mb-4 p-3 bg-danger/10 border border-danger/20 rounded-xl flex gap-3 items-center">
-                        <ICONS.exclamationTriangle className="size-4 text-danger shrink-0" />
-                        <p className="text-xs text-danger font-medium">{error}</p>
+                    <div className="flex items-center gap-3 mb-4 p-3 bg-warning/10 border border-warning/20 rounded-xl">
+                        <ICONS.exclamationTriangle className="size-4 text-warning shrink-0" />
+                        <p className="text-xs text-warning font-medium"> { t('phone_verification.error_verify') } ({error}) </p>
                     </div>
                 )}
 
-                <form onSubmit={step === 'phone' ? handleSendOTP : handleVerifyOTP} className="space-y-6">
+                <form className="space-y-6">
                     {step === 'phone' ? (
-                        <div dir="rtl" className="space-y-2">
-                            <label className="text-xs font-medium text-muted px-1">{t('phone_verification.phone_label')}</label>
+                        <div className="flex flex-col gap-1">
+                            <label className="text-xs text-muted px-1">{t('phone_verification.phone_label')}</label>
                             <PhoneInput
                                 dir="ltr"
                                 placeholder="+213 123456789"
@@ -121,8 +125,8 @@ export default function PhoneVerificationModal({ isOpen, onClose, onSuccess }: P
                     )}
 
                     <div className="flex gap-3 pt-2">
-                        <PButton type="submit" className="flex-1" disabled={loading}>
-                            <Spinner status={loading}>
+                        <PButton type="button" onClick={step === 'phone' ? handleSendOTP : handleVerifyOTP} className="flex-1" disabled={loading}>
+                            <Spinner status={loading} size="sm">
                                 {step === 'phone' ? t('phone_verification.send_code') : t('phone_verification.verify_code')}
                             </Spinner>
                         </PButton>

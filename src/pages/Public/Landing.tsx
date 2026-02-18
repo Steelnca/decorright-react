@@ -40,9 +40,12 @@ export default function Landing() {
             <main className="bg-linear-0 from-transparent to-primary/4 overflow-y-clip">
                 <Hero settings={settings} />
             </main>
-            <section className="relative my-8 py-12 px-3 sm:px-6 md:px-8">
 
-                {/* <div className="absolute top-0 left-0 bg-linear-to-b from-background to-background/15 w-full h-full -z-10"></div> */}
+            <section className="content-container relative flex flex-col gap-8 w-full mt-16 pb-16 px-4 sm:px-6 md:px-8">
+
+                <hr className="absolute top-0 left-0 w-full h-full border-0 border-x border-muted/25" />
+                <hr className="absolute -top-2 -start-1 w-2.25 h-fit aspect-square border border-muted/25 rounded-full bg-emphasis shadow-xs" />
+                <hr className="absolute -top-2 -end-1 w-2.25 h-fit aspect-square border border-muted/25 rounded-full bg-emphasis shadow-xs" />
 
                 <div className="content-container flex flex-col gap-8 w-full">
                     {/* Section Header */}
@@ -57,14 +60,17 @@ export default function Landing() {
 
             </section>
             <section className="content-container relative flex flex-col gap-6 w-full px-3 sm:px-6 md:px-8">
+
+                <div className="absolute top-0 left-0 w-full h-full border-x border-muted/25" />
+
                 {/* Section Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <SectionHeader
                         title={projectsTitle}
                         desc={projectsDescription}
                     />
-                    <Link to={PATHS.PROJECT_LIST} className="text-primary font-medium text-sm whitespace-nowrap hover:underline pb-2 flex items-center gap-1">
-                        {t('common.view_all_projects')} {ICONS.chevronRight({ className: `size-4 ${i18n.dir() === 'rtl' ? 'rotate-180' : ''}` })}
+                    <Link to={PATHS.PROJECT_LIST} className="flex items-center gap-1 text-primary font-medium text-sm whitespace-nowrap hover:underline">
+                        {t('common.view_all_projects')} <ICONS.chevronRight className="size-4 rtl:rotate-180"/>
                     </Link>
                 </div>
 
@@ -72,8 +78,12 @@ export default function Landing() {
                 <ShowcaseCardList />
 
             </section>
+            <section className="content-container relative flex flex-col gap-8 w-full mb-16 pt-16 px-4 sm:px-6 md:px-8">
 
-            <section className="content-container flex flex-col gap-8 w-full my-16 px-4 sm:px-6 md:px-8">
+                <hr className="absolute top-0 left-0 w-full h-full border-0 border-x border-muted/25" />
+                <hr className="absolute -bottom-2 -start-1 w-2.25 h-fit aspect-square border border-muted/25 rounded-full bg-emphasis shadow-xs" />
+                <hr className="absolute -bottom-2 -end-1 w-2.25 h-fit aspect-square border border-muted/25 rounded-full bg-emphasis shadow-xs" />
+
 
                 {/* Section Header */}
                 <SectionHeader

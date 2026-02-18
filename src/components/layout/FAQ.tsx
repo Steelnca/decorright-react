@@ -53,7 +53,7 @@ export function FAQList() {
                 const isOpen = index === openIndex;
 
                 return (
-                    <li key={faq.id} className="flex flex-col border-b border-muted/10 pb-2" onClick={() => setOpenIndex(isOpen ? null : index)}>
+                    <li key={faq.id} className="group/item flex flex-col border-b border-muted/25 pb-2" onClick={() => setOpenIndex(isOpen ? null : index)}>
 
                         <div className="flex justify-between items-center mb-2 gap-2 cursor-pointer">
                             <h4 className="font-medium text-muted text-xs md:text-sm mb-2"> {question} </h4>
@@ -61,12 +61,13 @@ export function FAQList() {
                                 type="button"
                                 aria-expanded={isOpen}
                                 aria-controls={`faq-answer-${index}`}
+                                className="p-2 ring-muted/15 rounded-full group-hover/item:ring-1"
                             >
                             <ICONS.chevronDown className={`size-4 md:size-5 ${isOpen ? 'rotate-180' : ''}`}/>
                             </button>
                         </div>
 
-                        <div id={`faq-answer-${index}`} className={`overflow-hidden transition-all duration-150 ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div id={`faq-answer-${index}`} className={`overflow-hidden transition-all duration-150 ${isOpen ? 'max-h-125 opacity-100' : 'max-h-0 opacity-0'}`}>
                             <p className="text-sm text-foreground mt-1 mb-4"> {answer} </p>
                         </div>
                     </li>

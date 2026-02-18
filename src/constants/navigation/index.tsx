@@ -1,7 +1,6 @@
 
 import { ICONS } from "@/icons"
 import { PATHS } from "@/routers/Paths"
-import { useTranslation } from "react-i18next"
 
 // Admin navigation item list for menu
 export const adminMenuNav = [

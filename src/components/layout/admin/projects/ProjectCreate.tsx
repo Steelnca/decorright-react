@@ -4,7 +4,7 @@ import { SCTALink } from "@/components/ui/CTA";
 import FileUploadPanel from "@/components/ui/FileUploadPanel";
 import { DateInput, Input } from "@/components/ui/Input";
 import { SelectMenu } from "@/components/ui/Select";
-import { projectVisibilityStags, serviceSpaceTypes, serviceTypes } from "@/constants";
+import { projectVisibilityStags} from "@/constants";
 import { AdminService } from "@/services/admin.service";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ export default function ProjectCreateLayout() {
                     <div className="flex flex-col gap-2">
                         <label className="font-medium text-xs text-muted px-1"> Service Type </label>
                         <SelectMenu
-                            options={serviceTypes}
+                            options={[]} // TODO: Fetch service types from API
                             placeholder="Select a Service Type"
                             id="select-service-design-style"
                             required
@@ -80,7 +80,7 @@ export default function ProjectCreateLayout() {
                     <div className="flex flex-col gap-2">
                         <label className="font-medium text-xs text-muted px-1"> Space Category </label>
                         <SelectMenu
-                            options={serviceSpaceTypes}
+                            options={[]} // TODO: Fetch space types from API
                             placeholder="Select a Space Type"
                             id="select-service-space-type"
                             required

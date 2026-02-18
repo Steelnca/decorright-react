@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Accueil",
+    "home_welcome_back": "Content de te revoir",
     "home_description": "Bienvenue — découvrez les temps forts et le contenu mis en avant",
     "services": "Services",
     "services_description": "Découvrez nos services et comment nous pouvons vous aider",
@@ -74,6 +75,7 @@
     "delete": "Supprimer",
     "confirm": "Confirmer",
     "edit": "Modifier",
+    "go_back": "Retour",
     "view_all": "Voir tout",
     "view_all_projects": "Voir tous les projets",
     "exit": "sortie",
@@ -84,7 +86,10 @@
 
     "views_compact": "{{value, compact}} Vues",
     "views_label": "{{count}} vue",
-    "views_label_plural": "{{count}} vues"
+    "views_label_plural": "{{count}} vues",
+
+    "location": "Emplacement",
+    "floor_area": "Surface"
   },
 
   "confirm": {
@@ -98,6 +103,10 @@
     "phone_verification": "Obtenir le code de vérification",
     "phone_verification_description": "Envoi du code à ce numéro : {{phone}}",
     "phone_verification_cta": "Obtenir le code"
+  },
+
+  "time":{
+    "just_now": "À l’instant"
   },
 
   "auth": {
@@ -239,8 +248,8 @@
     }
   },
   "request_form": {
-    "title": "Formulaire de demande de service",
-    "description": "Soumettez vos coordonnées pour créer une conversation privée. Les administrateurs évalueront la demande dans le chat et répondront avec les étapes suivantes.",
+    "form_title": "Formulaire de demande de service",
+    "form_description": "Soumettez vos coordonnées pour créer une conversation privée. Les administrateurs évalueront la demande dans le chat et répondront avec les étapes suivantes.",
     "submit": "Soumettre la demande",
     "submit_hint": "Vérifiez votre téléphone pour permettre la soumission",
     "verification_required": "Vérification du téléphone requise",
@@ -273,7 +282,7 @@
     "send_code": "Envoyer le code",
     "verify_code": "Vérifier le code",
     "error_send": "Échec de l'envoi de l'OTP",
-    "error_verify": "Code invalide"
+    "error_verify": "La vérification a échoué. Veuillez réessayer"
   },
   "settings": {
     "title": "Paramètres du compte",
@@ -300,26 +309,88 @@
     "error_required": "Ce champ est obligatoire.",
     "error_max_length": "Doit comporter au maximum {{max}} caractères.",
     "error_invalid_chars": "Seuls les lettres, les espaces, les traits d'union et les apostrophes sont autorisés.",
-    "error_invalid_phone": "Entrez un numéro de téléphone valide"
+    "error_invalid_phone": "Entrez un numéro de téléphone valide",
+    "error_generic": "Une erreur s’est produite. Veuillez réessayer"
+  },
+  "errors":{
+    "error_generic": "Une erreur s’est produite. Veuillez réessayer",
+    "error_invalid_email": "Veuillez entrer une adresse e-mail valide"
   },
   "gallery": {
+    "header": "Galerie — Avant & Après : Transformations qui racontent une histoire",
+    "subheader": "Découvrez nos photos côte à côte Avant/Après — de vraies transformations qui dévoilent le processus de conception, le choix des matériaux et la réflexion derrière chaque changement.",
     "before": "Avant",
     "after": "Après",
-    "no_items": "Aucun élément de vitrine disponible pour le moment."
+    "no_items": "Aucun élément de vitrine disponible pour le moment"
   },
   "chat": {
     "requests": "Demandes",
     "select_request": "Sélectionner une demande",
     "select_description": "Choisissez l'une de vos demandes de service dans la liste pour voir son historique de discussion et envoyer des messages."
   },
-  "services_page": {
-    "title": "Nos Services",
-    "description": "Découvrez notre gamme complète de services de design d'intérieur adaptés pour transformer votre espace en l'environnement de vos rêves.",
-    "faq_title": "Foire Aux Questions",
-    "faq_description": "Trouvez des réponses aux questions courantes sur nos services de design, notre processus et nos tarifs.",
-    "request_project": "Demander un projet"
+  "services": {
+    "service_list_title": "Services — Espaces conçus, design pensé",
+    "service_list_description": "Découvrez nos services de design sur mesure — de l’idée initiale et la planification d’espace aux finitions et au mobilier personnalisé. Nous collaborons avec vous pour créer des intérieurs beaux, fonctionnels et faits pour la vie quotidienne.",
+    "request_project": "Demander un projet",
+    "service_card_title": "Design et réalisation complets",
+    "service_card_description": "Laissez Decoright gérer chaque détail — stylisme, installations et finitions expertes qui transforment un espace vide en un lieu d’exception",
+    "service_card_cta": "Commencer un projet"
   },
   "projects": {
+    "project_list_header": "Nos Réalisations — Des espaces qui racontent une histoire",
+    "project_list_description": "Parcourez une galerie sélectionnée de projets où chaque pièce porte sa propre histoire. Des esquisses conceptuelles aux intérieurs achevés, découvrez comment idées, matériaux et savoir-faire se combinent pour créer des espaces pleins de sens.",
     "project_list_empty": "Aucun projet disponible pour le moment"
+  },
+  "showcases": {
+    "childrens_rooms": "Chambres d’enfants — ludiques et chaleureuses",
+    "clinics": "Cliniques et espaces de soins",
+    "shops": "Boutiques et concepts commerciaux",
+    "reception_waiting": "Réception et salles d’attente",
+    "offices": "Bureaux et espaces de travail",
+    "houses": "Maisons et résidences",
+    "cafes_small_businesses": "Cafés et petits commerces",
+    "private_schools_nurseries": "Écoles privées et crèches"
+  },
+  "faqs":{
+    "faq_title": "Foire Aux Questions",
+    "faq_description": "Trouvez des réponses aux questions courantes sur nos services de design, notre processus et nos tarifs"
+  },
+  "password": {
+    "reset_title": "Réinitialiser votre mot de passe",
+    "reset_description": "Entrez l’adresse e-mail associée à votre compte et nous vous enverrons un lien pour créer un nouveau mot de passe",
+    "sent_title": "Vérifiez votre e-mail",
+    "sent_description": "Nous vous avons envoyé un lien de réinitialisation du mot de passe. Consultez votre boîte mail, suivez les instructions et vous serez reconnecté rapidement",
+    "set_title": "Créer votre nouveau mot de passe",
+    "set_description": "Entrez un nouveau mot de passe sécurisé pour accéder à votre compte en toute tranquillité",
+    "change_title": "Modifier votre mot de passe",
+    "change_description": "Mettez à jour votre mot de passe pour sécuriser votre compte",
+    "done_title": "Mot de passe mis à jour avec succès",
+    "done_description": "Votre mot de passe a été mis à jour — vous pouvez maintenant accéder à votre compte",
+
+    "reset_access_error": "Cette page est accessible uniquement via un e-mail de réinitialisation du mot de passe",
+    "reset_link_invalid": "Lien de réinitialisation invalide ou expiré",
+
+    "password_label": "Mot de passe",
+    "password_confirm_label": "Confirmer le mot de passe",
+    "password_current_label": "Mot de passe actuel",
+    "password_new_label": "Nouveau mot de passe",
+    "password_confirm_new_label": "Confirmer le nouveau mot de passe",
+
+    "error_invalid_match": "Mot de passe invalide ou les mots de passe ne correspondent pas",
+    "set_error_link_invalid": "Ce lien de réinitialisation est invalide ou expiré — demandez-en un nouveau",
+    "set_error_session_invalid": "Session invalide — ouvrez le lien reçu par e-mail et réessayez",
+    "set_error_failed": "Impossible de définir le mot de passe — réessayez ou rouvrez le lien",
+    "change_error_session": "Impossible de vérifier la session — veuillez vous reconnecter",
+    "change_error_no_user": "Aucun utilisateur authentifié — veuillez vous connecter",
+    "change_error_current_wrong": "Mot de passe actuel incorrect",
+    "change_error_auth_mismatch": "Problème d’authentification — essayez de vous déconnecter puis reconnecter",
+    "change_error_failed": "Échec de la mise à jour du mot de passe — veuillez réessayer",
+
+    "helper_requirements": "Le mot de passe doit contenir au moins {{PASSWORD_MIN_LENGTH}} caractères sans espaces",
+    "helper_match": "Les mots de passe doivent correspondre",
+
+    "cta_send_reset_link": "Envoyer le lien",
+    "password_set_cta": "Définir le mot de passe",
+    "password_change_cta": "Modifier le mot de passe"
   }
 }

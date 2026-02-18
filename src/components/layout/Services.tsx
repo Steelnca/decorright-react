@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { useTranslation } from "react-i18next"
 import { ServiceTypesService, type ServiceType } from "@/services/service-types.service"
 import ZoomImage from "@components/ui/ZoomImage"
@@ -8,6 +8,11 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/swiper.css';
 import 'swiper/swiper-bundle.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { PCTALink } from '../ui/CTA';
+import { PATHS } from '@/routers/Paths';
+
+const dummyCardImg = "/public/living-room.png";
+const dummyCardLamps = "/public/ceiling-lamps.svg";
 
 export function ServiceCardItem({service}:{service:ServiceType}) {
 
@@ -22,8 +27,8 @@ export function ServiceCardItem({service}:{service:ServiceType}) {
 
     return (
         <li key={service.id} className="relative p-4 rounded-xl overflow-hidden max-md:mb-10">
-            <div className="absolute top-0 right-0 w-full h-full bg-surface shadow-xs mask-t-to-transparent -z-10 rounded-2xl" />
-            <div className="absolute top-0 right-0 w-full h-full border border-muted/20 mask-b-to-transparent -z-10 rounded-2xl" />
+            <div className="absolute top-0 right-0 w-full h-full bg-surface shadow-xs mask-t-to-transparent -z-10 rounded-xl" />
+            <div className="absolute top-0 right-0 w-full h-full border border-muted/20 mask-b-to-transparent -z-10 rounded-xl" />
 
             <div className="w-full aspect-4/3 mb-4 shadow-sm rounded-lg overflow-hidden">
                 {service.image_url ? (
@@ -45,13 +50,24 @@ export function ServiceCardItem({service}:{service:ServiceType}) {
 export function ServiceCardList() {
     const [services, setServices] = useState<ServiceType[]>([])
     const [loading, setLoading] = useState(true)
-    const ref = useRef<HTMLUListElement | null>(null);
-    const [cols, setCols] = useState(1);
 
-    const [isMdSize, setIsMdSize] = useState(window.innerWidth > 768);
+    const [isMdSize, setIsMdSize] = useState(window.innerWidth >= 768);
+
+    const { t } = useTranslation()
+    // match Tailwind breakpoints (adjust if your config differs)
+    const smQuery = "(min-width: 640px)";  // small screens -> 2 cols
+    const lgQuery = "(min-width: 1024px)"; // large screens -> 3 cols (max)
+    const getCols = () => {
+        if (typeof window === "undefined") return 1;
+        if (window.matchMedia(lgQuery).matches) return 3;
+        if (window.matchMedia(smQuery).matches) return 2;
+        return 1;
+    };
+
+    const [cols, setCols] = useState<number>(getCols);
 
     useEffect(() => {
-        const handleResize = () => setIsMdSize(window.innerWidth > 768);
+        const handleResize = () => setIsMdSize(window.innerWidth >= 768);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -72,47 +88,25 @@ export function ServiceCardList() {
     }, [])
 
     useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
+        if (typeof window === "undefined") return;
+        const sm = window.matchMedia(smQuery);
+        const lg = window.matchMedia(lgQuery);
+        const handler = () => setCols(getCols());
 
-        const updateCols = () => {
-        const cs = getComputedStyle(el);
-        const template = cs.gridTemplateColumns; // e.g. "320px 320px 320px" or "none"
-        if (!template || template === "none") {
-            setCols(1);
-            return;
-        }
-        // count actual columns by splitting on spaces (filter empties)
-        const count = template.split(/\s+/).filter(Boolean).length;
-        setCols(Math.max(1, count));
-        };
-
-        // initial read
-        updateCols();
-
-        // watch changes: ResizeObserver for element (and document) + window resize fallback
-        let ro: ResizeObserver | null = null;
-        try {
-        ro = new ResizeObserver(updateCols);
-        ro.observe(el);
-        ro.observe(document.documentElement); // catch CSS media-query changes
-        } catch {
-        window.addEventListener("resize", updateCols);
-        }
+        // modern event listener API
+        sm.addEventListener?.("change", handler);
+        lg.addEventListener?.("change", handler);
+        // fallback for older browsers
+        if (!sm.addEventListener) sm.addListener?.(handler);
+        if (!lg.addEventListener) lg.addListener?.(handler);
 
         return () => {
-        if (ro) ro.disconnect();
-        else window.removeEventListener("resize", updateCols);
+        sm.removeEventListener?.("change", handler);
+        lg.removeEventListener?.("change", handler);
+        if (!sm.removeEventListener) sm.removeListener?.(handler);
+        if (!lg.removeEventListener) lg.removeListener?.(handler);
         };
     }, []);
-
-    // compute missing slots on last row
-    const remainder = services.length % cols;
-    const missing = remainder === 0 ? 0 : cols - remainder;
-
-    // desired behavior: if 2 missing -> span 2, if 1 missing -> span 1
-    const fillerSpan = missing === 2 ? Math.min(2, cols) : missing === 1 ? 1 : 0;
-
 
     if (loading) {
         return (
@@ -122,50 +116,82 @@ export function ServiceCardList() {
         )
     }
 
-    if (services.length === 0) {
-        return null
+    // compute how many slots are missing on the last row
+    // missing = 0..(cols-1) ; when services.length === 0 we treat missing as cols (full-span)
+    const len = services.length;
+    let missing = 0;
+    if (len === 0) missing = cols; // empty => take whole row
+    else {
+        const r = len % cols;
+        missing = r === 0 ? 0 : cols - r;
     }
+
+    // decide whether to show the dummy: show when empty OR when there's at least 1 missing slot
+    const showDummy = len === 0 || missing > 0;
+
+    // the dummy span: when empty -> cols (full row), otherwise span = missing
+    const dummySpan = len === 0 ? cols : missing; // 0..cols
 
     return (
         <>
-            <ul
-            ref={ref}
-            className="max-md:hidden grid max-xl:grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] grid-cols-3 gap-6 w-full h-full"
-            >
-            {services.map((service) => (
-                <ServiceCardItem service={service} />
-            ))}
+            <ul className="max-md:hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full h-full">
+                {services.map((service) => (
+                    <li key={(service as any).id}>
+                    <ServiceCardItem service={service} />
+                    </li>
+                ))}
 
-            {fillerSpan > 0 && (
+                {showDummy && (
                 <li
                 aria-hidden
-                style={{ gridColumn: `span ${fillerSpan}` }}
-                className="rounded-lg bg-gray-50 border border-gray-200 flex items-center justify-center p-4 border-red-400"
+                // use inline style so grid span is always correct regardless of Tailwind classes
+                style={{ gridColumn: `span ${Math.max(1, Math.min(dummySpan, cols))}` }}
+                className={"flex justify-center gap-2 border border-muted/25 rounded-xl " + (dummySpan >= 2 ? "flex-row-reverse" : "flex-col")}
                 >
-                <div className="w-full h-36 rounded-md bg-white/40 flex items-center justify-center text-gray-300">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M3 7h18M3 12h18M3 17h18" />
-                    </svg>
+                <div className={"w-full rounded-lg overflow-hidden " + (dummySpan >= 2 ? "aspect-4/3" : "aspect-4/2")}>
+                    <img src={dummyCardImg} alt="" className="w-full h-full object-cover object-center" />
+                </div>
+
+                <div className="relative flex flex-col">
+
+                    { dummySpan >= 2 &&
+                        <div className="max-xl:hidden absolute top-0 start-0 w-55">
+                            <img src={dummyCardLamps} alt="" className="w-full h-full object-center object-cover rtl:rotate-y-180" />
+                        </div>
+                    }
+
+                    <div className="flex flex-col gap-4 p-4 justify-end h-full">
+                        <h4 className={`font-medium ${dummySpan >= 2 ? "text-2xl lg:text-4xl" : "text-lg"}`}>
+                            {t("services.service_card_title")}
+                        </h4>
+
+                        <p className={`text-muted/75 ${dummySpan >= 2 ? "text-xs md:text-sm" : "text-2xs md:text-xs"}`}>
+                            {t("services.service_card_description")}
+                        </p>
+                    </div>
+
+                    <div className="relative flex w-full p-4">
+
+                        <PCTALink to={PATHS.CLIENT.REQUEST_SERVICE} className="w-full">{t("services.service_card_cta")}</PCTALink>
+                    </div>
                 </div>
                 </li>
             )}
             </ul>
-
             <Swiper
                 hidden={isMdSize}
                 loop={services.length > 1}
                 modules={[Pagination, Navigation]}
                 pagination={{ dynamicBullets: true, clickable: true }}
-                className="hidden w-full h-full rounded-xl overflow-hidden"
+                className="w-full h-full rounded-xl overflow-hidden"
                 style={{ '--swiper-navigation-size': '30px', '--swiper-navigation-color': 'var(--acme-primary)', '--swiper-pagination-color': 'var(--acme-primary)' } as CSSProperties}
             >
                 {services.map((service:ServiceType) => (
-                    <SwiperSlide key={service.id} className="px-4 ">
+                    <SwiperSlide key={service.id} className="mr-2">
                         <ServiceCardItem service={service} />
                     </SwiperSlide>
                 ))}
             </Swiper>
         </>
-
-    )
+    );
 }

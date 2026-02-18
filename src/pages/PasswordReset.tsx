@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { EMAIL_REGEX } from "@/utils/validators"
 import { supabase } from "@/lib/supabase"
+import { useTranslation } from "react-i18next"
 
 
 export default function PasswordReset() {
@@ -17,6 +18,8 @@ export default function PasswordReset() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
+    const { t } = useTranslation()
+
     useEffect(() => {
         setEmailValid(EMAIL_REGEX.test(email.trim()))
     }, [email])
@@ -24,7 +27,7 @@ export default function PasswordReset() {
     async function handleSubmit(e: React.SubmitEvent) {
         e.preventDefault()
         if (!emailValid) {
-            setError("Please enter a valid email")
+            setError(t('errors.invalid_email'))
             return
         }
 
@@ -43,7 +46,7 @@ export default function PasswordReset() {
 
             navigate(PATHS.PASSWORD_SENT)
         } catch (err: any) {
-            setError(err.message || "Something went wrong!, please try again later.")
+            setError(err.message || t('errors.generic'))
         } finally {
             setLoading(false)
         }
@@ -70,8 +73,8 @@ export default function PasswordReset() {
                         </div>
 
                         <div className="space-y-2 text-center">
-                            <h1 className="font-semibold text-xl md:text-3xl"> Reset Your Password </h1>
-                            <p className="text-xs md:text-sm"> Enter the email address associated with your account and we'll send you a link to reset your password. </p>
+                            <h1 className="font-semibold text-xl md:text-3xl"> { t('password.reset_title') } </h1>
+                            <p className="text-xs md:text-sm"> { t('password.reset_description') } </p>
                         </div>
                     </div>
 
@@ -79,7 +82,7 @@ export default function PasswordReset() {
                         <div>
                             <label htmlFor="password"
                                 className="text-xs text-muted mx-1"
-                            > Email account </label>
+                            > { t('auth.email') } </label>
                             <EmailInput id="email" onChange={(e: any) => (setEmail(e.target.value))} />
                         </div>
 
@@ -93,15 +96,15 @@ export default function PasswordReset() {
                                 area-label="send email to recover password"
                                 title={emailValid ? 'Send email to recover password' : 'Enter a valid email'}
                             >
-                                <Spinner status={loading} size="sm"> Send reset link </Spinner>
+                                <Spinner status={loading} size="sm"> { t('password.cta_send_reset_link') } </Spinner>
                             </PButton>
-                            <SCTALink to={PATHS.LOGIN} onClick={handleGoBack} className="w-full"> Go Back </SCTALink>
+                            <SCTALink to={PATHS.LOGIN} onClick={handleGoBack} className="w-full"> { t('common.go_back') } </SCTALink>
                         </div>
                     </form>
 
                 </div>
 
-                <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>
+                <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden" />
             </section>
         </main>
     )

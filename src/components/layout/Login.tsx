@@ -41,12 +41,6 @@ export function LoginLayout() {
 
         <div className="relative flex flex-col gap-8 w-full md:w-4/5 md:pt-8">
 
-            {/* Form Header */}
-            <div className="flex flex-col items-center gap-3">
-                <h1 className="font-semibold text-2xl md:text-4xl"> {t('auth.login_to')} <span className="text-transparent bg-linear-to-br from-foreground to-primary to-65% bg-clip-text">DecoRight</span> </h1>
-                <p className="text-ellipsis-2line text-2xs md:text-xs text-muted">{t('auth.login_description')}</p>
-            </div>
-
             <form onSubmit={handleLogin} className="flex flex-col items-center gap-8">
 
                 <div className="flex flex-col gap-4 w-full">

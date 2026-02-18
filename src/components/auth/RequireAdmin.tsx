@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
 import Spinner from "../common/Spinner";
-import { UserRoles } from "@/constants";
+import { userRoles } from "@/constants";
 import type { Role } from "@/types/auth";
 
 export default function RequireAdmin({ children }: { children: JSX.Element }) {
@@ -19,7 +19,7 @@ export default function RequireAdmin({ children }: { children: JSX.Element }) {
 
   if (!user) return null; // RequireAuth should handle this
 
-  if ([UserRoles.ADMIN].includes(user.role as Role) === false) {
+  if ([userRoles.ADMIN].includes(user.role as Role) === false) {
     return <Navigate to="/unauthorized" replace />;
   }
 

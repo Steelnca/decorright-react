@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase";
 import { PATHS } from "@/routers/Paths";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function PasswordSet() {
 
@@ -26,6 +27,8 @@ export default function PasswordSet() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
+    const { t } = useTranslation()
+
     useEffect(() => {
         const checkSession = async () => {
             const {
@@ -33,7 +36,7 @@ export default function PasswordSet() {
             } = await supabase.auth.getSession();
 
             if (!session) {
-                setError("Invalid or expired password reset link.");
+                setError(t('password.reset_access_error'));
                 setPageLoading(false);
                 return;
             }
@@ -46,7 +49,7 @@ export default function PasswordSet() {
             }
 
             // Not a normal signed-in user
-            setError("This page is only accessible from a password reset email.");
+            setError(t('password.reset_access_error'));
             setPageLoading(false);
         };
 
@@ -80,22 +83,20 @@ export default function PasswordSet() {
     }, [newPassword, confirmPassword]);
 
 
-    async function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.SubmitEvent) {
         e.preventDefault()
 
         setError(null)
 
 
         if (!passwordValid || !passwordsMatch) {
-            setError("Invalid password or passwords does not match")
+            setError(t('password.set_error_invalid_match'))
             return;
         }
 
         // Block if we don't have a verified recovery session
         if (!allowed) {
-            setError(
-                "This password reset link is invalid or expired. Please request a new password reset link."
-            );
+            setError(t('password.set_error_link_invalid'));
             return;
         }
 
@@ -106,18 +107,18 @@ export default function PasswordSet() {
             const { data: sessionData } = await supabase.auth.getSession();
             const session = sessionData?.session ?? null;
             if (!session || !session.user) {
-                setError("Session is invalid. Open the password reset link from your email and try again.");
+                setError(t('password.set_error_session_invalid'));
                 return;
             }
 
 
             // All checks passed: perform the password update
-            const { error: updateError } = await supabase.auth.updateUser({ password: newPassword });
+            const { error: updateError } = await supabase.auth.updateUser({ password: newPassword }); // !!! This won't update.
 
             if (updateError) {
                 console.error("updateUser error", updateError);
                 // User-friendly message
-                setError("Failed to set password. Try again or open the reset link again.");
+                setError(t('password.set_error_failed'));
                 return;
             }
 
@@ -135,7 +136,7 @@ export default function PasswordSet() {
 
         } catch (err) {
             console.error("Unhandled error in set-password", err);
-            setError("Unexpected error. Try again later.");
+            setError( t('errors.generic') );
         } finally {
             setLoading(false);
         }
@@ -149,47 +150,47 @@ export default function PasswordSet() {
                 <div className="absolute right-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-30% overflow-hidden"></div>
 
                 <div className="relative flex flex-col justify-center gap-4 w-full h-full px-2 sm:px-8 md:px-16 p-4 md:py-8">
-                    <div className="absolute top-0 left-0 w-full h-full border border-muted/15 rounded-4xl bg-surface/75 -z-10 mask-b-to-transparent mask-b-to-100%"></div>
+                    <div className="absolute top-0 left-0 w-full h-full border border-muted/15 rounded-4xl bg-surface/75 -z-10 mask-b-to-transparent mask-b-to-100%" />
 
                     <div className="flex flex-col items-center w-full mb-8">
                         <div className="w-1/3">
                             {/* <img src={HeroImg} alt="" className="w-full h-full" /> */}
                         </div>
 
-                        <div className="space-y-2 text-center">
-                            <h1 className="font-semibold text-xl md:text-3xl"> Create New Password </h1>
-                            <p className="text-xs md:text-sm"> Please enter your new password below. Make sure it's secure and something you'll remember. </p>
+                        <div className="space-y-4 text-center">
+                            <h1 className="font-semibold text-xl md:text-3xl"> { t('password.set_title') } </h1>
+                            <p className="text-xs md:text-sm"> { t('password.set_description') } </p>
                         </div>
                     </div>
 
                     {error && <p className="text-xs text-danger text-center"> {error} </p>}
 
-                    <form onSubmit={handleSubmit} id="password-set-form">
-                        <div>
+                    <form onSubmit={handleSubmit} id="password-set-form" className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-2">
                             <label htmlFor="password"
-                                className="font-medium text-xs text-muted"
-                            > Password </label>
+                                className="font-medium text-xs text-muted px-1"
+                            > { t('password.password_label') } </label>
                             <PasswordInput id="password" disabled={pageLoading}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)} />
                         </div>
-                        <div>
+                        <div className="flex flex-col gap-2">
                             <label htmlFor="confirm-password"
-                                className="font-medium text-xs text-muted"
-                            > Re-type Password </label>
+                                className="font-medium text-xs text-muted px-1"
+                            > { t('password.password_confirm_label') } </label>
                             <PasswordInput id="confirm-password" disabled={pageLoading}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} />
                         </div>
 
-                        <ul className="flex flex-col gap-2 ">
+                        <ul className="flex flex-col gap-4">
 
                             <li className="flex items-center gap-2">
                                 {passwordValid ? <ICONS.checkCircle className="size-4 text-success" /> : <ICONS.informationCircle className="size-4" />}
-                                <p className="text-xs text-muted">Password must be at least {PASSWORD_MIN_LENGTH} characters and contain no spaces.</p>
+                                <p className="text-xs text-muted"> { t('password.helper_requirements', {PASSWORD_MIN_LENGTH: PASSWORD_MIN_LENGTH}) }. </p>
                             </li>
 
                             <li className="flex items-center gap-2">
                                 {passwordsMatch ? <ICONS.checkCircle className="size-4 text-success" /> : <ICONS.informationCircle className="size-4" />}
-                                <p className="text-xs text-muted"> Passwords must have a match.</p>
+                                <p className="text-xs text-muted"> { t('password.helper_match') }. </p>
                             </li>
 
                         </ul>
@@ -201,16 +202,16 @@ export default function PasswordSet() {
                                 disabled={!passwordValid || !passwordsMatch || loading || pageLoading}
                                 title="Set New Password"
                             >
-                                <Spinner status={loading} size="sm"> Set Password </Spinner>
+                                <Spinner status={loading} size="sm"> { t('password.password_set_cta') } </Spinner>
                             </PButton>
-                            <SCTALink to={-1} className="w-full"> Cancel </SCTALink>
+                            <SCTALink to={PATHS.PASSWORD_RESET} className="w-full"> { t('common.cancel') } </SCTALink>
                         </div>
                     </form>
 
 
                 </div>
 
-                <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden"></div>
+                <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-30% overflow-hidden" />
             </section>
         </main>
 

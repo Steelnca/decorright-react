@@ -2,10 +2,10 @@
 import { ICONS } from "@/icons"
 
 const userProfile = "/public/user.png"
-const SpacesPlaning = "/services/IMG_3766.jpg";
-const ColorConsultation = "/services/IMG_3767.jpg";
-const InteriorDesign = "/services/IMG_20260116_230617.jpg";
-const ExteriorDesign = "/services/IMG_3768.jpg";
+// const SpacesPlaning = "/services/IMG_3766.jpg";
+// const ColorConsultation = "/services/IMG_3767.jpg";
+// const InteriorDesign = "/services/IMG_20260116_230617.jpg";
+// const ExteriorDesign = "/services/IMG_3768.jpg";
 const ProjectManaging = "/services/IMG_3771.jpg";
 const RestructuringRedesign = "/services/IMG_3765.jpg";
 
@@ -267,14 +267,14 @@ export const LegalLinks = [
 // ];
 
 export const showcases = [
-    { id: '1', title: "Children's rooms", alt: "children's rooms", src: Children },
-    { id: '2', title: "Clinics", alt: "clinics", src: Clinics },
-    { id: '3', title: "Shops", alt: "shops", src: Shops },
-    { id: '4', title: "Reception and waiting rooms", alt: "reception and waiting rooms", src: Reception },
-    { id: '5', title: "Offices", alt: "offices", src: Offices },
-    { id: '7', title: "Houses", alt: "houses", src: Houses },
-    { id: '8', title: "Cafes and small businesses", alt: "cafes and small businesses", src: Cafes },
-    { id: '6', title: "Private schools and nurseries", alt: "private schools and nurseries", src: Schools },
+    { id: '1', title: "Children's rooms", key: "childrens_rooms", alt: "children's rooms", src: Children },
+    { id: '2', title: "Clinics", key: "clinics", alt: "clinics", src: Clinics },
+    { id: '3', title: "Shops", key: "shops", alt: "shops", src: Shops },
+    { id: '4', title: "Reception and waiting rooms", key: "reception_waiting", alt: "reception and waiting rooms", src: Reception },
+    { id: '5', title: "Offices", key: "offices", alt: "offices", src: Offices },
+    { id: '7', title: "Houses", key: "houses", alt: "houses", src: Houses },
+    { id: '8', title: "Cafes and small businesses", key: "cafes_small_businesses", alt: "cafes and small businesses", src: Cafes },
+    { id: '6', title: "Private schools and nurseries", key: "private_schools_nurseries", alt: "private schools and nurseries", src: Schools },
 ]
 
 

@@ -1,10 +1,13 @@
 import { LogoutButton } from "@/components/common/Confirm";
 import { ICONS } from "@/icons";
 import { PATHS } from "@/routers/Paths";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 
 export default function PasswordDone() {
+
+    const { t } = useTranslation()
 
     return (
 
@@ -22,8 +25,8 @@ export default function PasswordDone() {
                         </div>
 
                         <div className="space-y-2 text-center">
-                            <h1 className="font-semibold text-xl md:text-3xl"> Password Reset Successful </h1>
-                            <p className="text-xs md:text-sm"> Your password has been successfully updated. You can now use your new password to access your account. </p>
+                            <h1 className="font-semibold text-xl md:text-3xl"> { t('done_title') } </h1>
+                            <p className="text-xs md:text-sm"> { t('done_description') } </p>
                         </div>
                     </div>
 
@@ -32,11 +35,11 @@ export default function PasswordDone() {
 
                         <Link to={PATHS.ROOT}
                             className="flex items-center gap-2 font-medium text-xs md:text-sm text-center px-4 py-2 bg-emphasis rounded-lg"
-                        > <ICONS.home /> Home </Link>
+                        > <ICONS.home /> { t('nav.home_welcome_back') } </Link>
 
                         <LogoutButton
                             className="flex items-center gap-2 font-medium text-xs md:text-sm text-center px-3 py-2 border border-muted/25 rounded-lg"
-                        > <span className="flex gap-4"> Logout <ICONS.arrowRightStartOnRectangle /></span> </LogoutButton>
+                        > <span className="flex gap-4"> { t('auth.logout') } <ICONS.arrowRightStartOnRectangle /></span> </LogoutButton>
 
                     </div>
 

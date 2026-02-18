@@ -204,7 +204,7 @@ if (sortDir === "asc") sorted.reverse();
                     {sorted.map((service) => (
                         <>
                             <li className="flex gap-2">
-                                <Link to={PATHS.ADMIN.galleryPortfolioUpdate('slug')} className="flex max-xs:flex-col gap-4 w-full">
+                                <Link to={PATHS.ADMIN.galleryUpdate('slug')} className="flex max-xs:flex-col gap-4 w-full">
                                     <div className="xs:min-w-max xs:h-28 aspect-video overflow-hidden">
                                         { service.image_url
                                             ? <ZoomImage src={service.image_url} alt="" className="object-cover h-full w-full rounded-md" />

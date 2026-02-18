@@ -33,7 +33,7 @@ export function Input({ className, children, ...props }: any) {
 
 export function EmailInput({ id = 'email_field', label, className, ...props }: any) {
   const { t } = useTranslation();
-  const displayLabel = label || t('auth.email');
+  // const displayLabel = label || t('auth.email');
   return (
     <Input id={id} type="email" placeholder={t('auth.placeholders.email')} className={`${className} text-left ltr:pl-8 ltr:sm:pl-10 rtl:pr-8 rtl:sm:pr-10`} {...props}>
       {/* Email Icon Placeholder */}
@@ -43,8 +43,7 @@ export function EmailInput({ id = 'email_field', label, className, ...props }: a
 }
 
 export function PhoneInput({ id = 'phone_field', label, className, ...props }: any) {
-  const { t } = useTranslation();
-  const displayLabel = label || t('auth.phone');
+  // const displayLabel = label || t('auth.phone');
   return (
     <Input id={id} type="tel" placeholder="+213 123456789" className={`${className} ltr:pl-8 ltr:sm:pl-10 rtl:pr-8 rtl:sm:pr-10 lang-ar:placeholder:text-left`} {...props}>
       {/* Password Icon Placeholder */}

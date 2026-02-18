@@ -1,16 +1,17 @@
+import Spinner from "@components/common/Spinner";
+import ZoomImage from "@components/ui/ZoomImage";
+import { PATHS } from "@/routers/Paths";
 import { ICONS } from "@/icons"
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Zoom } from 'swiper/modules';
+import { AdminService } from "@/services/admin.service";
+import { getLocalizedContent } from "@/utils/i18n";
+import { useTimeAgo } from "@/hooks/useTimeAgo";
+import { useTranslation } from "react-i18next";
 import 'swiper/swiper.css';
 import 'swiper/swiper-bundle.css';
-import { Navigation, Pagination, Zoom } from 'swiper/modules';
-import ZoomImage from "@components/ui/ZoomImage";
-import { AdminService } from "@/services/admin.service";
-import Spinner from "@components/common/Spinner";
-import { PATHS } from "@/routers/Paths";
-import { getLocalizedContent } from "@/utils/i18n";
-import { useTranslation } from "react-i18next";
 
 // export function ProjectCardItem({ project, index, lang }: { project: any, index: number, lang: string }) {
 //     return (
@@ -74,7 +75,8 @@ export function ProjectDetail() {
     const [liked, setLiked] = useState(false);
     const [descOpen, setDescOpen] = useState(false);
 
-    const { t } = useTranslation(['pages', 'nav', 'common'])
+    const { t } = useTranslation()
+    const created_ago = useTimeAgo(project?.created_at);
 
     useEffect(() => {
         async function fetchProject() {
@@ -100,7 +102,7 @@ export function ProjectDetail() {
     }
 
     if (!project) {
-        return <div className="min-h-hero flex items-center justify-center text-muted"> { t('nav:project_detail_empty') } </div>;
+        return <div className="min-h-hero flex items-center justify-center text-muted"> { t('projects:project_detail_empty') } </div>;
     }
 
     const imgs = project.project_images?.length > 0
@@ -170,10 +172,10 @@ export function ProjectDetail() {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <p className="font-medium text-2xs md:text-xs text-muted/75 after:content-['•'] after:mx-2 last:after:content-none">
-                                    { t('common:views_compact', {value: 44187, format: 'compact' }) }
+                                    { t('common.views_compact', {value: 44187, format: 'compact' }) }
                                 </p>
                                 <p className="font-medium text-2xs md:text-xs text-muted/75 after:content-['•'] after:mx-2 last:after:content-none">
-                                    {new Date(project.created_at).toLocaleDateString()}
+                                    { created_ago }
                                 </p>
                             </div>
                             <button
@@ -188,7 +190,7 @@ export function ProjectDetail() {
                                 <div className="flex items-center gap-2 text-muted">
                                     <div className="flex gap-1">
                                         <ICONS.mapPin className="size-4" />
-                                        <h5 className="text-xs text-muted"> { t('common:location') } </h5>
+                                        <h5 className="text-xs text-muted"> { t('common.location') } </h5>
                                     </div>
                                     <span className="text-xs font-medium"> {getLocalizedContent(project, 'location', lang) || 'N/A'} </span>
                                 </div>
@@ -198,7 +200,7 @@ export function ProjectDetail() {
                                 <div className="flex items-center gap-2 text-muted">
                                     <div className="flex gap-1">
                                         <ICONS.layout className="size-4" />
-                                        <h5 className="text-xs text-muted"> { t('common:floor_area') } </h5>
+                                        <h5 className="text-xs text-muted"> { t('common.floor_area') } </h5>
                                     </div>
                                     <span className="text-xs font-medium"> {project.area_sqm ? `${project.area_sqm} m²` : 'N/A'} </span>
                                 </div>

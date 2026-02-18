@@ -24,7 +24,7 @@
     --acme-primary: oklch(0.5294 0.293075 293.6103);
     --acme-secondary: oklch(1.00 0 0);
     --acme-success: oklch(0.7211 0.1577 151.54);
-    --acme-warning: oklch(0.7226 0.2491 84.05);
+    --acme-warning: oklch(0.6826 0.2491 84.05);
     --acme-danger: oklch(0.4 0.25 30);
     --radius: 0.625rem;
     --background: oklch(1 0 0);

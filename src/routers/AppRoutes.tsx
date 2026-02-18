@@ -7,6 +7,7 @@ import ClientLayout from '@/layouts/ClientLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 import RequireAuth from '@/components/auth/RequireAuth';
 import Spinner from '@/components/common/Spinner';
+import { useTranslation } from 'react-i18next';
 
 const Landing = lazy(() => import('@/pages/public/Landing'));
 const About = lazy(() => import('@/pages/public/About'));
@@ -24,9 +25,9 @@ const PasswordSent = lazy(() => import('@/pages/PasswordSent'));
 
 const ChatRoom = lazy(() => import('@/components/chat/ChatRoom'));
 
-const ClientHome = lazy(() => import('@/pages/client/GalleryPortfolioList'));
+const ClientHome = lazy(() => import('@/pages/public/GalleryList'));
 const ClientChat = lazy(() => import('@/pages/client/Chat'));
-const ClientGalleryPortfolioList = lazy(() => import('@/pages/client/GalleryPortfolioList'));
+const ClientGalleryPortfolioList = lazy(() => import('@/pages/public/GalleryList'));
 const ClientRequestList = lazy(() => import('@/pages/client/RequestServiceList'));
 const ClientRequestService = lazy(() => import('@/pages/client/RequestService'));
 const ClientAccountProfile = lazy(() => import('@/pages/client/AccountProfile'));
@@ -275,10 +276,14 @@ const router = createBrowserRouter([
 ]);
 
 export default function AppRoutes() {
+
+  const { t } = useTranslation();
+
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center w-full h-hero">
+      <div className="flex flex-col items-center justify-center gap-2 w-full h-hero">
         <Spinner size="lg" />
+        <span className="text-sm"> { t('common.loading_moment') } </span>
       </div>
     }>
       <RouterProvider router={router} />

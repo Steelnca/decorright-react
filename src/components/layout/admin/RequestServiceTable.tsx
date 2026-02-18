@@ -10,6 +10,7 @@ import { toast } from 'react-hot-toast';
 interface RequestServiceTableProps {
     externalData?: any[];
     onRefresh?: () => void;
+    onRowClick?: (row: any) => void;
 }
 
 const STATUS_OPTIONS = [
@@ -59,9 +60,9 @@ export default function RequestServiceTable({ externalData, onRefresh }: Request
     const handleDeleteRequest = async (id: string, code: string) => {
         const confirmed = await confirm({
             title: 'Delete Request',
-            message: `Are you sure you want to delete request ${code}? This action cannot be undone.`,
-            confirmLabel: 'Delete',
-            variant: 'danger'
+            description: `Are you sure you want to delete request ${code}? This action cannot be undone.`,
+            confirmText: 'Delete',
+            variant: 'destructive'
         });
 
         if (!confirmed) return;

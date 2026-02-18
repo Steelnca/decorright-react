@@ -119,20 +119,21 @@ export default function AccountSettingsLayout() {
                         if (value.length < USERNAME_MIN_LENGTH) return t('settings.error_required');
                         if (value.length > USERNAME_MAX_LENGTH) return t('settings.error_max_length', { max: USERNAME_MAX_LENGTH });
                         if (!USERNAME_REGEX.test(value)) return t('settings.error_invalid_chars');
-                        return null;
+                        break;
 
                     case "phone":
-                        // phone is optional — empty is allowed
+                        // phone is optional, empty is allowed
                         if (value === "") return null;
                         if (!PHONE_REGEX.test(value)) return t('settings.error_invalid_phone');
-                        return null;
+                        break;
+                    case "language":
+                        return;
 
-                    default: null;
+                    default: throw new Error(`Unhandled or invalid request: ${key}`);
                 }
 
                 const normalized = value.trim() === "" ? null : value.trim();
 
-                console.log({ [key]: normalized })
                 const { error } = await supabase
                     .from('profiles')
                     .update({ [key]: normalized })
@@ -146,6 +147,7 @@ export default function AccountSettingsLayout() {
 
             } catch (error) {
                 console.error("Failed to save setting:", error);
+                toast.error(t('settings.error_generic'))
             } finally {
                 setLoading(false);
             }

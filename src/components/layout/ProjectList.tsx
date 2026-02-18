@@ -7,8 +7,10 @@ import { AdminService } from "@/services/admin.service";
 import Spinner from "@components/common/Spinner";
 import { getLocalizedContent } from "@/utils/i18n";
 import { useTranslation } from "react-i18next";
+import { useTimeAgo } from "@/hooks/useTimeAgo";
 
 export function ProjectCard({ project, index, lang }: { project: any, index: number, lang: string }) {
+    const created_ago = useTimeAgo(project?.created_at)
     return (
         <li key={index} >
             <Link to={PATHS.projectDetail(project.slug || project.id)} className="flex flex-col h-fit gap-1">
@@ -16,17 +18,17 @@ export function ProjectCard({ project, index, lang }: { project: any, index: num
                     <img src={project.thumbnail_url} alt={project.title} className="object-cover h-full w-full rounded-xl" />
                 </div>
                 <div className="h-fit">
-                    <div className="flex gap-2">
-                        <h3 className="font-medium text-xs"> {getLocalizedContent(project, 'title', lang)} </h3>
-                        <div className="flex h-fit gap-1 text-muted ml-auto px-1">
+                    <div className="flex items-center justify-between gap-2">
+                        <h3 className="font-medium text-xs px-0.5"> {getLocalizedContent(project, 'title', lang)} </h3>
+                        <div className="flex h-fit gap-1 text-muted">
                             <div className="flex items-center gap-0.5 pt-0.5">
-                                {ICONS.eye({ className: 'size-4' })}
+                                <ICONS.eye className="size-4" />
                                 <span className="text-2xs"> 0 </span>
                             </div>
                         </div>
                     </div>
                     <span className="leading-0 text-2xs text-muted/75">
-                        {project.created_at ? new Date(project.created_at).toLocaleDateString() : 'Recent'}
+                        { created_ago }
                     </span>
                 </div>
             </Link>

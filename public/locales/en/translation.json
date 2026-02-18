@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Home",
+    "home_welcome_back": "Welcome Back",
     "home_description": "Welcome — explore highlights and featured content",
     "services": "Services",
     "services_description": "Discover the services we offer and how we can help",
@@ -69,15 +70,17 @@
     "menu_navigation": "Navigation Menu",
     "menu_chat": "Chat Menu",
     "loading": "Loading...",
+    "loading_moment": "Just a moment...",
     "error": "An error occurred",
     "save": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "delete": "Delete",
     "edit": "Edit",
+    "go_back": "Go back",
     "view_all": "View All",
     "view_all_projects": "View All Projects",
-    "exit": "خروج",
+    "exit": "Exit",
 
     "english": "English",
     "french": "French",
@@ -85,7 +88,10 @@
 
     "views_compact": "{{value, compact}} Views",
     "views_label": "{{count}} view",
-    "views_label_plural": "{{count}} views"
+    "views_label_plural": "{{count}} views",
+
+    "location": "Location",
+    "floor_area": "Floor Area"
   },
 
   "confirm": {
@@ -99,6 +105,10 @@
     "phone_verification": "Get Phone Verification Code",
     "phone_verification_description": "Sending code to this number: {{phone}}",
     "phone_verification_cta": "Get Code"
+  },
+
+  "time":{
+    "just_now": "Just now"
   },
 
   "auth": {
@@ -241,8 +251,8 @@
     }
   },
   "request_form": {
-    "title": "Request Service Form",
-    "description": "Submit your details to create a private conversation. Admins will evaluate the request in the chat and respond with next steps.",
+    "form_title": "Request Service Form",
+    "form_description": "Submit your details to create a private conversation. Admins will evaluate the request in the chat and respond with next steps.",
     "submit": "Submit Request",
     "submit_hint": "Verify your phone to enable submission",
     "verification_required": "Phone verification required",
@@ -275,7 +285,7 @@
     "send_code": "Send Code",
     "verify_code": "Verify Code",
     "error_send": "Failed to send OTP",
-    "error_verify": "Invalid code"
+    "error_verify": "Verification failed. Please try again."
   },
   "settings": {
     "title": "Account Settings",
@@ -302,26 +312,88 @@
     "error_required": "This field is required.",
     "error_max_length": "Must be at most {{max}} characters.",
     "error_invalid_chars": "Only letters, spaces, hyphens, and apostrophes allowed.",
-    "error_invalid_phone": "Enter a valid phone number"
+    "error_invalid_phone": "Enter a valid phone number",
+    "error_generic": "Something went wrong. Please try again"
+  },
+  "errors":{
+    "error_generic": "Something went wrong. Please try again",
+    "error_invalid_email": "Please enter a valid email address"
   },
   "gallery": {
+    "header": "Gallery — Before & After Transformations That Tell a Story",
+    "subheader": "Explore side-by-side before and after photos from our projects — real transformations that reveal the design process, material choices, and the thought behind every change.",
     "before": "Before",
     "after": "After",
-    "no_items": "No showcase items available at the moment."
+    "no_items": "No showcase items available at the moment"
   },
   "chat": {
     "requests": "Requests",
     "select_request": "Select a Request",
     "select_description": "Choose one of your service requests from the list to view its chat history and send messages."
   },
-  "services_page": {
-    "title": "Our Services",
-    "description": "Discover our comprehensive range of interior design services tailored to transform your space into your dream environment.",
-    "faq_title": "Frequently Asked Questions",
-    "faq_description": "Find answers to common questions about our design services, process, and pricing.",
-    "request_project": "Request a Project"
+  "services": {
+    "service_list_title": "Services — Crafted Spaces, Thoughtful Design",
+    "service_list_description": "Discover our tailored design services — from initial concept and space planning to finishes and custom furniture. We collaborate with you to create interiors that are beautiful, functional, and made for living.",
+    "request_project": "Request a Project",
+    "service_card_title": "Full-Service Design & Execution",
+    "service_card_description": "Let Decoright handle every detail — styling, installations, and expert finishes that turn empty space into something exceptional",
+    "service_card_cta": "Start a Project"
   },
   "projects": {
+    "project_list_header": "Our Projects — Stories in Space",
+    "project_list_description": "Explore a curated gallery of projects where every room tells a story. From concept sketches to finished interiors, see how ideas, materials and craft come together to shape meaningful spaces.",
     "project_list_empty": "No projects available right now."
+  },
+  "showcases": {
+    "childrens_rooms": "Children's Rooms — Playful & Cozy",
+    "clinics": "Clinics & Care Spaces",
+    "shops": "Shops & Retail Concepts",
+    "reception_waiting": "Reception & Waiting Areas",
+    "offices": "Offices & Workspaces",
+    "houses": "Homes & Residences",
+    "cafes_small_businesses": "Cafés & Small Businesses",
+    "private_schools_nurseries": "Private Schools & Nurseries"
+  },
+  "faqs":{
+    "faq_title": "Frequently Asked Questions",
+    "faq_description": "Find answers to common questions about our design services, process, and pricing"
+  },
+  "password": {
+    "reset_title": "Reset Your Password",
+    "reset_description": "Enter the email linked to your account and we’ll send you a reset link to create a new password",
+    "sent_title": "Check Your Email",
+    "sent_description": "We’ve sent you a password reset link. Just open your inbox, follow the steps, and you’ll be back in your account in no time",
+    "set_title": "Set Your New Password",
+    "set_description": "Enter a secure new password below so you can safely access your account again",
+    "change_title": "Change Your Password",
+    "change_description": "Update your password to keep your account secure",
+    "done_title": "Password Updated Successfully",
+    "done_description": "Your password has been updated — you can now use it to access your account",
+
+    "password_label": "Password",
+    "password_confirm_label": "Confirm Password",
+    "password_current_label": "Current Password",
+    "password_new_label": "New Password",
+    "password_confirm_new_label": "Confirm New Password",
+
+    "reset_access_error": "This page is only accessible from a password reset email",
+    "reset_link_invalid": "Invalid or expired password reset link",
+
+    "error_invalid_match": "Invalid password or passwords do not match",
+    "set_error_link_invalid": "This reset link is invalid or expired — request a new one",
+    "set_error_session_invalid": "Session invalid — open the reset link from your email and try again",
+    "set_error_failed": "Could not set password — try again or reopen the reset link",
+    "change_error_session": "Unable to verify your session — please log in again",
+    "change_error_no_user": "No authenticated user — please sign in again",
+    "change_error_current_wrong": "Current password is incorrect",
+    "change_error_auth_mismatch": "Authentication issue — try logging out and back in",
+    "change_error_failed": "Failed to update password — please try again",
+
+    "helper_requirements": "Password must be at least {{PASSWORD_MIN_LENGTH}} characters and contain no spaces",
+    "helper_match": "Passwords must match",
+
+    "cta_send_reset_link": "Send Reset Link",
+    "password_set_cta": "Set Password",
+    "password_change_cta": "Change Password"
   }
 }

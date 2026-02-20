@@ -185,7 +185,7 @@ export function AnonymousUserActins() {
                 <PCTALink to={PATHS.SIGNUP} title={t('auth.signup')} className="max-2xs:hidden"> {t('auth.signup')} </PCTALink>
 
                 {/* Menu Trigger */}
-                <button type="button" title={t('common.menu')} className="content-center p-2 border border-muted/15 bg-surface/75 rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
+                <button type="button" title={t('common.menu')} className="content-center p-1.5 border border-emphasis bg-surface rounded-full" onClick={() => setNavMenuOpen(!navMenuOpen)}>
                     <ICONS.menu className="size-6" />
                 </button>
 

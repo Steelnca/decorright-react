@@ -8,7 +8,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/swiper.css';
 import 'swiper/swiper-bundle.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { PCTALink } from '../ui/CTA';
+import { PCTALink, SCTALink } from '../ui/CTA';
 import { PATHS } from '@/routers/Paths';
 
 const dummyCardImg = "/public/living-room.png";
@@ -16,7 +16,8 @@ const dummyCardLamps = "/public/ceiling-lamps.svg";
 
 export function ServiceCardItem({service}:{service:ServiceType}) {
 
-    const { i18n } = useTranslation()
+    const { i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const getLocalizedLabel = (service:ServiceType) => {
         const lang = i18n.language
@@ -26,21 +27,30 @@ export function ServiceCardItem({service}:{service:ServiceType}) {
     }
 
     return (
-        <li key={service.id} className="relative flex flex-col gap-3 px-3 border border-muted/25 rounded-xl bg-surface overflow-hidden max-md:mb-10">
+        <li key={service.id} className="relative flex flex-col w-full h-full">
 
-            <div className="w-full aspect-4/3 border-t-0 border border-muted/25 rounded-b-lg overflow-clip">
-                {service.image_url ? (
-                    <ZoomImage src={service.image_url} alt={service.display_name_en} />
-                ) : (
-                    <div className="w-full h-full flex items-center justify-center opacity-10">
-                        <ICONS.photo className="size-12" />
-                    </div>
-                )}
+            <div className="flex flex-col gap-3 px-3 ring-1 ring-muted/25 rounded-xl bg-surface overflow-hidden">
+                <div className="w-full aspect-4/3 border-t-0 border border-muted/25 rounded-b-lg overflow-clip">
+                    {service.image_url ? (
+                        <ZoomImage src={service.image_url} alt={service.display_name_en} />
+                    ) : (
+                        <div className="w-full h-full flex items-center justify-center opacity-10">
+                            <ICONS.photo className="size-12" />
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex flex-col p-2 border-b-0 border border-muted/25 rounded-t-lg">
+                    <h3 className="text-lg font-medium mb-0.5"> {getLocalizedLabel(service)} </h3>
+                    <p className="text-2xs md:text-xs text-muted/75 pb-2"> {service.description} </p>
+                </div>
             </div>
-
-            <div className="flex flex-col p-2 border-b-0 border border-muted/25 rounded-t-lg">
-                <h3 className="text-lg font-medium mb-0.5"> {getLocalizedLabel(service)} </h3>
-                <p className="text-2xs md:text-xs text-muted/75 pb-2"> {service.description} </p>
+            <div className="relative flex justify-center mx-3 max-md:mb-8">
+                <div className="relative top-0 flex p-3 w-full border-t-0 border border-muted/25 rounded-tl-none rounded-tr-none rounded-b-lg mt-auto">
+                    <SCTALink to={`${PATHS.CLIENT.REQUEST_SERVICE}?type=${service.id}`} className="w-full">
+                        {t("services.service_card_cta")}
+                    </SCTALink>
+                </div>
             </div>
         </li>
 
@@ -145,8 +155,8 @@ export function ServiceCardList() {
                     style={{ gridColumn: `span ${Math.max(1, Math.min(dummySpan, cols))}` }}
                     className={"flex justify-center gap-2 border border-muted/25 rounded-xl bg-surface " + (dummySpan >= 2 ? "flex-row-reverse" : "flex-col")}
                 >
-                    <div className={"w-full rounded-lg overflow-hidden " + (dummySpan >= 2 ? "aspect-4/3" : "aspect-4/2")}>
-                        <img src={dummyCardImg} alt="" className="w-full h-full object-cover object-center rtl:rotate-y-180" />
+                    <div className={"w-full h-full rounded-lg overflow-hidden " + (dummySpan >= 2 ? "aspect-4/3" : "aspect-4/2")}>
+                        <img src={dummyCardImg} alt="" className="mt-4 w-full h-full object-cover object-center rtl:rotate-y-180" />
                     </div>
 
                     <div className="relative flex flex-col">

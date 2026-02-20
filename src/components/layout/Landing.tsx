@@ -102,7 +102,7 @@ export function Hero({ settings = {} }: { settings?: Record<string, string> }) {
         <section className="content-container relative flex items-center w-full">
 
             {/* <div className="absolute right-full w-full h-[calc(100svh-20rem)] md:h-[calc(100svh-18rem)] bg-primary/10 rounded-4xl mask-l-to-transparent mask-l-to-10% overflow-hidden"></div> */}
-            <div className="absolute right-full w-full h-[calc(100svh-20rem)] md:h-[calc(100svh-18rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-10% overflow-hidden" />
+            <div className="absolute right-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-l-to-transparent mask-l-to-10% overflow-hidden" />
 
             <div className="relative flex max-lg:flex-col w-full border border-muted/25 rounded-4xl bg-surface overflow-clip">
 
@@ -119,7 +119,7 @@ export function Hero({ settings = {} }: { settings?: Record<string, string> }) {
 
 
                 {/* Hero Image */}
-                <div className="flex lg:w-2/3 w-full pl-0 p-2 max-lg:aspect-video overflow-hidden ">
+                <div className="flex max-lg:pb-0 lg:pl-0 p-3 w-full max-lg:h-full aspect-video overflow-clip">
 
                     {!loaded &&
                         <div className="flex w-full h-full items-center justify-center animate-[pulse_2s_ease-in-out_infinite]">
@@ -128,12 +128,15 @@ export function Hero({ settings = {} }: { settings?: Record<string, string> }) {
                     }
                     {/* Hero img must not be lazy loaded */}
                     <img src={HeroImgSrc} alt="Hero Image"
-                    className={`${loaded ? 'opacity-100' : 'absolute opacity-0'} pl-0 p-2 object-cover w-full h-full border-l-0 border border-muted/25 transition-opacity duration-600 ease-out`} />
+                    className={
+                        `${loaded ? 'opacity-100' : 'absolute opacity-0'}
+                        max-lg:pb-0 lg:pl-0 object-cover w-full h-full max-lg:rounded-t-lg lg:rounded-r-xl transition-opacity duration-200 ease-out`
+                    } />
                 </div>
 
             </div>
 
-            <div className="absolute left-full w-full h-[calc(100svh-20rem)] md:h-[calc(100svh-18rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-10% overflow-hidden" />
+            <div className="absolute left-full w-full h-[calc(100svh-24rem)] md:h-[calc(100svh-22rem)] border border-muted/20 rounded-4xl mask-r-to-transparent mask-r-to-10% overflow-hidden" />
 
         </section>
 

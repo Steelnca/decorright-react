@@ -39,8 +39,6 @@
     "faq_management": "FAQ Management",
     "faqs": "FAQ List",
     "faqs_description": "Find answers and helpful resources",
-    "add_faq": "Add FAQ",
-    "settings": "Settings",
     "language": "Language Preferences",
     "language_description": "Choose your preferred app language",
     "language_area": "Set preferred app language",
@@ -338,7 +336,7 @@
     "request_project": "Request a Project",
     "service_card_title": "Full-Service Design & Execution",
     "service_card_description": "Let Decoright handle every detail — styling, installations, and expert finishes that turn empty space into something exceptional",
-    "service_card_cta": "Start a Project"
+    "service_card_cta": "Request Service"
   },
   "projects": {
     "project_list_header": "Our Projects — Stories in Space",
